@@ -1,0 +1,10 @@
+.idea
+node_modules
+dist
+build
+dist_backup
+.DS_store
+.DS_Store
+npm-debug.log
+size-plugin.json
+package-lock.json
