@@ -17,9 +17,8 @@ type TProps = {
   onClose: () => void;
 };
 const Confirm: React.FC<TProps> = ({ onSubmit, onClose }) => {
-
   const [isValid, setIsValid] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState<number>(3);
+  const [secondsLeft, setSecondsLeft] = useState<number>(30);
 
   const [inpValue, setInpValue] = useState<string>();
   const onChangeCodeHandle = (val: string) => {
@@ -46,7 +45,7 @@ const Confirm: React.FC<TProps> = ({ onSubmit, onClose }) => {
 
   return (
     <Modal isOpen={true} onClose={onClose}>
-      <Title.H3>Подтвеждение телефона</Title.H3>
+      <Title.H3>Подтверждение телефона</Title.H3>
       <div className={notion}>
         Подтвердите номер телефона, чтобы получить консультацию и оформить
         продукт. Мы гарантируем безопасность и сохранность ваших данных.
@@ -57,13 +56,18 @@ const Confirm: React.FC<TProps> = ({ onSubmit, onClose }) => {
       </div>
 
       <Input
-        placeholder={"Код поддтверждения"}
+        placeholder={"Код подтверждения"}
         onChange={onChangeCodeHandle}
         newValue={inpValue}
       />
 
       <div className={submitWrapper}>
-        <div onClick={onSubmit} className={clx(submit, !isValid && "disabled")}>
+        <div
+          onClick={() => {
+            isValid && onSubmit();
+          }}
+          className={clx(submit, !isValid && "disabled")}
+        >
           Подтвердить
         </div>
         <div className={timer}>

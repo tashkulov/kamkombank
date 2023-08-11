@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import clx from "classnames";
 import Select from "react-select";
 import { Icon } from "@/ui/Icon";
@@ -14,6 +14,8 @@ import {
 } from "@/ui/CustomCurrencySelect/style";
 import Input from "@/ui/Input";
 import { combineEventHandlers } from "recharts/types/util/ChartUtils";
+import { invalidText } from "@/ui/Dropdown/style";
+import { Value } from "sass";
 
 export type Currency = {
   value: string;
@@ -25,6 +27,7 @@ type DropdownProps = {
   options: Currency[];
   onChange?: (newValue: any, metaData: object) => void;
   onChangeAmount?: (value: string) => void;
+  isError?: boolean;
 };
 
 const CustomIndicator = () => {
@@ -34,8 +37,11 @@ const CustomCurrencySelect: React.FC<DropdownProps> = ({
   options,
   onChange,
   onChangeAmount,
+  isError,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<boolean>(true);
+
   const [amount, setAmount] = useState<string>();
   const [val, setVal] = useState<Currency | undefined>(
     options.find(opt => opt.value === "USD"),
@@ -53,15 +59,16 @@ const CustomCurrencySelect: React.FC<DropdownProps> = ({
   };
 
   const onChangeInputHandler = (value: string) => {
-    // const numericValue = parseFloat(value.replace(/\D/g, ""));
-    // const newVal = new Intl.NumberFormat("en-US", {
-    //   style: "currency",
-    //   currency: val?.value,
-    // }).format(numericValue);
+    let val = value.replaceAll(/\s/g, "");
+    if (Number(val) > 0) {
+      setIsValid(true);
 
-    setAmount(value);
+      setAmount(val);
 
-    onChangeAmount && onChangeAmount(value);
+      onChangeAmount && onChangeAmount(val);
+    } else {
+      setIsValid(false);
+    }
   };
 
   const customNoOptionsMessage = () => {
@@ -73,10 +80,16 @@ const CustomCurrencySelect: React.FC<DropdownProps> = ({
     );
   };
 
+  useEffect(() => {
+    if (isError) setIsValid(false);
+  }, [isError]);
+
   return (
-    <div className={clx(container, isFocused && "focused")}>
+    <div
+      className={clx(container, isFocused && "focused", !isValid && "invalid")}
+    >
       <Input
-        placeholder={"Сумма"}
+        placeholder={"Сумма*"}
         styles={clx(inputContainer, "input")}
         onFocus={() => {
           setIsFocused(true);
@@ -87,6 +100,7 @@ const CustomCurrencySelect: React.FC<DropdownProps> = ({
         onChange={onChangeInputHandler}
         type={"amount"}
         postfix={val?.symbol}
+        isError={isError}
       />
       <Select
         options={options}
@@ -108,6 +122,8 @@ const CustomCurrencySelect: React.FC<DropdownProps> = ({
           setIsFocused(false);
         }}
       />
+
+      {!isValid && <span className={invalidText}>Поле обязательно</span>}
     </div>
   );
 };

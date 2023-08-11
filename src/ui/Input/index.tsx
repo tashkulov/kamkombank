@@ -29,6 +29,8 @@ type InputProps = {
   styles?: string;
 
   newValue?: string;
+
+  isError?: boolean;
 };
 
 const errors = {
@@ -52,6 +54,7 @@ const Input: React.FC<InputProps> = ({
   styles,
   postfix,
   newValue,
+  isError,
 }: InputProps) => {
   const [value, setValue] = useState<string>(initValue ?? "");
   const [isValid, setIsValid] = useState<boolean>(true);
@@ -94,15 +97,11 @@ const Input: React.FC<InputProps> = ({
       setErrorText("");
     }
 
-    // if (type === "amount") {
-    //   console.log(val.replace(/\B(?=(\d{3})+(?!\d))/g, " "));
-    //   // val =
-    //   if (postfix) val = val + " " + postfix;
-    //   setValue(val);
-    // } else
-    setValue(val);
+    if (type === "amount") {
+      const cleanedString = val.replace(/[^\d.,]/g, "");
+      setValue(Number(cleanedString).toLocaleString("ru-RU"));
+    } else setValue(val);
   };
-
   const onBlurHandler = (e: ChangeEvent<HTMLInputElement> | string) => {
     let val = typeof e === "string" ? e : e.target.value;
 
@@ -118,6 +117,12 @@ const Input: React.FC<InputProps> = ({
     setValue(newValue ?? "");
   }, [newValue]);
 
+  useEffect(() => {
+    if (isError) {
+      setIsValid(validate(value).isValid);
+      setErrorText(validate(value).error);
+    }
+  }, [isError]);
   return (
     <div className={clx(container, !isValid && invalidContainer, styles)}>
       {type === "phone" ? (

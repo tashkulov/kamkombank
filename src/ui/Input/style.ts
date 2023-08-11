@@ -44,6 +44,11 @@ export const inputStyles = css`
   &:focus {
     border-color: ${Palette.primary_green};
     transition: 0.2s;
+
+    & + span {
+      color: ${Palette.primary_green};
+      transition: 0.2s;
+    }
   }
 `;
 
@@ -87,5 +92,5 @@ export const hiddenHint = css`
   top: 5px;
   transform: none;
   transition: 0.2s;
-  color: ${Palette.primary_green};
+  color: #747e89;
 `;

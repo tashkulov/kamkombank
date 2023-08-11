@@ -5,15 +5,17 @@ import { Icon } from "@/ui/Icon";
 import clx from "classnames";
 
 type CheckboxProps = {
-  label: string;
+  label: ReactNode | string;
   checked?: boolean;
   onChange?: (val: any) => void;
+  isError?: boolean;
 };
 
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
   onChange,
   checked,
+  isError,
   ...rest
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(checked ?? false);
@@ -24,13 +26,15 @@ const Checkbox: React.FC<CheckboxProps> = ({
   };
 
   return (
-    <label className={container} onClick={handleCheckboxChange}>
+    <label
+      className={clx(container, isError && !checked && "invalid")}
+      onClick={handleCheckboxChange}
+    >
       <div className={clx(checkbox, isChecked && "checked")}>
         <Icon name={"checkbox-icon"} className={"icon"} />
       </div>
 
-      <span className={label}></span>
-      {label}
+      <span>{label}</span>
     </label>
   );
 };

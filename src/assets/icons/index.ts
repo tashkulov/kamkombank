@@ -1,5 +1,6 @@
 import "./logo.svg";
 import "./wallet-img.svg";
+import "./wallet-img-1.svg"
 import "./check-icon.svg";
 import "./arrow-icon.svg";
 import "./currency-icon.svg";

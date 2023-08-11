@@ -1,12 +1,26 @@
 import { css } from "goober";
 import { Palette } from "@/styles/constants";
-import { padStart } from "lodash-es";
 
 export const container = css`
   display: inline-flex;
   align-items: flex-start;
   cursor: pointer;
   user-select: none;
+
+  span {
+    line-height: 20px;
+  }
+  &.invalid {
+    :not(.checked) {
+      border-color: ${Palette.red};
+      color: ${Palette.red};
+    }
+  }
+`;
+
+export const error = css`
+  display: block;
+  width: 100%;
 `;
 export const checkbox = css`
   width: 20px;

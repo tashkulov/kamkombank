@@ -7,7 +7,7 @@ export const container = css`
   align-items: center;
 `;
 
-export const text = css`
+export const textStyles = css`
   font-size: 20px;
   font-style: normal;
   font-weight: 600;

@@ -2,6 +2,28 @@ import { css, styled } from "goober";
 import { Palette } from "@/styles/constants";
 import Select from "react-select";
 
+export const container = css`
+  position: relative;
+  display: inline-block;
+  background-color: ${Palette.white};
+  border-radius: 4px;
+  min-height: 56px;
+  width: 100%;
+
+  &.invalid {
+    margin-bottom: 24px;
+  }
+`;
+export const invalidText = css`
+  position: absolute;
+  top: calc(56px + 5px);
+  left: 24px;
+
+  color: ${Palette.red};
+  font-size: 13px;
+  line-height: 16px;
+`;
+
 export const CustomSelect = css`
   height: 56px;
 
@@ -119,6 +141,18 @@ export const CustomSelect = css`
     width: 18px;
 
     transform: rotate(180deg);
+  }
+
+  &.invalid {
+    .custom-select__control {
+      border-color: ${Palette.red} !important;
+    }
+
+    .custom-select__input-container {
+      &::before {
+        color: ${Palette.red} !important;
+      }
+    }
   }
 `;
 

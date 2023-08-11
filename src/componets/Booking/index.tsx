@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
 import {
@@ -16,71 +16,7 @@ import CustomCurrencySelect, { Currency } from "@/ui/CustomCurrencySelect";
 import { Icon } from "@/ui/Icon";
 import Checkbox from "@/ui/Checkbox";
 import clx from "classnames";
-
-const places: Option[] = [
-  {
-    value: 1,
-    label: "Г. Москва, Тверская улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 2,
-    label: "Г. Москва, Тверская улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 3,
-    label: "Г. Москва, Тверская улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 4,
-    label: "Г. Москва, Тверская улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 5,
-    label: "Г. Москва, df улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 6,
-    label: "Г. Москва, Тверская улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 7,
-    label: "Г. Москва, Тверская улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 8,
-    label: "Г. Москва, 345 улица, 6 ст2",
-    time: "23:00",
-    isOpened: true,
-  },
-  {
-    value: 9,
-    label: "Г. Москва, Люсиновская улица, 29 ст1",
-    time: "22:00",
-    isOpened: false,
-  },
-  { value: 10, label: "Banana", time: "23:00", isOpened: true },
-];
-
-const currencies: Currency[] = [
-  { value: "USD", symbol: "$", name: "Доллар США" },
-  { value: "EUR", symbol: "€", name: "Евро" },
-  { value: "CNY", symbol: "¥", name: "Китайский юань" },
-  { value: "KZT", symbol: "₸", name: "Казахстанский теньге" },
-];
+import { currencies, places } from "@/mock";
 
 type TProps = {
   onSubmit: () => void;
@@ -95,6 +31,12 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
   const [isAgree, setIsAgree] = useState<boolean>(true);
 
   const [isValid, setIsValid] = useState<boolean>(false);
+
+  const [isNameError, setIsNameError] = useState<boolean>(false);
+  const [isPhoneError, setIsPhoneError] = useState<boolean>(false);
+  const [isAmountError, setIsAmountError] = useState<boolean>(false);
+  const [isPlaceError, setIsPlaceError] = useState<boolean>(false);
+  const [isAgreeError, setIsAgreeError] = useState<boolean>(false);
 
   const validate = () => {
     let isValid = true;
@@ -111,43 +53,37 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
 
   const onChangePlace = (val: any, meta: object) => {
     setPlace(val);
-    setIsValid(validate());
   };
 
   const onChangeCurrency = (val: any, meta: object) => {
     setCurrency(val);
-    setIsValid(validate());
   };
 
   const onChangeAmount = (val: string) => {
     setAmount(val);
-    setIsValid(validate());
   };
 
   const onChangePhone = (val: string) => {
     setPhone(val.replace(/[^\+\d]/g, ""));
-    setIsValid(validate());
   };
   const onChangeName = (val: string) => {
     setName(val);
-    setIsValid(validate());
   };
   const onSubmitHandler = () => {
-    const obj = {
-      action: action,
-      name: name,
-      phone: phone?.length,
-      amount: amount,
-      currency: currency,
-      place: place,
-      agree: isAgree,
-    };
-
     if (validate()) onSubmit();
-
-    console.log(obj);
-    console.log(validate());
+    else {
+      setIsNameError(true);
+      setIsPhoneError(true);
+      setIsAmountError(true);
+      setIsPlaceError(true);
+      setIsAgreeError(true);
+    }
   };
+
+  useEffect(() => {
+    setIsValid(validate());
+  }, [action, name, phone, place, amount, currency, isAgree]);
+
   return (
     <Layout.Container>
       <Title.H2>Бронирование валюты</Title.H2>
@@ -167,6 +103,7 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
             maxLength={10}
             required
             onChange={onChangeName}
+            isError={isNameError}
           />
         </div>
 
@@ -176,6 +113,7 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
             placeholder={"Телефон*"}
             required
             onChange={onChangePhone}
+            isError={isPhoneError}
           />
         </div>
 
@@ -184,11 +122,16 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
             options={currencies}
             onChange={onChangeCurrency}
             onChangeAmount={onChangeAmount}
+            isError={isAmountError}
           />
         </div>
 
         <div className={formItem}>
-          <Dropdown options={places} onChange={onChangePlace} />
+          <Dropdown
+            options={places}
+            onChange={onChangePlace}
+            isError={isPlaceError}
+          />
         </div>
       </div>
 
@@ -201,8 +144,17 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
 
       <div className={info}>
         <Checkbox
-          label={"Я согласен с условиями передачи и обработки данных"}
+          isError={isAgreeError}
+          label={
+            <>
+              Я согласен с{" "}
+              <a href="/Consent_Processing_Personal_Data.pdf" target="_blank">
+                условиями передачи и обработки данных
+              </a>{" "}
+            </>
+          }
           onChange={val => {
+            setIsAgreeError(false);
             setIsAgree(val);
           }}
           checked={isAgree}

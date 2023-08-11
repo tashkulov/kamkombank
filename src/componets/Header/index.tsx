@@ -2,7 +2,8 @@ import React from "react";
 import Layout from "@/ui/Layout";
 import {
   header,
-  headerWrapper, headerWrapperMb,
+  headerWrapper,
+  headerWrapperMb,
   infoItem,
   infoItem_icon,
   infoItem_text,
@@ -10,7 +11,7 @@ import {
   infoItems,
   logo,
   wallet,
-  warning
+  warning,
 } from "@/componets/Header/style";
 import { Icon } from "@/ui/Icon";
 import Link from "@/ui/Link";
@@ -20,7 +21,7 @@ const Header: React.FC = () => {
   return (
     <Layout.Main className={header}>
       <Layout.Wrapper className={headerWrapper}>
-        <Icon name={"wallet-img"} className={wallet} />
+        <Icon name={"wallet-img-1"} className={wallet} />
 
         <div className={headerWrapperMb}>
           <Link
@@ -51,7 +52,7 @@ const Header: React.FC = () => {
             </div>
           </div>
 
-          <span className={warning}>Бронирование дейсвтует 1 час</span>
+          <span className={warning}>Бронирование действует 1 час</span>
         </div>
       </Layout.Wrapper>
     </Layout.Main>

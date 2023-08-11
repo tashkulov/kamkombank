@@ -1,12 +1,22 @@
 import { css, styled } from "goober";
 import { Palette } from "@/styles/constants";
 
+export const invalidText = css`
+  position: absolute;
+  top: calc(56px + 5px);
+  left: 24px;
+
+  color: ${Palette.red};
+  font-size: 13px;
+  line-height: 16px;
+`;
 export const container = css`
+  position: relative;
   display: flex;
   border: 1px solid #d5d9de;
   transition: 0.2s;
   border-radius: 4px;
-  position: relative;
+
   &:hover {
     border-color: #a4aeb8;
     transition: ${Palette.transition};
@@ -31,6 +41,22 @@ export const container = css`
     .input {
       border-color: ${Palette.primary_green};
       transition: ${Palette.transition};
+    }
+  }
+
+  &.invalid {
+    border-color: ${Palette.red};
+    transition: 0.2s;
+    margin-bottom: 24px;
+
+    .input {
+      border-color: ${Palette.red};
+      transition: 0.2s;
+    }
+    .input span,
+    input {
+      color: ${Palette.red};
+      transition: 0.2s;
     }
   }
 `;

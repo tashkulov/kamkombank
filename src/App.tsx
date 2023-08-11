@@ -43,7 +43,7 @@ const App = () => {
         />
         <Steps />
         <Benefits />
-        <Footer />
+        {/*<Footer />*/}
       </Layout.Main>
     </>
   );
