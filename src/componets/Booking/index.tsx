@@ -70,13 +70,23 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
     setName(val);
   };
   const onSubmitHandler = () => {
+    const obj = {
+      name: name,
+      phone: phone,
+      amount: amount,
+      place: place,
+      isAgree: isAgree,
+      currency: currency,
+    };
+    console.log("ready to fetch", obj);
     if (validate()) onSubmit();
     else {
       setIsNameError(true);
       setIsPhoneError(true);
-      setIsAmountError(true);
-      setIsPlaceError(true);
-      setIsAgreeError(true);
+      if (!amount || isNaN(Number(amount)) || Number(amount) === 0)
+        setIsAmountError(true);
+      !place && setIsPlaceError(true);
+      !isAgree && setIsAgreeError(true);
     }
   };
 
