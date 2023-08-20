@@ -4,7 +4,6 @@ import { padStart } from "lodash-es";
 
 export const subheader = css`
   padding: 20px 0;
-  background: ${Palette.white};
   display: flex;
   justify-content: space-between;
 `;
