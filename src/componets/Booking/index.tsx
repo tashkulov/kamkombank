@@ -158,7 +158,11 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
           label={
             <>
               Я согласен с{" "}
-              <a href="/Consent_Processing_Personal_Data.pdf" target="_blank">
+              <a
+                href="https://nick-yushenko.github.io/currency-converter/public/Consent_Processing_Personal_Data.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
                 условиями передачи и обработки данных
               </a>
             </>
