@@ -51,7 +51,8 @@ export const headerWrapperMb = css`
 `;
 
 export const logo = css`
-  display: inline-block;
+  display: flex;
+  align-items: center;
 
   svg {
     width: 128px;
@@ -59,22 +60,9 @@ export const logo = css`
   }
 
   @media (max-width: 425px) {
-    display: none;
-  }
-`;
-
-export const logoMb = css`
-  display: none;
-
-  svg {
-    width: 34px;
-    height: 19px;
-  }
-
-  @media (max-width: 425px) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    svg {
+      width: 108px;
+    }
   }
 `;
 

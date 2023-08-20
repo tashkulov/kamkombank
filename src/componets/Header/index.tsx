@@ -10,10 +10,10 @@ import {
   infoItem_title,
   infoItems,
   logo,
-  logoMb, phone,
+  phone,
   subheader,
   wallet,
-  warning
+  warning,
 } from "@/componets/Header/style";
 import { Icon } from "@/ui/Icon";
 import Link from "@/ui/Link";
@@ -33,16 +33,8 @@ const Header: React.FC = () => {
             <Icon name={"logo"} />
           </Link>
 
-          <Link
-            href={"https://www.kamkombank.ru/"}
-            target={"_blank"}
-            className={logoMb}
-          >
-            <Icon name={"logo-mb"} />
-          </Link>
-
           <Link href={"tel:88002006638"} target={"_blank"} className={phone}>
-            <Icon name={"phone-icon"} width={24} height={24}/>
+            <Icon name={"phone-icon"} width={24} height={24} />
             <span>8 800 200 66 38</span>
           </Link>
         </Layout.Wrapper>
