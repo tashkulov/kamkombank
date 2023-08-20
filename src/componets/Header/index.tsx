@@ -10,20 +10,21 @@ import {
   infoItem_title,
   infoItems,
   logo,
+  logoMb, phone,
+  subheader,
   wallet,
-  warning,
+  warning
 } from "@/componets/Header/style";
 import { Icon } from "@/ui/Icon";
 import Link from "@/ui/Link";
 import Title from "@/ui/Title";
+import clx from "classnames";
 
 const Header: React.FC = () => {
   return (
-    <Layout.Main className={header}>
-      <Layout.Wrapper className={headerWrapper}>
-        <Icon name={"wallet-img-1"} className={wallet} />
-
-        <div className={headerWrapperMb}>
+    <>
+      <Layout.Main>
+        <Layout.Wrapper className={subheader}>
           <Link
             href={"https://www.kamkombank.ru/"}
             target={"_blank"}
@@ -32,30 +33,51 @@ const Header: React.FC = () => {
             <Icon name={"logo"} />
           </Link>
 
-          <Title.H1>Выгодный обмен валюты</Title.H1>
+          <Link
+            href={"https://www.kamkombank.ru/"}
+            target={"_blank"}
+            className={logoMb}
+          >
+            <Icon name={"logo-mb"} />
+          </Link>
 
-          <div className={infoItems}>
-            <div className={infoItem}>
-              <Icon name={"currency-icon"} className={infoItem_icon} />
-              <div>
-                <span className={infoItem_title}>$ ¥ £ € CNY AED</span>
-                <span className={infoItem_text}>Всегда в наличии</span>
+          <Link href={"tel:88002006638"} target={"_blank"} className={phone}>
+            <Icon name={"phone-icon"} width={24} height={24}/>
+            <span>8 800 200 66 38</span>
+          </Link>
+        </Layout.Wrapper>
+      </Layout.Main>
+
+      <Layout.Main className={clx(header, "header")}>
+        <Layout.Wrapper className={headerWrapper}>
+          <Icon name={"wallet-img-1"} className={wallet} />
+
+          <div className={headerWrapperMb}>
+            <Title.H1>Выгодный обмен валюты</Title.H1>
+
+            <div className={infoItems}>
+              <div className={infoItem}>
+                <Icon name={"currency-icon"} className={infoItem_icon} />
+                <div>
+                  <span className={infoItem_title}>$ ¥ £ € CNY AED</span>
+                  <span className={infoItem_text}>Всегда в наличии</span>
+                </div>
+              </div>
+
+              <div className={infoItem}>
+                <Icon name={"check-icon"} className={infoItem_icon} />
+                <div>
+                  <span className={infoItem_title}>Забронируйте сейчас</span>
+                  <span className={infoItem_text}>Гарантия покупки</span>
+                </div>
               </div>
             </div>
 
-            <div className={infoItem}>
-              <Icon name={"check-icon"} className={infoItem_icon} />
-              <div>
-                <span className={infoItem_title}>Забронируйте сейчас</span>
-                <span className={infoItem_text}>Гарантия покупки</span>
-              </div>
-            </div>
+            <span className={warning}>Бронирование действует 1 час</span>
           </div>
-
-          <span className={warning}>Бронирование действует 1 час</span>
-        </div>
-      </Layout.Wrapper>
-    </Layout.Main>
+        </Layout.Wrapper>
+      </Layout.Main>
+    </>
   );
 };
 

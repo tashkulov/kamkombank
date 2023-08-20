@@ -160,7 +160,7 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
               Я согласен с{" "}
               <a href="/Consent_Processing_Personal_Data.pdf" target="_blank">
                 условиями передачи и обработки данных
-              </a>{" "}
+              </a>
             </>
           }
           onChange={val => {

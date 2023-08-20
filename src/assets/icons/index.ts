@@ -1,4 +1,5 @@
 import "./logo.svg";
+import "./logo-mb.svg";
 import "./wallet-img.svg";
 import "./wallet-img-1.svg"
 import "./check-icon.svg";
@@ -11,3 +12,6 @@ import "./ben-2-icon.svg";
 import "./ben-3-icon.svg";
 import "./close-icon.svg";
 import "./success-icon.svg";
+import "./phone-icon.svg";
+
+

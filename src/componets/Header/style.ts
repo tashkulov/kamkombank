@@ -2,12 +2,19 @@ import { css } from "goober";
 import { Palette } from "@/styles/constants";
 import { padStart } from "lodash-es";
 
+export const subheader = css`
+  padding: 20px 0;
+  background: ${Palette.white};
+  display: flex;
+  justify-content: space-between;
+`;
 export const header = css`
   padding-top: 32px;
   position: relative;
   background-color: ${Palette.background};
   @media (max-width: 740px) {
     padding-top: 100px;
+    z-index: 5;
   }
 `;
 
@@ -46,11 +53,42 @@ export const headerWrapperMb = css`
 export const logo = css`
   display: inline-block;
 
-  margin-bottom: 20px;
-
   svg {
     width: 128px;
     height: 19px;
+  }
+
+  @media (max-width: 425px) {
+    display: none;
+  }
+`;
+
+export const logoMb = css`
+  display: none;
+
+  svg {
+    width: 34px;
+    height: 19px;
+  }
+
+  @media (max-width: 425px) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+export const phone = css`
+  display: inline-flex;
+  margin-left: auto;
+  text-decoration: none;
+  span {
+    color: ${Palette.text}
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: -0.16px;
+    margin-left: 8px;
   }
 `;
 
@@ -117,6 +155,7 @@ export const warning = css`
   display: inline-block;
   padding: 8px 16px;
 
+  margin-top: 52px;
   border-radius: 16px;
 
   font-size: 12px;
@@ -128,4 +167,9 @@ export const warning = css`
 
   color: ${Palette.primary_orange};
   background-color: ${Palette.white};
+
+  @media (max-width: 740px) {
+    padding: 0;
+    margin-top: 0;
+  }
 `;
