@@ -30,7 +30,7 @@ const Confirm: React.FC<TProps> = ({
   error,
 }) => {
   const [isValid, setIsValid] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState<number>(3);
+  const [secondsLeft, setSecondsLeft] = useState<number>(30);
 
   const [inpValue, setInpValue] = useState<string>();
   const [code, setCode] = useState<string>();

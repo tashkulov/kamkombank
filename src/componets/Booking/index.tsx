@@ -25,7 +25,6 @@ type TProps = {
   offices: DropdownOption[];
 };
 const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
-  const [action, setAction] = useState<string>("Купить");
   const [customerType, setCustomerType] = useState<number>(customerTypes.buyer);
   const [name, setName] = useState<string>();
   const [phone, setPhone] = useState<string>();
@@ -56,7 +55,6 @@ const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
   };
 
   const onChangePlace = (val: any, meta: object) => {
-    console.log(val);
     setPlace(val);
   };
 
@@ -99,7 +97,7 @@ const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
 
   useEffect(() => {
     setIsValid(validate());
-  }, [action, name, phone, place, amount, currency, isAgree]);
+  }, [customerType, name, phone, place, amount, currency, isAgree]);
 
   useEffect(() => {
     if (currencies.length) setCurrency(currencies[0]);
@@ -112,8 +110,7 @@ const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
       <Toggle
         styles={toggle}
         onChange={val => {
-          setAction(val ? "Купить" : "Продать");
-          setCustomerType(val ? customerTypes.buyer : customerTypes.seller);
+          setCustomerType(val ? customerTypes.seller : customerTypes.buyer);
         }}
       />
 
