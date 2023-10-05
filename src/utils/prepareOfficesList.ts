@@ -8,7 +8,7 @@ export const prepareOfficesList = (offices: Office[]): DropdownOption[] => {
       time: o.info.is_open
         ? `${o.info.today_schedule.closing_hour}:00`
         : `${o.info.today_schedule.opening_hour}:00`,
-      label: `${o.city},${o.address_name}`,
+      label: `${o.address_name}`,
       isOpened: o.info.is_open,
     };
   });
