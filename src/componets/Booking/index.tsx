@@ -83,7 +83,6 @@ const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
       user_aggrement: isAgree ? 1 : 0,
     };
 
-    console.log("ready to fetch", obj);
     if (validate()) onSubmit(obj);
     else {
       setIsNameError(true);

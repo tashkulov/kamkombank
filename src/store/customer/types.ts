@@ -11,6 +11,7 @@ export interface Customer {
   amount: string;
   address_id: number;
   user_aggrement: number;
+  token?: string;
 }
 
 export interface CustomerState {

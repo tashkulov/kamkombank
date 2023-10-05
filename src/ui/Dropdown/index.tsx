@@ -12,8 +12,10 @@ import {
 } from "@/ui/Dropdown/style";
 import Select from "react-select";
 import { Icon } from "@/ui/Icon";
+import { logo } from "@/componets/Header/style";
 
 export interface DropdownOption {
+  value: number;
   id: number;
   label: string;
   time: string;
@@ -32,6 +34,7 @@ const CustomIndicator = () => {
 
 const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
   const [isValid, setIsValid] = useState<boolean>(true);
+
 
   useEffect(() => {
     if (isError) setIsValid(false);

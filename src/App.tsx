@@ -42,6 +42,8 @@ const App = () => {
     const url = `${process.env.VITE_APP_API_URL}/v1/order/validate-sms`;
     const formData = new FormData();
 
+    sms.token = customerState.data?.token;
+
     for (const key in sms) {
       if (sms.hasOwnProperty(key)) {
         formData.append(key, sms[key]);
