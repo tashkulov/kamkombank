@@ -16,12 +16,9 @@ import Input from "@/ui/Input";
 import { combineEventHandlers } from "recharts/types/util/ChartUtils";
 import { invalidText } from "@/ui/Dropdown/style";
 import { Value } from "sass";
-
-export type Currency = {
-  value: string;
-  symbol: string;
-  name: string;
-};
+import { Currency } from "@/store/currencies/types";
+import { logo } from "@/componets/Header/style";
+import { makeLogger } from "ts-loader/dist/logger";
 
 type DropdownProps = {
   options: Currency[];
@@ -46,6 +43,7 @@ const CustomCurrencySelect: React.FC<DropdownProps> = ({
   const [val, setVal] = useState<Currency | undefined>(
     options.find(opt => opt.value === "USD"),
   );
+
   const formatOptionLabel = (opt: Currency) => (
     <div key={opt.value} className={optionStyles}>
       <span className={clx(optionLabel)}>{opt?.value}</span>
@@ -83,6 +81,10 @@ const CustomCurrencySelect: React.FC<DropdownProps> = ({
   useEffect(() => {
     if (isError) setIsValid(false);
   }, [isError]);
+
+  useEffect(() => {
+    setVal(options.find(opt => opt.value === "USD"));
+  }, [options]);
 
   return (
     <div

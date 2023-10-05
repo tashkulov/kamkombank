@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
 import {
@@ -11,23 +11,27 @@ import {
 } from "@/componets/Booking/style";
 import Input from "@/ui/Input";
 import Toggle from "@/ui/Toggle";
-import Dropdown, { Option } from "@/ui/Dropdown";
-import CustomCurrencySelect, { Currency } from "@/ui/CustomCurrencySelect";
+import Dropdown, { DropdownOption } from "@/ui/Dropdown";
+import CustomCurrencySelect from "@/ui/CustomCurrencySelect";
 import { Icon } from "@/ui/Icon";
 import Checkbox from "@/ui/Checkbox";
 import clx from "classnames";
-import { currencies, places } from "@/mock";
+import { Currency } from "@/store/currencies/types";
+import { Customer, customerTypes } from "@/store/customer/types";
 
 type TProps = {
-  onSubmit: () => void;
+  onSubmit: (customer: Customer) => void;
+  currencies: Currency[];
+  offices: DropdownOption[];
 };
-const Booking: React.FC<TProps> = ({ onSubmit }) => {
+const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
   const [action, setAction] = useState<string>("Купить");
+  const [customerType, setCustomerType] = useState<number>(customerTypes.buyer);
   const [name, setName] = useState<string>();
   const [phone, setPhone] = useState<string>();
   const [amount, setAmount] = useState<string>();
   const [currency, setCurrency] = useState<Currency>(currencies[0]);
-  const [place, setPlace] = useState<Option>();
+  const [place, setPlace] = useState<DropdownOption>();
   const [isAgree, setIsAgree] = useState<boolean>(true);
 
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -52,6 +56,7 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
   };
 
   const onChangePlace = (val: any, meta: object) => {
+    console.log(val);
     setPlace(val);
   };
 
@@ -70,16 +75,18 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
     setName(val);
   };
   const onSubmitHandler = () => {
-    const obj = {
-      name: name,
-      phone: phone,
-      amount: amount,
-      place: place,
-      isAgree: isAgree,
-      currency: currency,
+    const obj: Customer = {
+      name: name ?? "",
+      phone: phone ?? "",
+      customer_type: customerType,
+      currency_id: currency.id,
+      amount: amount ?? "",
+      address_id: place?.id ?? 0,
+      user_aggrement: isAgree ? 1 : 0,
     };
+
     console.log("ready to fetch", obj);
-    if (validate()) onSubmit();
+    if (validate()) onSubmit(obj);
     else {
       setIsNameError(true);
       setIsPhoneError(true);
@@ -94,6 +101,10 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
     setIsValid(validate());
   }, [action, name, phone, place, amount, currency, isAgree]);
 
+  useEffect(() => {
+    if (currencies.length) setCurrency(currencies[0]);
+  }, [currencies]);
+
   return (
     <Layout.Container>
       <Title.H2>Бронирование валюты</Title.H2>
@@ -102,6 +113,7 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
         styles={toggle}
         onChange={val => {
           setAction(val ? "Купить" : "Продать");
+          setCustomerType(val ? customerTypes.buyer : customerTypes.seller);
         }}
       />
 
@@ -138,7 +150,7 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
 
         <div className={formItem}>
           <Dropdown
-            options={places}
+            options={offices}
             onChange={onChangePlace}
             isError={isPlaceError}
           />
@@ -159,7 +171,7 @@ const Booking: React.FC<TProps> = ({ onSubmit }) => {
             <>
               Я согласен с{" "}
               <a
-                href="https://nick-yushenko.github.io/currency-converter/public/Consent_Processing_Personal_Data.pdf"
+                href={`${process.env.VITE_APP_DOMAIN_URL}/Consent_Processing_Personal_Data.pdf`}
                 target="_blank"
                 rel="noreferrer"
               >

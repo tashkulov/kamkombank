@@ -3,34 +3,51 @@ import Title from "@/ui/Title";
 import "swiper/css";
 import Modal from "@/ui/Modal";
 import {
-  notion,
+  notion, notionError,
   submit,
   submitWrapper,
   text,
-  timer,
+  timer
 } from "@/componets/Confirm/style";
 import Input from "@/ui/Input";
 import clx from "classnames";
+import Loader from "@/ui/Loader";
 
 type TProps = {
-  onSubmit: () => void;
+  onSubmit: (code: any) => void;
+  onRetry: () => void;
+  phone: string;
   onClose: () => void;
+  loading: boolean;
+  error: string | undefined;
 };
-const Confirm: React.FC<TProps> = ({ onSubmit, onClose }) => {
+const Confirm: React.FC<TProps> = ({
+  onSubmit,
+  onClose,
+  loading,
+  onRetry,
+  phone,
+  error,
+}) => {
   const [isValid, setIsValid] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState<number>(30);
+  const [secondsLeft, setSecondsLeft] = useState<number>(3);
 
   const [inpValue, setInpValue] = useState<string>();
+  const [code, setCode] = useState<string>();
   const onChangeCodeHandle = (val: string) => {
-    // TODO тут надо проверить, что это тот код
-    if (val.length >= 6) setIsValid(true);
+    if (val.length === 5) {
+      setIsValid(true);
+      setCode(val);
+    } else {
+      setIsValid(false);
+    }
   };
 
   const onTimerEnd = () => {
     setInpValue("");
     setIsValid(false);
     setSecondsLeft(30);
-    // TODO пповторный запрос кода
+    onRetry();
   };
 
   useEffect(() => {
@@ -45,39 +62,51 @@ const Confirm: React.FC<TProps> = ({ onSubmit, onClose }) => {
 
   return (
     <Modal isOpen={true} onClose={onClose}>
-      <Title.H3>Подтверждение телефона</Title.H3>
-      <div className={notion}>
-        Подтвердите номер телефона, чтобы получить консультацию и оформить
-        продукт. Мы гарантируем безопасность и сохранность ваших данных.
-      </div>
+      {loading ? (
+        <Loader loadingText={"Подождите, идет загрузка"} />
+      ) : (
+        <>
+          <Title.H3>Подтверждение телефона</Title.H3>
+          <div className={notion}>
+            Подтвердите номер телефона, чтобы получить консультацию и оформить
+            продукт. Мы гарантируем безопасность и сохранность ваших данных.
+          </div>
+          {error && <div className={notionError}>{error}</div>}
 
-      <div className={text}>
-        Мы отправили вам СМС с кодом на номер +7 (999) 999-55-44
-      </div>
+          <div className={text}>
+            Мы отправили вам СМС с кодом на номер{" "}
+            {phone.replace(
+              /(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/,
+              "$1 ($2) $3 $4-$5",
+            )}
+          </div>
 
-      <Input
-        placeholder={"Код подтверждения"}
-        onChange={onChangeCodeHandle}
-        newValue={inpValue}
-      />
+          <Input
+            placeholder={"Код подтверждения"}
+            onChange={onChangeCodeHandle}
+            newValue={inpValue}
+          />
 
-      <div className={submitWrapper}>
-        <div
-          onClick={() => {
-            isValid && onSubmit();
-          }}
-          className={clx(submit, !isValid && "disabled")}
-        >
-          Подтвердить
-        </div>
-        <div className={timer}>
-          {secondsLeft > 0 ? (
-            <span>Отправить код повторно через {secondsLeft} сек.</span>
-          ) : (
-            <span onClick={onTimerEnd}>Отправить код еще раз</span>
-          )}
-        </div>
-      </div>
+
+          <div className={submitWrapper}>
+            <div
+              onClick={() => {
+                isValid && onSubmit({ sms: code });
+              }}
+              className={clx(submit, !isValid && "disabled")}
+            >
+              Подтвердить
+            </div>
+            <div className={timer}>
+              {secondsLeft > 0 ? (
+                <span>Отправить код повторно через {secondsLeft} сек.</span>
+              ) : (
+                <span onClick={onTimerEnd}>Отправить код еще раз</span>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </Modal>
   );
 };

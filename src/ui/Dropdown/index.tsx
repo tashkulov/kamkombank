@@ -2,25 +2,26 @@ import React, { useEffect, useState } from "react";
 import clx from "classnames";
 import {
   container,
-  CustomSelect, invalidText,
+  CustomSelect,
+  invalidText,
   noOptions,
   optionClosed,
   optionLabel,
   optionStyles,
-  optionTime
+  optionTime,
 } from "@/ui/Dropdown/style";
 import Select from "react-select";
 import { Icon } from "@/ui/Icon";
 
-export type Option = {
-  value: number;
+export interface DropdownOption {
+  id: number;
   label: string;
   time: string;
   isOpened: boolean;
 };
 
 type DropdownProps = {
-  options: Option[];
+  options: DropdownOption[];
   onChange?: (newValue: any, metaData: object) => void;
   isError?: boolean;
 };
@@ -36,8 +37,8 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
     if (isError) setIsValid(false);
   }, [isError]);
 
-  const formatOptionLabel = (opt: Option) => (
-    <div key={opt.value} className={optionStyles}>
+  const formatOptionLabel = (opt: DropdownOption) => (
+    <div key={opt.id} className={optionStyles}>
       <span className={clx(optionLabel, !opt.isOpened && "closed")}>
         {opt?.label}
       </span>

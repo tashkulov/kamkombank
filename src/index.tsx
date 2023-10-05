@@ -8,6 +8,9 @@ import "@/assets/icons";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ErrorBoundary } from "@/componets/ErrorBoundary";
 import { GlobalStyles } from "@/styles/base";
+import { ApplicationStore, createApplicationStore } from "@/store";
+import { Store } from "redux";
+import { Provider } from "react-redux";
 
 setup(
   createElement,
@@ -15,17 +18,19 @@ setup(
   undefined,
   shouldForwardProp(prop => !prop.startsWith("$")),
 );
-
+const store: Store<ApplicationStore> = createApplicationStore();
 render(
-  <ErrorBoundary>
-    <Router>
-      <Switch>
-        <Route path={"/"}>
-          <GlobalStyles />
-          <App />
-        </Route>
-      </Switch>
-    </Router>
-  </ErrorBoundary>,
+  <Provider store={store}>
+    <ErrorBoundary>
+      <Router>
+        <Switch>
+          <Route path={"/"}>
+            <GlobalStyles />
+            <App />
+          </Route>
+        </Switch>
+      </Router>
+    </ErrorBoundary>
+  </Provider>,
   document.getElementById("root"),
 );

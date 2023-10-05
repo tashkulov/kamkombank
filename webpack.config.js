@@ -40,7 +40,11 @@ module.exports = function config(env, { mode }) {
             {
               loader: "babel-loader",
               options: {
-                presets: [["@babel/preset-env"], ["@babel/preset-react", { runtime: "automatic" }], ["@babel/preset-typescript"]],
+                presets: [
+                  ["@babel/preset-env"],
+                  ["@babel/preset-react", { runtime: "automatic" }],
+                  ["@babel/preset-typescript"],
+                ],
                 plugins: [
                   [
                     "import",
@@ -52,7 +56,10 @@ module.exports = function config(env, { mode }) {
                   ],
                   ["@babel/plugin-proposal-class-properties", { loose: true }],
                   ["@babel/plugin-proposal-private-methods", { loose: true }],
-                  ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
+                  [
+                    "@babel/plugin-proposal-private-property-in-object",
+                    { loose: true },
+                  ],
                   ["@babel/plugin-transform-runtime"],
                   !isProduction && require.resolve("react-refresh/babel"),
                 ].filter(Boolean),
@@ -73,7 +80,10 @@ module.exports = function config(env, { mode }) {
                   plugins: [
                     isProduction &&
                       require("cssnano")({
-                        preset: ["default", { discardComments: { removeAll: true } }],
+                        preset: [
+                          "default",
+                          { discardComments: { removeAll: true } },
+                        ],
                       }),
                   ].filter(Boolean),
                 },
@@ -116,7 +126,7 @@ module.exports = function config(env, { mode }) {
     plugins: [
       new ProgressPlugin(),
       new Dotenv({
-        path: `.env.${env.development ? "development" : env.demo ? "demo" : "production"}`,
+        path: `.env.${env.development ? "development" : "production"}`,
       }),
       isProduction && new SizePlugin({}),
       !isProduction && new ReactRefreshWebpackPlugin(),

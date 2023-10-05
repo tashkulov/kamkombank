@@ -12,9 +12,22 @@ export const notion = css`
   line-height: 20px;
   letter-spacing: -0.14px;
 
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 `;
 
+export const notionError = css`
+  border-radius: 8px;
+  background: rgb(229, 3, 3, 0.24);
+
+  padding: 8px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+
+  margin-bottom: 12px;
+`;
 export const text = css`
   font-size: 14px;
   font-style: normal;
@@ -22,6 +35,7 @@ export const text = css`
   line-height: 20px; /* 142.857% */
   letter-spacing: -0.14px;
 
+  margin-top: 24px;
   margin-bottom: 12px;
 `;
 export const submitWrapper = css`
