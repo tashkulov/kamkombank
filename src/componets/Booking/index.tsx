@@ -167,7 +167,7 @@ const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
             <>
               Я согласен с{" "}
               <a
-                href={`${process.env.VITE_APP_DOMAIN_URL}/Consent_Processing_Personal_Data.pdf`}
+                href={process.env.VITE_APP_PRIVACY_URL}
                 target="_blank"
                 rel="noreferrer"
               >

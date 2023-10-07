@@ -1,13 +1,13 @@
 interface OfficeInfo {
   is_open: boolean;
   currentHour: number;
-  today_schedule: { opening_hour: number; closing_hour: number };
-  next_shift: boolean;
+  today_schedule: { opening_hour: string; closing_hour: string };
+  next_shift: { weekday: string; opens_at: string };
 }
 
 interface Schedule {
   weekday: string;
-  work_hours: { opening_hour: number; closing_hour: number };
+  work_hours: { opening_hour: string; closing_hour: string };
 }
 export interface Office {
   id: number;

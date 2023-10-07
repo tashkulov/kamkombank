@@ -18,9 +18,9 @@ export interface DropdownOption {
   value: number;
   id: number;
   label: string;
-  time: string;
+  timeInfo: string;
   isOpened: boolean;
-};
+}
 
 type DropdownProps = {
   options: DropdownOption[];
@@ -35,7 +35,6 @@ const CustomIndicator = () => {
 const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
   const [isValid, setIsValid] = useState<boolean>(true);
 
-
   useEffect(() => {
     if (isError) setIsValid(false);
   }, [isError]);
@@ -46,7 +45,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
         {opt?.label}
       </span>
       <span className={clx(optionTime, !opt.isOpened && optionClosed)}>
-        {opt.isOpened ? `(открыто до ${opt.time})` : `(закрыто до ${opt.time})`}
+       {opt.timeInfo}
       </span>
     </div>
   );

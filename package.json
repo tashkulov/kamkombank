@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "@prodamus/payform-widget",
-  "version": "1.6.1",
+  "name": "@currency-converter",
+  "version": "0.0.1",
   "scripts": {
     "start": "webpack serve --mode development --env development",
     "build": "webpack --mode production",
