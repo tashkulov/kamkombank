@@ -14,15 +14,12 @@ const getTomorrow = () => {
 export const prepareOfficesList = (offices: Office[]): DropdownOption[] => {
   return offices.map(o => {
     let info;
+    console.log(o.info.next_shift);
     if (o.info.is_open)
       info = `(открыто до ${o.info.today_schedule.closing_hour})`;
     else {
-      info = `(закрыто до ${o.info.today_schedule.opening_hour})`;
-
-      //   if (o.info.next_shift.weekday !== getTomorrow())
-      //     info = `(закрыто до ${o.info.today_schedule.opening_hour})`;
-      //   else
-      //     info = `(закрыто до ${o.info.next_shift.weekday} ${o.info.today_schedule.opening_hour} )`;
+      if (o.info.next_shift) info = o.info.next_shift.opens_at;
+      else info = "(Закрыто)";
     }
     return {
       id: o.id,
