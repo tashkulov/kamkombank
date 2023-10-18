@@ -33,9 +33,9 @@ const Header: React.FC = () => {
             <Icon name={"logo"} />
           </Link>
 
-          <Link href={"tel:88002006638"} target={"_blank"} className={phone}>
+          <Link href={"tel:88002004638"} target={"_blank"} className={phone}>
             <Icon name={"phone-icon"} width={24} height={24} />
-            <span>8 800 200 66 38</span>
+            <span>8 800 200 46 38</span>
           </Link>
         </Layout.Wrapper>
       </Layout.Main>
