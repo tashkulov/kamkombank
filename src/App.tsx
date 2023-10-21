@@ -16,11 +16,10 @@ import { useSelector } from "react-redux";
 import { getCurrenciesState } from "@/store/currencies/selector";
 import { getOfficesState } from "@/store/offices/selector";
 import { getOffices } from "@/store/offices/actions";
-import { officesSlice } from "@/store/offices/reducer";
 import { prepareOfficesList } from "@/utils/prepareOfficesList";
 import { getCustomerState } from "@/store/customer/selector";
 import { fetchCustomer } from "@/store/customer/actions";
-import { Customer, CustomerState } from "@/store/customer/types";
+import { Customer } from "@/store/customer/types";
 import { customerSlice } from "@/store/customer/reducer";
 import { apiFetch, callApiFn } from "@/services/request";
 const App = () => {
@@ -85,6 +84,7 @@ const App = () => {
   useEffect(() => {
     if (customerState.success) setIsConfirm(true);
   }, [customerState]);
+
   return (
     <>
       {isConfirm && (

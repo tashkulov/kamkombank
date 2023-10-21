@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { checked, switchContainerStyles, switchSideStyles, switchThumbStyles, switchThumbText, switchThumbTextActive, switchTrackStyles } from "@/ui/Toggle/style";
+import {
+  checked,
+  switchContainerStyles,
+  switchSideStyles,
+  switchThumbStyles,
+  switchThumbText,
+  switchThumbTextActive,
+  switchTrackStyles,
+} from "@/ui/Toggle/style";
 import clx from "classnames";
 
 type ToggleProps = {
@@ -22,8 +30,19 @@ const Toggle: React.FC<ToggleProps> = ({ onChange, styles }) => {
         <span className={switchSideStyles}>Я покупаю</span>
         <span className={switchSideStyles}>Я продаю</span>
         <div className={clx(switchThumbStyles, isChecked && checked)}>
-          <span className={clx(switchThumbText, !isChecked && switchThumbTextActive)}>Я покупаю</span>
-          <span className={clx(switchThumbText, isChecked && switchThumbTextActive)}>Я продаю</span>
+          <span
+            className={clx(
+              switchThumbText,
+              !isChecked && switchThumbTextActive,
+            )}
+          >
+            Я покупаю
+          </span>
+          <span
+            className={clx(switchThumbText, isChecked && switchThumbTextActive)}
+          >
+            Я продаю
+          </span>
         </div>
       </div>
     </div>

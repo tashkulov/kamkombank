@@ -14,7 +14,6 @@ const getTomorrow = () => {
 export const prepareOfficesList = (offices: Office[]): DropdownOption[] => {
   return offices.map(o => {
     let info;
-    console.log(o.info.next_shift);
     if (o.info.is_open)
       info = `(открыто до ${o.info.today_schedule.closing_hour})`;
     else {

@@ -10,6 +10,12 @@ type TProps = {
 };
 const Thx: React.FC<TProps> = ({ onClose }) => {
   const [text, setText] = useState<string>("");
+  console.log(123);
+  useEffect(() => {
+    // установка цели по я. метрикам
+    // @ts-ignore
+    window.ym(95283405, "reachGoal", "windowspasibo");
+  }, []);
   useEffect(() => {
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
