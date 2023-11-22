@@ -65,7 +65,7 @@ const Header: React.FC = () => {
               </div>
             </div>
 
-            <span className={warning}>Бронирование действует 1 час</span>
+            <span className={warning}>Резервирование действует 1 час</span>
           </div>
         </Layout.Wrapper>
       </Layout.Main>

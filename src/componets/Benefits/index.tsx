@@ -19,7 +19,7 @@ const Benefits: React.FC = () => {
         </div>
         <div className={slide}>
           <Icon name={"ben-2-icon"} />
-          <span>Удобное бронирование валюты</span>
+          <span>Удобное резервирование валюты</span>
         </div>
         <div className={slide}>
           <Icon name={"ben-3-icon"} />

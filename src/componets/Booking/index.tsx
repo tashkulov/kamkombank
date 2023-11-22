@@ -104,7 +104,7 @@ const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
 
   return (
     <Layout.Container>
-      <Title.H2>Бронирование валюты</Title.H2>
+      <Title.H2>Резервирование валюты</Title.H2>
 
       <Toggle
         styles={toggle}
