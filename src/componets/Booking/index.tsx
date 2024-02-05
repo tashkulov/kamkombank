@@ -5,6 +5,7 @@ import {
   container,
   formItem,
   info,
+  loader,
   safe,
   submit,
   toggle,
@@ -18,13 +19,20 @@ import Checkbox from "@/ui/Checkbox";
 import clx from "classnames";
 import { Currency } from "@/store/currencies/types";
 import { Customer, customerTypes } from "@/store/customer/types";
+import Loader from "@/ui/Loader";
 
 type TProps = {
   onSubmit: (customer: Customer) => void;
   currencies: Currency[];
   offices: DropdownOption[];
+  loading: boolean;
 };
-const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
+const Booking: React.FC<TProps> = ({
+  onSubmit,
+  currencies,
+  offices,
+  loading,
+}) => {
   const [customerType, setCustomerType] = useState<number>(customerTypes.buyer);
   const [name, setName] = useState<string>();
   const [phone, setPhone] = useState<string>();
@@ -106,86 +114,93 @@ const Booking: React.FC<TProps> = ({ onSubmit, currencies, offices }) => {
     <Layout.Container>
       <Title.H2>Резервирование валюты</Title.H2>
 
-      <Toggle
-        styles={toggle}
-        onChange={val => {
-          setCustomerType(val ? customerTypes.seller : customerTypes.buyer);
-        }}
-      />
-
-      <div className={container}>
-        <div className={formItem}>
-          <Input
-            placeholder={"Имя*"}
-            minLength={2}
-            maxLength={10}
-            required
-            onChange={onChangeName}
-            isError={isNameError}
+      {loading ? (
+        <div className={loader}>
+          <Loader loadingText={"Подождите, идет загрузка"} />
+        </div>
+      ) : (
+        <>
+          <Toggle
+            styles={toggle}
+            onChange={val => {
+              setCustomerType(val ? customerTypes.seller : customerTypes.buyer);
+            }}
           />
-        </div>
+          <div className={container}>
+            <div className={formItem}>
+              <Input
+                placeholder={"Имя*"}
+                minLength={2}
+                maxLength={10}
+                required
+                onChange={onChangeName}
+                isError={isNameError}
+              />
+            </div>
 
-        <div className={formItem}>
-          <Input
-            type={"phone"}
-            placeholder={"Телефон*"}
-            required
-            onChange={onChangePhone}
-            isError={isPhoneError}
-          />
-        </div>
+            <div className={formItem}>
+              <Input
+                type={"phone"}
+                placeholder={"Телефон*"}
+                required
+                onChange={onChangePhone}
+                isError={isPhoneError}
+              />
+            </div>
 
-        <div className={formItem}>
-          <CustomCurrencySelect
-            options={currencies}
-            onChange={onChangeCurrency}
-            onChangeAmount={onChangeAmount}
-            isError={isAmountError}
-          />
-        </div>
+            <div className={formItem}>
+              <CustomCurrencySelect
+                options={currencies}
+                onChange={onChangeCurrency}
+                onChangeAmount={onChangeAmount}
+                isError={isAmountError}
+              />
+            </div>
 
-        <div className={formItem}>
-          <Dropdown
-            options={offices}
-            onChange={onChangePlace}
-            isError={isPlaceError}
-          />
-        </div>
-      </div>
+            <div className={formItem}>
+              <Dropdown
+                options={offices}
+                onChange={onChangePlace}
+                isError={isPlaceError}
+              />
+            </div>
+          </div>
 
-      <div
-        onClick={onSubmitHandler}
-        className={clx(submit, !isValid && "disabled")}
-      >
-        Оставить заявку
-      </div>
+          <div
+            onClick={onSubmitHandler}
+            className={clx(submit, !isValid && "disabled")}
+          >
+            Оставить заявку
+          </div>
 
-      <div className={info}>
-        <Checkbox
-          isError={isAgreeError}
-          label={
-            <>
-              Я согласен с{" "}
-              <a
-                href={process.env.VITE_APP_PRIVACY_URL}
-                target="_blank"
-                rel="noreferrer"
-              >
-                условиями передачи и обработки данных
-              </a>
-            </>
-          }
-          onChange={val => {
-            setIsAgreeError(false);
-            setIsAgree(val);
-          }}
-          checked={isAgree}
-        />
-        <div className={safe}>
-          <Icon name={"safe-icon"} />
-          <span>Гарантируем безопасность данных</span>
-        </div>
-      </div>
+          <div className={info}>
+            <Checkbox
+              isError={isAgreeError}
+              label={
+                <>
+                  Я согласен с{" "}
+                  <a
+                    href={process.env.VITE_APP_PRIVACY_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    условиями передачи и обработки данных
+                  </a>
+                </>
+              }
+              onChange={val => {
+                setIsAgreeError(false);
+                setIsAgree(val);
+              }}
+              checked={isAgree}
+            />
+            <div className={safe}>
+              <Icon name={"safe-icon"} />
+              <span>Гарантируем безопасность данных</span>
+            </div>
+          </div>
+        </>
+      )}
     </Layout.Container>
   );
 };

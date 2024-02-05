@@ -22,15 +22,20 @@ import { fetchCustomer } from "@/store/customer/actions";
 import { Customer } from "@/store/customer/types";
 import { customerSlice } from "@/store/customer/reducer";
 import { apiFetch, callApiFn } from "@/services/request";
+import { getCitiesState } from "@/store/cities/selector";
+import Cities from "@/componets/Cities";
+import { getCities } from "@/store/cities/actions";
 const App = () => {
   const dispatch = useAppDispatch();
   const currenciesState = useSelector(getCurrenciesState);
   const officesState = useSelector(getOfficesState);
   const customerState = useSelector(getCustomerState);
+  const citiesState = useSelector(getCitiesState);
 
   const [isConfirm, setIsConfirm] = useState(false);
   const [smsError, setSmsError] = useState<string | undefined>(undefined);
   const [isThx, setIsThx] = useState(false);
+  const [isChooseCity, setIsChooseCity] = useState(true);
 
   const onSubmitForm = (customer: Customer) => {
     void dispatch(customerSlice.actions.setCustomer(customer));
@@ -77,9 +82,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    void dispatch(getCurrencies());
-    void dispatch(getOffices());
-  }, []);
+    if (!isChooseCity && citiesState.current) {
+      void dispatch(getCurrencies());
+      void dispatch(getOffices(citiesState.current));
+    }
+  }, [isChooseCity, citiesState.current]);
 
   useEffect(() => {
     if (customerState.success) setIsConfirm(true);
@@ -87,6 +94,13 @@ const App = () => {
 
   return (
     <>
+      {isChooseCity && (
+        <Cities
+          onClose={() => {
+            setIsChooseCity(false);
+          }}
+        />
+      )}
       {isConfirm && (
         <Confirm
           onSubmit={onSubmitSMSCode}
@@ -108,13 +122,18 @@ const App = () => {
           }}
         />
       )}
-      <Header />
+      <Header
+        onChangeCity={() => {
+          setIsChooseCity(true);
+        }}
+      />
 
       <Layout.Main className={appContent}>
         <Booking
           onSubmit={onSubmitForm}
           currencies={currenciesState.currencies}
           offices={prepareOfficesList(officesState.offices)}
+          loading={officesState.loading || currenciesState.loading}
         />
         <Steps />
         <Benefits />

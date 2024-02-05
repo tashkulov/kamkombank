@@ -5,7 +5,25 @@ import { padStart } from "lodash-es";
 export const subheader = css`
   padding: 20px 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+export const city = css`
+  font-size: 16px;
+  line-height: 20px;
+  height: 100%;
+  color: ${Palette.primary_green};
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 30px;
+  transition: color ${Palette.transition};
+
+  &:hover {
+    color: ${Palette.primary_green_hover};
+    transition: color ${Palette.transition};
+  }
+
 `;
 export const header = css`
   padding-top: 32px;
@@ -67,7 +85,6 @@ export const logo = css`
 
 export const phone = css`
   display: inline-flex;
-  margin-left: auto;
   text-decoration: none;
   span {
     color: ${Palette.text}
@@ -76,6 +93,12 @@ export const phone = css`
     line-height: 24px; /* 150% */
     letter-spacing: -0.16px;
     margin-left: 8px;
+  }
+
+  @media (max-width: 500px) {
+    span {
+      display: none;
+    }
   }
 `;
 

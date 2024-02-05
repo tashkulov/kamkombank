@@ -6,6 +6,9 @@ export const container = css`
   justify-content: space-between;
   flex-wrap: wrap;
 `;
+export const loader = css`
+  height: 400px;
+`;
 
 export const formItem = css`
   width: calc(50% - 12px);

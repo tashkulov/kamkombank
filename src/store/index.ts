@@ -7,11 +7,14 @@ import { OfficeState } from "@/store/offices/types";
 import { officesSlice } from "@/store/offices/reducer";
 import { CustomerState } from "@/store/customer/types";
 import { customerSlice } from "@/store/customer/reducer";
+import { CitiesState } from "@/store/cities/types";
+import { citiesSlice } from "@/store/cities/reducer";
 
 export interface ApplicationStore {
   currencies: CurrencyState;
   offices: OfficeState;
   customer: CustomerState;
+  cities: CitiesState;
 }
 
 export const store = configureStore({
@@ -19,6 +22,7 @@ export const store = configureStore({
     currencies: currenciesSlice.reducer,
     offices: officesSlice.reducer,
     customer: customerSlice.reducer,
+    cities: citiesSlice.reducer,
   }),
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
 });

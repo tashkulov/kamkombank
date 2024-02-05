@@ -3,11 +3,12 @@ import Title from "@/ui/Title";
 import "swiper/css";
 import Modal from "@/ui/Modal";
 import {
-  notion, notionError,
+  notion,
+  notionError,
   submit,
   submitWrapper,
   text,
-  timer
+  timer,
 } from "@/componets/Confirm/style";
 import Input from "@/ui/Input";
 import clx from "classnames";
@@ -86,7 +87,6 @@ const Confirm: React.FC<TProps> = ({
             onChange={onChangeCodeHandle}
             newValue={inpValue}
           />
-
 
           <div className={submitWrapper}>
             <div
