@@ -6,9 +6,10 @@ import { Icon } from "@/ui/Icon";
 import { popupAnswers } from "@/mock";
 
 type TProps = {
+  isFail: boolean;
   onClose: () => void;
 };
-const Thx: React.FC<TProps> = ({ onClose }) => {
+const Thx: React.FC<TProps> = ({ onClose, isFail }) => {
   const [text, setText] = useState<string>("");
   console.log(123);
   useEffect(() => {
@@ -17,23 +18,31 @@ const Thx: React.FC<TProps> = ({ onClose }) => {
     window.ym(95283405, "reachGoal", "windowspasibo");
   }, []);
   useEffect(() => {
-    const currentTime = new Date();
-    const currentHour = currentTime.getHours();
-    if (
-      currentHour > popupAnswers.dayEnd ||
-      currentHour < popupAnswers.dayStart
-    ) {
-      // Время с 20:00 до 08:59
-      setText(popupAnswers.nightText);
+    if (isFail) {
+      setText(popupAnswers.failText);
     } else {
-      // В остальное время
-      setText(popupAnswers.dayText);
+      const currentTime = new Date();
+      const currentHour = currentTime.getHours();
+      if (
+        currentHour > popupAnswers.dayEnd ||
+        currentHour < popupAnswers.dayStart
+      ) {
+        // Время с 20:00 до 08:59
+        setText(popupAnswers.nightText);
+      } else {
+        // В остальное время
+        setText(popupAnswers.dayText);
+      }
     }
   }, []);
   return (
     <Modal isOpen={true} onClose={onClose}>
       <div className={container}>
-        <Icon name={"success-icon"} width={44} height={44} />
+        {isFail ? (
+          <Icon name={"fail-icon"} width={44} height={44} />
+        ) : (
+          <Icon name={"success-icon"} width={44} height={44} />
+        )}
         <p className={textStyles}>{text}</p>
         <div onClick={onClose} className={submit}>
           Закрыть

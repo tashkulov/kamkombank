@@ -6,7 +6,7 @@ import { Icon } from "@/ui/Icon";
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const modalOverlay = css`
@@ -54,11 +54,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   return createPortal(
     <div className={modalOverlay}>
       <div className={modal}>
-        <Icon
-          name={"close-icon"}
-          className={modalCloseButton}
-          onClick={onClose}
-        />
+        {onClose && (
+          <Icon
+            name={"close-icon"}
+            className={modalCloseButton}
+            onClick={onClose}
+          />
+        )}
+
         {children}
       </div>
     </div>,

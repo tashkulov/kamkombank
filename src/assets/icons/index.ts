@@ -12,6 +12,9 @@ import "./ben-2-icon.svg";
 import "./ben-3-icon.svg";
 import "./close-icon.svg";
 import "./success-icon.svg";
+import "./fail-icon.svg";
 import "./phone-icon.svg";
+import "./gosuslugi-icon.svg";
+import "./arrow-gos.svg";
 
 

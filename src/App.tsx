@@ -25,6 +25,7 @@ import { apiFetch, callApiFn } from "@/services/request";
 import { getCitiesState } from "@/store/cities/selector";
 import Cities from "@/componets/Cities";
 import { getCities } from "@/store/cities/actions";
+import AuthGos from "@/componets/AuthGos";
 const App = () => {
   const dispatch = useAppDispatch();
   const currenciesState = useSelector(getCurrenciesState);
@@ -35,6 +36,8 @@ const App = () => {
   const [isConfirm, setIsConfirm] = useState(false);
   const [smsError, setSmsError] = useState<string | undefined>(undefined);
   const [isThx, setIsThx] = useState(false);
+  const [isFail, setIsFail] = useState(false);
+  const [isAuthGos, setIsAuthGos] = useState(false);
   const [isChooseCity, setIsChooseCity] = useState(true);
 
   const onSubmitForm = (customer: Customer) => {
@@ -67,7 +70,7 @@ const App = () => {
       );
       if (result.success) {
         setIsConfirm(false);
-        setIsThx(true);
+        setIsAuthGos(true);
       } else {
         setSmsError(result.message);
       }
@@ -92,6 +95,25 @@ const App = () => {
     if (customerState.success) setIsConfirm(true);
   }, [customerState]);
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const status = searchParams.get("status");
+
+    if (status === "success") {
+      setIsThx(true);
+      setIsChooseCity(false);
+    } else if (status === "fail") {
+      setIsThx(true);
+      setIsFail(true);
+      setIsChooseCity(false);
+    }
+
+    searchParams.delete("status");
+    const newUrl = `${window.location.protocol}//${window.location.host}${
+      window.location.pathname
+    }?${searchParams.toString()}`;
+    window.history.replaceState({ path: newUrl }, "", newUrl);
+  }, []);
   return (
     <>
       {isChooseCity && (
@@ -116,10 +138,17 @@ const App = () => {
       )}
       {isThx && (
         <Thx
+          isFail={isFail}
           onClose={() => {
             setIsThx(false);
-            window.location.reload();
+            setIsFail(false);
           }}
+        />
+      )}
+
+      {isAuthGos && (
+        <AuthGos
+          url={`https://lk.kamkombank.ru/start/credit?leadsId=${customerState.data?.id}&amount=${customerState.data?.amount}&creditProductId=101348&period=12&utm_sorce=bron`}
         />
       )}
       <Header
