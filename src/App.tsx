@@ -32,6 +32,7 @@ const App = () => {
   const officesState = useSelector(getOfficesState);
   const customerState = useSelector(getCustomerState);
   const citiesState = useSelector(getCitiesState);
+  const [gosusligiAuth, setGosusligiAuth] = useState<string>("");
 
   const [isConfirm, setIsConfirm] = useState(false);
   const [smsError, setSmsError] = useState<string | undefined>(undefined);
@@ -58,19 +59,25 @@ const App = () => {
     }
 
     try {
-      const result = await callApiFn<{ success: boolean; message: string }>(
-        () =>
-          apiFetch({
-            url: url,
-            options: {
-              method: "POST",
-              body: formData,
-            },
-          }),
+      const result = await callApiFn<{
+        brainsoft: { data: number };
+        success: boolean;
+        message: string;
+      }>(() =>
+        apiFetch({
+          url: url,
+          options: {
+            method: "POST",
+            body: formData,
+          },
+        }),
       );
       if (result.success) {
         setIsConfirm(false);
         setIsAuthGos(true);
+        setGosusligiAuth(
+          `https://lk.kamkombank.ru/booking?lead_id=${result.brainsoft.data}&amount=${customerState.data?.amount}&creditProductId=101348&period=12&utm_sorce=bron`,
+        );
       } else {
         setSmsError(result.message);
       }
@@ -146,11 +153,7 @@ const App = () => {
         />
       )}
 
-      {isAuthGos && (
-        <AuthGos
-          url={`https://lk.kamkombank.ru/start/credit?leadsId=${customerState.data?.id}&amount=${customerState.data?.amount}&creditProductId=101348&period=12&utm_sorce=bron`}
-        />
-      )}
+      {isAuthGos && <AuthGos url={gosusligiAuth} />}
       <Header
         onChangeCity={() => {
           setIsChooseCity(true);
