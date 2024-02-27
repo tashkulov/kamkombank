@@ -49,6 +49,7 @@ export const arrow = css`
   height: 26px;
   border-radius: 20px;
   border: 1px solid #ee3f58;
+  margin-left: auto;
 
 `;
 export const arrow_icon = css`

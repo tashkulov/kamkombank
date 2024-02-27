@@ -35,9 +35,7 @@ const AuthGos: React.FC<TProps> = ({ url }) => {
           <Icon name={"gosuslugi-icon"} width={50} height={50} />
           <div>
             <span className={title}>Авторизуйтесь через Госуслуги</span>
-            <span className={info}>
-              Это необходимо для резервирования вам суммы
-            </span>
+            <span className={info}>Нажмите для авторизации</span>
           </div>
           <div className={arrow}>
             <Icon
