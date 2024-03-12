@@ -76,7 +76,7 @@ const App = () => {
         setIsConfirm(false);
         setIsAuthGos(true);
         setGosusligiAuth(
-          `https://lk.kamkombank.ru/booking?lead_id=${result.brainsoft.data}&amount=${customerState.data?.amount}&creditProductId=101348&period=12&utm_sorce=bron`,
+          `https://lk.kamkombank.ru/booking?lead_id=${result.brainsoft.data}`,
         );
       } else {
         setSmsError(result.message);
