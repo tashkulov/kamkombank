@@ -76,7 +76,7 @@ const App = () => {
         setIsConfirm(false);
         setIsAuthGos(true);
         setGosusligiAuth(
-          `https://lk.kamkombank.ru/booking?lead_id=${result.brainsoft.data}`,
+          `https://lk.kamkombank.ru/start/booking?lead_id=${result.brainsoft.data}`,
         );
       } else {
         setSmsError(result.message);
