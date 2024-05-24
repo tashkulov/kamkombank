@@ -71,7 +71,7 @@ const Header: React.FC<TProps> = ({ onChangeCity }) => {
               <div className={infoItem}>
                 <Icon name={"check-icon"} className={infoItem_icon} />
                 <div>
-                  <span className={infoItem_title}>Зарезервируйте сейчас</span>
+                  <span className={infoItem_title}>Бесплатный резерв</span>
                   <span className={infoItem_text}>Гарантия покупки</span>
                 </div>
               </div>

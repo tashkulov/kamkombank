@@ -175,7 +175,7 @@ export const warning = css`
 
   letter-spacing: -0.12px;
 
-  color: ${Palette.primary_orange};
+  color: ${Palette.text_second};
   background-color: ${Palette.white};
 
   @media (max-width: 740px) {
