@@ -123,6 +123,7 @@ const Input: React.FC<InputProps> = ({
       setErrorText(validate(value).error);
     }
   }, [isError]);
+
   return (
     <div className={clx(container, !isValid && invalidContainer, styles)}>
       {type === "phone" ? (

@@ -57,7 +57,7 @@ const Header: React.FC<TProps> = ({ onChangeCity }) => {
           <Icon name={"wallet-img-1"} className={wallet} />
 
           <div className={headerWrapperMb}>
-            <Title.H1>Выгодный обмен валюты</Title.H1>
+            <Title.H1>Меняй валюту выгодно</Title.H1>
 
             <div className={infoItems}>
               <div className={infoItem}>

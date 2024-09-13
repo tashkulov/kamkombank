@@ -1,5 +1,4 @@
-import React, { AnchorHTMLAttributes, ReactNode, useState } from "react";
-import { linkStyles } from "@/ui/Link/style";
+import React, { ReactNode, useState } from "react";
 import { checkbox, container } from "@/ui/Checkbox/style";
 import { Icon } from "@/ui/Icon";
 import clx from "classnames";

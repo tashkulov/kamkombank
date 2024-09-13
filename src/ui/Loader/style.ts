@@ -1,4 +1,4 @@
-import { css, styled } from "goober";
+import { css } from "goober";
 import { Palette } from "@/styles/constants";
 
 export const container = css`
@@ -11,7 +11,6 @@ export const container = css`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-;
 `;
 
 export const pump = css`

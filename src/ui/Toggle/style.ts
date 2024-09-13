@@ -70,4 +70,4 @@ export const switchThumbText = css`
 export const switchThumbTextActive = css`
   opacity: 1;
   transition: opacity ${Palette.transition};
-`
+`;

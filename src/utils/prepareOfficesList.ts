@@ -11,6 +11,7 @@ const getTomorrow = () => {
 
   return daysOfWeek[dayOfWeekIndex];
 };
+
 export const prepareOfficesList = (offices: Office[]): DropdownOption[] => {
   return offices.map(o => {
     let info;

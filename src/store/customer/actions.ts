@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiFetch, callApiFn } from "@/services/request";
-import { Customer, CustomerState } from "@/store/customer/types";
+import { CustomerState } from "@/store/customer/types";
 
 export const fetchCustomer = createAsyncThunk(
   "customer/fetchCustomer",

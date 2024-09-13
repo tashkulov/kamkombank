@@ -45,7 +45,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
         {opt?.label}
       </span>
       <span className={clx(optionTime, !opt.isOpened && optionClosed)}>
-       {opt.timeInfo}
+        {opt.timeInfo}
       </span>
     </div>
   );

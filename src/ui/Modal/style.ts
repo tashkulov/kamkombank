@@ -1,6 +1,5 @@
 import { css } from "goober";
 import { Palette } from "@/styles/constants";
-import { padStart } from "lodash-es";
 
 export const container = css`
   display: inline-flex;

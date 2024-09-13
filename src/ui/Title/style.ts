@@ -37,5 +37,4 @@ export const h3Styles = css`
 
   letter-spacing: -0.32px;
   margin: 0 0 16px 0;
-
 `;

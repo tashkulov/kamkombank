@@ -1,5 +1,3 @@
-import * as buffer from "buffer";
-
 interface OfficeInfo {
   is_open: boolean;
   currentHour: number;

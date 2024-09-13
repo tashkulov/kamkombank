@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiFetch, callApiFn } from "@/services/request";
-import { Currency } from "@/store/currencies/types";
 import { Office } from "@/store/offices/types";
 import { City } from "@/store/cities/types";
 

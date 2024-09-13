@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Layout from "@/ui/Layout";
 import Header from "@/componets/Header";
-import Footer from "@/componets/Footer";
 import Steps from "@/componets/Steps";
 import { appContent } from "@/style";
 import Booking from "@/componets/Booking";
 import Benefits from "@/componets/Benefits";
-import Modal from "@/ui/Modal";
-import Title from "@/ui/Title";
 import Confirm from "@/componets/Confirm";
 import Thx from "@/componets/Thx";
 import { getCurrencies } from "@/store/currencies/actions";
@@ -24,7 +21,6 @@ import { customerSlice } from "@/store/customer/reducer";
 import { apiFetch, callApiFn } from "@/services/request";
 import { getCitiesState } from "@/store/cities/selector";
 import Cities from "@/componets/Cities";
-import { getCities } from "@/store/cities/actions";
 import AuthGos from "@/componets/AuthGos";
 const App = () => {
   const dispatch = useAppDispatch();

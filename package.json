@@ -5,28 +5,20 @@
   "scripts": {
     "start": "webpack serve --mode development --env development",
     "build": "webpack --mode production",
-    "analyze": "source-map-explorer --only-mapped dist/assets/*.js",
-    "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+    "analyze": "source-map-explorer --only-mapped dist/assets/*.js"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@idui/react-popover": "^3.1.0",
-    "@mui/material": "^5.14.3",
     "@reduxjs/toolkit": "1.9.1",
     "@tippyjs/react": "^4.2.6",
     "@types/react-color": "^3.0.6",
-    "@wojtekmaj/react-daterange-picker": "^3.4.0",
+    "ajv": "^6.12.6",
+    "ajv-keywords": "^3.5.2",
     "assert": "^2.0.0",
-    "axios": "^0.22.0",
     "dayjs": "^1.10.7",
     "glob-all": "^3.2.1",
     "goober": "^2.1.1",
     "imask": "^6.4.3",
     "lodash-es": "^4.17.21",
-    "mobx": "^6.3.3",
-    "mobx-react-lite": "^3.2.1",
-    "moment": "^2.29.4",
     "normalize.css": "^8.0.1",
     "process": "0.11.10",
     "rc-table": "^7.24.2",
@@ -77,7 +69,6 @@
     "@types/store": "^2.0.2",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.5.0",
-    "@types/wojtekmaj__react-daterange-picker": "^3.4.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "babel-eslint": "^10.1.0",
@@ -90,7 +81,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^6.1.0",
+    "eslint-plugin-flowtype": "^6.0.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
@@ -107,13 +98,11 @@
     "react-refresh": "^0.11.0",
     "sass": "^1.38.1",
     "sass-loader": "^12.4.0",
-    "simple-git-hooks": "^2.6.1",
     "size-plugin": "^2.0.2",
     "source-map-explorer": "^2.5.2",
     "style-loader": "^3.3.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "stylelint-prettier": "^1.2.0",
     "svg-sprite-loader": "^6.0.11",
     "svg-url-loader": "^7.1.1",
     "svgo-loader": "^3.0.0",
@@ -121,14 +110,5 @@
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.9.2"
-  },
-  "lint-staged": {
-    "src/**/*.{tsx,jsx,ts,js,json}": [
-      "eslint --fix",
-      "stylelint --fix"
-    ]
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
   }
 }
