@@ -28,8 +28,8 @@ const AuthGos: React.FC<TProps> = ({ url }) => {
       <div className={container}>
         <Icon name={"success-icon"} width={44} height={44} />
         <p className={textStyles}>
-          Чтобы Банк мог зарезервировать нужную вам сумму, необходимо
-          авторизоваться через Госуслуги
+          Авторизуйтесь через Госуслуги для резервирования суммы до конца дня.
+          Это быстро и безопасно.
         </p>
         <a href={url} className={gos}>
           <Icon name={"gosuslugi-icon"} width={50} height={50} />
