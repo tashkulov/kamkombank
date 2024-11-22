@@ -23,7 +23,6 @@ export const city = css`
     color: ${Palette.primary_green_hover};
     transition: color ${Palette.transition};
   }
-
 `;
 export const header = css`
   padding-top: 32px;
@@ -55,7 +54,7 @@ export const headerWrapperMb = css`
     border-radius: 16px;
 
     padding: 32px;
-
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
     transform: translateY(124px);
   }
 

@@ -77,7 +77,9 @@ const Header: React.FC<TProps> = ({ onChangeCity }) => {
               </div>
             </div>
 
-            <span className={warning}>Резервирование действует 1 час</span>
+            <span className={warning}>
+              Резервирование действует до конца дня
+            </span>
           </div>
         </Layout.Wrapper>
       </Layout.Main>
