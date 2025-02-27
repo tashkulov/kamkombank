@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
 import {
+  city,
   container,
   formItem,
   info,
@@ -20,14 +21,19 @@ import clx from "classnames";
 import { Currency } from "@/store/currencies/types";
 import { Customer, customerTypes } from "@/store/customer/types";
 import Loader from "@/ui/Loader";
+import { useAppDispatch } from "@/store";
+import { useSelector } from "react-redux";
+import { getCitiesState } from "@/store/cities/selector";
 
 type TProps = {
   onSubmit: (customer: Customer) => void;
   currencies: Currency[];
   offices: DropdownOption[];
   loading: boolean;
+  onChangeCity: () => void;
 };
 const Booking: React.FC<TProps> = ({
+  onChangeCity,
   onSubmit,
   currencies,
   offices,
@@ -48,6 +54,7 @@ const Booking: React.FC<TProps> = ({
   const [isAmountError, setIsAmountError] = useState<boolean>(false);
   const [isPlaceError, setIsPlaceError] = useState<boolean>(false);
   const [isAgreeError, setIsAgreeError] = useState<boolean>(false);
+  const citiesState = useSelector(getCitiesState);
 
   const validate = () => {
     let isValid = true;
@@ -112,8 +119,12 @@ const Booking: React.FC<TProps> = ({
 
   return (
     <Layout.Container>
-      <Title.H2>Резервирование валюты</Title.H2>
-
+      <Title.H2>
+        Бесплатный резерв суммы до конца дня{" "}
+        <span className={city} onClick={onChangeCity}>
+          {citiesState.current.name}
+        </span>
+      </Title.H2>
       {loading ? (
         <div className={loader}>
           <Loader loadingText={"Подождите, идет загрузка"} />

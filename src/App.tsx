@@ -22,6 +22,11 @@ import { apiFetch, callApiFn } from "@/services/request";
 import { getCitiesState } from "@/store/cities/selector";
 import Cities from "@/componets/Cities";
 import AuthGos from "@/componets/AuthGos";
+import { citiesSlice } from "@/store/cities/reducer";
+import { getCurrencyRatesState } from "@/store/currenciesRate/selector";
+import { getExchangeRate } from "@/store/currenciesRate/actions";
+import CurrencyRates from "@/componets/CurrencyRates";
+
 const App = () => {
   const dispatch = useAppDispatch();
   const currenciesState = useSelector(getCurrenciesState);
@@ -29,7 +34,7 @@ const App = () => {
   const customerState = useSelector(getCustomerState);
   const citiesState = useSelector(getCitiesState);
   const [gosusligiAuth, setGosusligiAuth] = useState<string>("");
-
+  const currencyRates = useSelector(getCurrencyRatesState);
   const [isConfirm, setIsConfirm] = useState(false);
   const [smsError, setSmsError] = useState<string | undefined>(undefined);
   const [isThx, setIsThx] = useState(false);
@@ -78,7 +83,6 @@ const App = () => {
         setSmsError(result.message);
       }
     } catch (e) {
-      console.log("error");
       console.log(e);
     }
   };
@@ -97,6 +101,35 @@ const App = () => {
   useEffect(() => {
     if (customerState.success) setIsConfirm(true);
   }, [customerState]);
+
+  useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        const userCity = data.city.toLowerCase();
+        const cityExists = citiesState.cities.some(
+          city => city.name.toLowerCase() === userCity,
+        );
+        if (cityExists) {
+          const selectedCity = citiesState.cities.find(
+            city => city.name.toLowerCase() === userCity,
+          );
+          dispatch(citiesSlice.actions.setCurrentCity(selectedCity!));
+          setIsChooseCity(false);
+        } else {
+          setIsChooseCity(true);
+        }
+      } catch (error) {
+        console.error("Error while getting geolocation", error);
+      }
+    };
+
+    getLocation();
+  }, [citiesState.cities, dispatch]);
+  useEffect(() => {
+    void dispatch(getExchangeRate());
+  }, []);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -150,18 +183,21 @@ const App = () => {
       )}
 
       {isAuthGos && <AuthGos url={gosusligiAuth} />}
-      <Header
-        onChangeCity={() => {
-          setIsChooseCity(true);
-        }}
-      />
+      <Header />
 
       <Layout.Main className={appContent}>
         <Booking
+          onChangeCity={() => {
+            setIsChooseCity(true);
+          }}
           onSubmit={onSubmitForm}
           currencies={currenciesState.currencies}
           offices={prepareOfficesList(officesState.offices)}
           loading={officesState.loading || currenciesState.loading}
+        />
+        <CurrencyRates
+          offices={prepareOfficesList(officesState.offices)}
+          currentCity={citiesState.current}
         />
         <Steps />
         <Benefits />

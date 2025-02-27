@@ -1,7 +1,6 @@
 import React from "react";
 import Layout from "@/ui/Layout";
 import {
-  city,
   header,
   headerWrapper,
   headerWrapperMb,
@@ -20,16 +19,8 @@ import { Icon } from "@/ui/Icon";
 import Link from "@/ui/Link";
 import Title from "@/ui/Title";
 import clx from "classnames";
-import { useSelector } from "react-redux";
-import { getCitiesState } from "@/store/cities/selector";
 
-type TProps = {
-  onChangeCity: () => void;
-};
-
-const Header: React.FC<TProps> = ({ onChangeCity }) => {
-  const citiesState = useSelector(getCitiesState);
-
+const Header: React.FC = () => {
   return (
     <>
       <Layout.Main>
@@ -41,9 +32,6 @@ const Header: React.FC<TProps> = ({ onChangeCity }) => {
           >
             <Icon name={"logo"} />
           </Link>
-          <div className={city} onClick={onChangeCity}>
-            {citiesState.current.name}
-          </div>
 
           <Link href={"tel:88002004638"} target={"_blank"} className={phone}>
             <Icon name={"phone-icon"} width={24} height={24} />

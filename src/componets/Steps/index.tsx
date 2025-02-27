@@ -1,12 +1,7 @@
 import React from "react";
 import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
-import {
-  container,
-  step,
-  stepNumber,
-  stepText,
-} from "@/componets/Steps/style";
+import { container, step, stepNumber, stepText } from "@/componets/Steps/style";
 
 const Steps: React.FC = () => {
   return (

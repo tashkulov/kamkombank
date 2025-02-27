@@ -4,8 +4,10 @@ import { Palette } from "@/styles/constants";
 export const container = css`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
 `;
+
 export const loader = css`
   height: 400px;
 `;
@@ -32,9 +34,7 @@ export const submit = css`
   justify-content: center;
   background-color: ${Palette.primary_green};
   transition: ${Palette.transition};
-
   cursor: pointer;
-
   color: ${Palette.white};
   font-size: 16px;
   font-weight: 500;
@@ -52,7 +52,6 @@ export const submit = css`
 
 export const info = css`
   margin-top: 25px;
-
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -61,6 +60,7 @@ export const info = css`
 export const safe = css`
   display: flex;
   align-items: center;
+
   span {
     color: ${Palette.text_second};
     margin-left: 5px;
@@ -69,5 +69,24 @@ export const safe = css`
   @media (max-width: 960px) {
     width: 100%;
     margin-top: 25px;
+  }
+`;
+
+export const city = css`
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  font-style: normal;
+
+  letter-spacing: -0.32px;
+
+  margin: 0 0 24px 0;
+  color: ${Palette.primary_green};
+  cursor: pointer;
+  transition: color ${Palette.transition};
+
+  &:hover {
+    color: ${Palette.primary_green_hover};
+    transition: color ${Palette.transition};
   }
 `;

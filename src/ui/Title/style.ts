@@ -1,6 +1,6 @@
 import { css } from "goober";
 
-export const h1Styles = css`
+export const  h1Styles = css`
   font-size: 40px;
   line-height: 56px;
   font-weight: 700;

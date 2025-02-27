@@ -9,21 +9,7 @@ export const subheader = css`
   align-items: center;
 `;
 
-export const city = css`
-  font-size: 16px;
-  line-height: 20px;
-  height: 100%;
-  color: ${Palette.primary_green};
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: 30px;
-  transition: color ${Palette.transition};
 
-  &:hover {
-    color: ${Palette.primary_green_hover};
-    transition: color ${Palette.transition};
-  }
-`;
 export const header = css`
   padding-top: 32px;
   position: relative;
@@ -85,6 +71,7 @@ export const logo = css`
 export const phone = css`
   display: inline-flex;
   text-decoration: none;
+  justify-content: flex-end;
   span {
     color: ${Palette.text}
     font-size: 16px;
