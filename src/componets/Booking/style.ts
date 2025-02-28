@@ -53,13 +53,16 @@ export const submit = css`
 export const info = css`
   margin-top: 25px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 `;
 
 export const safe = css`
   display: flex;
   align-items: center;
+  margin-top: 25px;
+
+  margin-right: 15px; /* Добавим отступ справа, если нужно */
 
   span {
     color: ${Palette.text_second};
@@ -68,10 +71,8 @@ export const safe = css`
 
   @media (max-width: 960px) {
     width: 100%;
-    margin-top: 25px;
   }
 `;
-
 export const city = css`
   font-size: 32px;
   line-height: 40px;

@@ -3,6 +3,7 @@ export const Palette = {
   text_second: "#687082",
   white: "#FFFFFF",
   primary_green: "#009846",
+  primary_gray: "#F1F1F3",
   primary_green_hover: "#047a3a",
   primary_green_light: "rgba(0, 152, 70, 0.24)",
   primary_orange: "#FF9800",

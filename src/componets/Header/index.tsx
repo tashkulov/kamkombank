@@ -40,37 +40,7 @@ const Header: React.FC = () => {
         </Layout.Wrapper>
       </Layout.Main>
 
-      <Layout.Main className={clx(header, "header")}>
-        <Layout.Wrapper className={headerWrapper}>
-          <Icon name={"wallet-img-1"} className={wallet} />
 
-          <div className={headerWrapperMb}>
-            <Title.H1>Меняй валюту выгодно</Title.H1>
-
-            <div className={infoItems}>
-              <div className={infoItem}>
-                <Icon name={"currency-icon"} className={infoItem_icon} />
-                <div>
-                  <span className={infoItem_title}>$ ¥ £ € CNY AED</span>
-                  <span className={infoItem_text}>Всегда в наличии</span>
-                </div>
-              </div>
-
-              <div className={infoItem}>
-                <Icon name={"check-icon"} className={infoItem_icon} />
-                <div>
-                  <span className={infoItem_title}>Бесплатный резерв</span>
-                  <span className={infoItem_text}>Гарантия покупки</span>
-                </div>
-              </div>
-            </div>
-
-            <span className={warning}>
-              Резервирование действует до конца дня
-            </span>
-          </div>
-        </Layout.Wrapper>
-      </Layout.Main>
     </>
   );
 };

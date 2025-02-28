@@ -26,6 +26,16 @@ import { citiesSlice } from "@/store/cities/reducer";
 import { getCurrencyRatesState } from "@/store/currenciesRate/selector";
 import { getExchangeRate } from "@/store/currenciesRate/actions";
 import CurrencyRates from "@/componets/CurrencyRates";
+import MapOffices from "@/componets/MapOffices";
+import { concatedContainers } from "@/ui/Layout/style";
+
+const cityTranslationMap: Record<string, string> = {
+  "saint petersburg": "Санкт-Петербург",
+  moscow: "Москва",
+  novosibirsk: "Новосибирск",
+  yekaterinburg: "Екатеринбург",
+  "nizhny novgorod": "Нижний Новгород",
+};
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +51,7 @@ const App = () => {
   const [isFail, setIsFail] = useState(false);
   const [isAuthGos, setIsAuthGos] = useState(false);
   const [isChooseCity, setIsChooseCity] = useState(true);
+  const [isAutoCitySelected, setIsAutoCitySelected] = useState(false); // Флаг для отслеживания автоподбора города
 
   const onSubmitForm = (customer: Customer) => {
     void dispatch(customerSlice.actions.setCustomer(customer));
@@ -104,18 +115,27 @@ const App = () => {
 
   useEffect(() => {
     const getLocation = async () => {
+      if (isAutoCitySelected) return;
+
       try {
-        const res = await fetch("https://ipapi.co/json/");
+        const res = await fetch("https://ipinfo.io/json");
         const data = await res.json();
-        const userCity = data.city.toLowerCase();
+        let userCity = data.city.toLowerCase();
+
+        if (cityTranslationMap[userCity]) {
+          userCity = cityTranslationMap[userCity];
+        }
+
         const cityExists = citiesState.cities.some(
-          city => city.name.toLowerCase() === userCity,
+          city => city.name.toLowerCase() === userCity.toLowerCase(),
         );
+
         if (cityExists) {
           const selectedCity = citiesState.cities.find(
-            city => city.name.toLowerCase() === userCity,
+            city => city.name.toLowerCase() === userCity.toLowerCase(),
           );
           dispatch(citiesSlice.actions.setCurrentCity(selectedCity!));
+          setIsAutoCitySelected(true);
           setIsChooseCity(false);
         } else {
           setIsChooseCity(true);
@@ -126,10 +146,7 @@ const App = () => {
     };
 
     getLocation();
-  }, [citiesState.cities, dispatch]);
-  useEffect(() => {
-    void dispatch(getExchangeRate());
-  }, []);
+  }, [citiesState.cities, dispatch, isAutoCitySelected]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -186,19 +203,24 @@ const App = () => {
       <Header />
 
       <Layout.Main className={appContent}>
-        <Booking
-          onChangeCity={() => {
-            setIsChooseCity(true);
-          }}
-          onSubmit={onSubmitForm}
-          currencies={currenciesState.currencies}
-          offices={prepareOfficesList(officesState.offices)}
-          loading={officesState.loading || currenciesState.loading}
-        />
-        <CurrencyRates
-          offices={prepareOfficesList(officesState.offices)}
-          currentCity={citiesState.current}
-        />
+        <div className={concatedContainers}>
+          <Booking
+            onChangeCity={() => {
+              setIsChooseCity(true);
+            }}
+            onSubmit={onSubmitForm}
+            currencies={currenciesState.currencies}
+            offices={prepareOfficesList(officesState.offices)}
+            loading={officesState.loading || currenciesState.loading}
+          />
+          <CurrencyRates
+            offices={prepareOfficesList(officesState.offices)}
+            currentCity={citiesState.current}
+          />
+        </div>
+
+
+        <MapOffices loading={officesState.loading || currenciesState.loading} />
         <Steps />
         <Benefits />
         {/*<Footer />*/}

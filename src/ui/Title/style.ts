@@ -16,7 +16,7 @@ export const  h1Styles = css`
 
 export const h2Styles = css`
   font-size: 32px;
-  line-height: 40px;
+  line-height: 50px;
   font-weight: 700;
   font-style: normal;
 

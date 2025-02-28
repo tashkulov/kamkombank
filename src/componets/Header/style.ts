@@ -5,11 +5,10 @@ import { padStart } from "lodash-es";
 export const subheader = css`
   padding: 20px 0;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  margin-top: 15px;
 `;
-
-
 export const header = css`
   padding-top: 32px;
   position: relative;
@@ -57,7 +56,7 @@ export const logo = css`
   align-items: center;
 
   svg {
-    width: 128px;
+    width: 195px;
     height: 19px;
   }
 

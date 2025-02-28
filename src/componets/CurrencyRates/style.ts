@@ -1,61 +1,131 @@
 import { css } from "goober";
 import { Palette } from "@/styles/constants";
 
-// Основные стили для таблицы
-export const tableContainer = css`
+export const main_container = css`
+  width: 100%;
+  max-width: 370px;
+  height: auto;
+  background-color: ${Palette.primary_gray};
   border-radius: 8px;
-  background: rgba(3, 155, 229, 0.12);
-  padding: 16px;
-  margin-bottom: 24px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 `;
 
-// Стили для самой таблицы
+export const tableContainer = css`
+  border-radius: 8px;
+  background-color: ${Palette.primary_gray};
+  padding: 16px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+`;
+
 export const table = css`
   width: 100%;
   border-collapse: collapse;
   margin-top: 16px;
   text-align: left;
-  background-color: ${Palette.white};
+  table-layout: fixed; /* Устанавливаем фиксированную ширину столбцов */
+
+  @media (max-width: 768px) {
+    font-size: 12px; /* Меньший размер шрифта на мобильных */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
 `;
 
-// Стили для заголовков таблицы
+// Общие стили для ячеек таблицы
 export const th = css`
   padding: 12px 16px;
-  background-color: ${Palette.primary_green};
-  color: ${Palette.white};
   font-weight: 600;
   font-size: 16px;
-  border-bottom: 2px solid ${Palette.primary_green};
-`;
-
-// Стили для строк таблицы
-export const td = css`
-  padding: 12px 16px;
-  border-bottom: 1px solid ${Palette.primary_green};
-  font-size: 14px;
+  border-bottom: 2px solid #eaeaea;
+  background-color: ${Palette.primary_gray};
   color: ${Palette.text};
 
+  @media (max-width: 768px) {
+    padding: 8px 12px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px 10px;
+  }
+`;
+
+export const td = css`
+  padding: 12px 16px;
+  gap: 10px;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 14px;
+  color: ${Palette.text_second};
+
   &:nth-child(odd) {
-    background-color: ${Palette.text};
+    background-color: ${Palette.primary_gray};
   }
 
   &:hover {
-    background-color: ${Palette.text};
+    background-color: #eaeaea;
+  }
+
+  @media (max-width: 768px) {
+    padding: 8px 12px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px 10px;
   }
 `;
 
-// Стили для строк с адресами (если есть)
-export const addressRow = css`
-  background-color: ${Palette.white};
-  font-weight: 500;
-  color: ${Palette.text_second};
+export const commisions = css`
+  display: inline-block;
   font-size: 14px;
-  padding: 12px 16px;
+  color: ${Palette.text_second};
+  padding-top: 10px;
+  text-align: center;
+  width: 100%;
+  margin-top: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
 `;
 
-// Стили для ячеек без адреса
-export const noAddress = css`
-  color: ${Palette.red};
-  font-style: italic;
+export const commissionAmount = css`
+  color: ${Palette.text};
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
+`;
+
+export const responsiveTable = css`
+  width: 100%;
+  border-collapse: collapse;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
 `;

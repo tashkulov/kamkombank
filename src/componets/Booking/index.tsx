@@ -118,7 +118,7 @@ const Booking: React.FC<TProps> = ({
   }, [currencies]);
 
   return (
-    <Layout.Container>
+    <Layout.BookingContainer>
       <Title.H2>
         Бесплатный резерв суммы до конца дня{" "}
         <span className={city} onClick={onChangeCity}>
@@ -212,7 +212,7 @@ const Booking: React.FC<TProps> = ({
           </div>
         </>
       )}
-    </Layout.Container>
+    </Layout.BookingContainer>
   );
 };
 
