@@ -29,7 +29,7 @@ module.exports = function config(env, { mode }) {
     output: {
       clean: true,
       filename: "[name].[chunkhash].js",
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "build"),
       publicPath: "/",
     },
     module: {
