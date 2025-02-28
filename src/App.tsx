@@ -219,7 +219,6 @@ const App = () => {
           />
         </div>
 
-
         <MapOffices loading={officesState.loading || currenciesState.loading} />
         <Steps />
         <Benefits />
