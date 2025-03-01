@@ -79,10 +79,12 @@ export const td = css`
 
   @media (max-width: 768px) {
     padding: 8px 12px;
+    font-size: 16px;
   }
 
   @media (max-width: 480px) {
     padding: 6px 10px;
+    font-size: 16px;
   }
 `;
 
@@ -100,7 +102,7 @@ export const commisions = css`
   }
 
   @media (max-width: 480px) {
-    font-size: 10px;
+    font-size: 16px;
   }
 `;
 

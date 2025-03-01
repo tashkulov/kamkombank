@@ -67,6 +67,7 @@ export const miniContainerStyles = css`
 
   @media (max-width: 768px) {
     padding: 15px;
+    margin: 0 auto;
   }
 
   @media (max-width: 480px) {
@@ -84,8 +85,8 @@ export const wrapperStyles = css`
 `;
 export const concatedContainers = css`
   display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
-  align-items: flex-start; /* Выравнивание по верхнему краю */
+  justify-content: center;
+  align-items: flex-start;
   margin-top: 137px;
   width: 100%;
   gap: 20px;
@@ -93,6 +94,8 @@ export const concatedContainers = css`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 10px; /* Немного больше для мобильных */
+    margin-top: -100px;
+    gap: 10px;
   }
 `;
+

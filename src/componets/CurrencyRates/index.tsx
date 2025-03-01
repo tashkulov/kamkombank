@@ -30,13 +30,19 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [place, setPlace] = useState<DropdownOption | null>(null);
-  const [isError, setIsError] = useState(false); // Добавлено состояние для ошибки
-
+  const [isError, setIsError] = useState(false);
+  const currencyMap: Record<string, string> = {
+    "Доллар США": "USD",
+    Евро: "EUR",
+    "Фунт стерлингов": "GBP",
+    "Китайский юань": "CNY",
+    "Швейцарский франк": "CHF",
+  };
   const fetchRates = (addressId: number) => {
     const API_URL = `https://backbron.kamkombank.ru/v1/currency/exchange?address_id=${addressId}`;
     setLoading(true);
     setError(null);
-    setIsError(false); // Сбрасываем ошибку перед новым запросом
+    setIsError(false);
 
     fetch(API_URL)
       .then(response => {
@@ -52,7 +58,7 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
       })
       .catch(err => {
         setError(err.message);
-        setIsError(true); // Устанавливаем isError в true при ошибке
+        setIsError(true);
         setLoading(false);
       });
   };
@@ -92,7 +98,9 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
             <tbody>
               {rates.map((rate, index) => (
                 <tr key={index}>
-                  <td className={td}>{rate.currency_name}</td>
+                  <td className={td}>
+                    {currencyMap[rate.currency_name] || rate.currency_name}
+                  </td>
                   <td className={td}>{rate.buy}</td>
                   <td className={td}>{rate.sell}</td>
                 </tr>

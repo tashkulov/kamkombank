@@ -40,7 +40,6 @@ const Header: React.FC = () => {
         </Layout.Wrapper>
       </Layout.Main>
 
-
     </>
   );
 };
