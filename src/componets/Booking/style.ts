@@ -11,7 +11,6 @@ export const container = css`
 export const loader = css`
   height: 400px;
 `;
-
 export const formItem = css`
   width: calc(50% - 12px);
   margin-bottom: 16px;

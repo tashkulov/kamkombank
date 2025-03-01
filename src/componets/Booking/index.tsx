@@ -24,7 +24,6 @@ import Loader from "@/ui/Loader";
 import { useAppDispatch } from "@/store";
 import { useSelector } from "react-redux";
 import { getCitiesState } from "@/store/cities/selector";
-
 type TProps = {
   onSubmit: (customer: Customer) => void;
   currencies: Currency[];
@@ -121,8 +120,13 @@ const Booking: React.FC<TProps> = ({
     <Layout.BookingContainer>
       <Title.H2>
         Бесплатный резерв суммы до конца дня{" "}
-        <span className={city} onClick={onChangeCity}>
+        <span
+          className={city}
+          onClick={onChangeCity}
+          style={{ display: "inline-flex", alignItems: "center" }}
+        >
           {citiesState.current.name}
+          <Icon name={"arrowGreen"} size={"xl"} style={{ marginTop: "4px" }} />
         </span>
       </Title.H2>
       {loading ? (
