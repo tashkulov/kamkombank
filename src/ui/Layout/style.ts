@@ -34,6 +34,30 @@ export const containerStyles = css`
   }
 `;
 
+export const mainBlockLayoutStyles = css`
+  position: relative;
+
+  max-width: 1076px;
+  width: 90%;
+  padding: 32px;
+  margin: 132px auto 0;
+
+  border-radius: 16px;
+  background: ${Palette.white};
+  &:not(:last-child) {
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 450px) {
+    width: 100%;
+    padding: 16px;
+    margin-top: 16px;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+`;
 export const bookingContainerStyles = css`
   position: relative;
 

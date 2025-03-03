@@ -50,8 +50,8 @@ const App = () => {
   const [isThx, setIsThx] = useState(false);
   const [isFail, setIsFail] = useState(false);
   const [isAuthGos, setIsAuthGos] = useState(false);
-  const [isChooseCity, setIsChooseCity] = useState(true);
-  const [isAutoCitySelected, setIsAutoCitySelected] = useState(false); // Флаг для отслеживания автоподбора города
+  const [isChooseCity, setIsChooseCity] = useState(false);
+  const [isAutoCitySelected, setIsAutoCitySelected] = useState(false);
 
   const onSubmitForm = (customer: Customer) => {
     void dispatch(customerSlice.actions.setCustomer(customer));
@@ -115,7 +115,7 @@ const App = () => {
 
   useEffect(() => {
     const getLocation = async () => {
-      if (isAutoCitySelected) return;
+      if (isAutoCitySelected) return; // Флаг для предотвращения повторных вызовов
 
       try {
         const res = await fetch("https://ipinfo.io/json");
@@ -145,7 +145,9 @@ const App = () => {
       }
     };
 
-    getLocation();
+    if (!isAutoCitySelected) {
+      getLocation();
+    }
   }, [citiesState.cities, dispatch, isAutoCitySelected]);
 
   useEffect(() => {
@@ -220,7 +222,7 @@ const App = () => {
         </div>
 
         <MapOffices loading={officesState.loading || currenciesState.loading} />
-        <Steps />
+        {/*<Steps />*/}
         <Benefits />
         {/*<Footer />*/}
       </Layout.Main>

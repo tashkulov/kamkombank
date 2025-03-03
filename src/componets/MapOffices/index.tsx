@@ -25,7 +25,7 @@ const MapOffices: React.FC<TProps> = ({ loading }) => {
           style={{ height: "500px", width: "100%" }}
         >
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution=' <a href="https://www.openstreetmap.org/copyright">'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={[55.737568, 55.737568]}>
