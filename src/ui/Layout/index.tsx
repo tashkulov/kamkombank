@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import {
   bookingContainerStyles,
   containerStyles,
+  mainBlockLayoutStyles,
   mainLayoutStyles,
   miniContainerStyles,
   wrapperStyles,
@@ -15,6 +16,11 @@ type TProps = {
 
 const Main: React.FC<TProps> = ({ children, className }) => {
   return <div className={clx(mainLayoutStyles, className)}>{children}</div>;
+};
+const MainBlock: React.FC<TProps> = ({ children, className }) => {
+  return (
+    <div className={clx(mainBlockLayoutStyles, className)}>{children}</div>
+  );
 };
 const Container: React.FC<TProps> = ({ children, className }) => {
   return <div className={clx(containerStyles, className)}>{children}</div>;
@@ -37,6 +43,7 @@ const Layout = {
   MiniContainer: MiniContainer,
   Main: Main,
   BookingContainer: BookingContainer,
+  MainBlock: MainBlock,
   Wrapper: Wrapper,
 };
 export default Layout;

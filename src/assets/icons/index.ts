@@ -17,5 +17,10 @@ import "./phone-icon.svg";
 import "./gosuslugi-icon.svg";
 import "./arrow-gos.svg";
 import "./arrowGreen.svg";
+import './green-line.svg'
+import "./camcom-wallet.svg";
+import "./goldcup.svg"
+import "./ring-icon.svg"
+import "./medal.svg"
 
 

@@ -38,6 +38,7 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
     "Китайский юань": "CNY",
     "Швейцарский франк": "CHF",
   };
+
   const fetchRates = (addressId: number) => {
     const API_URL = `https://backbron.kamkombank.ru/v1/currency/exchange?address_id=${addressId}`;
     setLoading(true);
@@ -72,13 +73,20 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
     fetchRates(val.value);
   };
 
+  // Format date to "3 марта 2025"
+  const formattedDate = new Date(date).toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   if (isError) return <p>Ошибка: {error}</p>;
 
   return (
     <Layout.MiniContainer>
       <div className={main_container}>
         <Title.H3>
-          Курсы валют/<span>{date}</span>
+          Курсы валют / <span>{formattedDate}</span>
         </Title.H3>
         <Dropdown
           options={offices}
@@ -109,7 +117,8 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
           </table>
           <span className={commisions}>
             Комиссия за обмен валюты{" "}
-            <span className={commissionAmount}>200 ₽</span>
+            <span className={commissionAmount}> 200 ₽ </span>{" "}
+            {/* Added spaces around ₽ */}
           </span>
         </div>
       </div>
