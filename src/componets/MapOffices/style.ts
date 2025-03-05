@@ -17,12 +17,26 @@ export const offices_block = css`
   z-index: 10;
   margin-top: 10px;
   padding: 10px;
-
   max-width: 386px;
   max-height: 386px;
   width: 100%;
-  height: auto; /* Вместо 100% */
+  height: auto;
   overflow-y: auto;
+
+  @media (max-width: 1024px) {
+    right: 0;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    position: static;
+    max-width: 100%;
+    max-height: none;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const office_block = css`
@@ -30,8 +44,8 @@ export const office_block = css`
   height: 100%;
   border-radius: 12px;
   display: flex;
-  gap: 20px;
   flex-direction: column;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
   padding: 16px;
@@ -44,15 +58,44 @@ export const office_block = css`
     transform: translateY(-4px);
   }
 
-  p {
+  h3 {
     font-size: 16px;
     font-weight: bold;
     color: #333;
-    text-align: center;
+    text-align: start;
+    line-height: 1.4;
+  }
+
+  p {
+    font-size: 12px;
+    color: #333;
+    text-align: start;
     margin: 0;
     line-height: 1.4;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 320px;
+    padding: 12px;
+  }
 `;
+
+export const work_block = css`
+  display: flex;
+  gap: 8px; /* Расстояние между иконкой и текстом */
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+    padding: 8px;
+  }
+`;
+
 
 export const book_button = css`
   width: 100%;

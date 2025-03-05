@@ -10,8 +10,10 @@ import {
   offices_block,
   mapWrapper,
   main_map,
+  work_block,
 } from "@/componets/MapOffices/style";
 import { TOffice } from "@/types";
+import { Icon } from "@/ui/Icon";
 
 type TProps = {
   city: { id: number; name: string };
@@ -41,10 +43,11 @@ const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
         setLoading(false);
       });
   }, [city.id]);
-
+  console.log(offices);
   const scrollUp = () => {
+    const isMobile = window.innerWidth <= 768;
     window.scrollTo({
-      top: window.scrollY - 1000,
+      top: window.scrollY - (isMobile ? 1500 : 1000),
       behavior: "smooth",
     });
   };
@@ -85,17 +88,23 @@ const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
           >
             {offices.map(office => (
               <div key={office.id} className={office_block}>
-                <p>{office.address_name}</p>
-                <p>
-                  Понедельник-воскресенье:{" "}
-                  {office.info.today_schedule.opening_hour} :{" "}
-                  {office.info.today_schedule.closed_hour}
-                </p>
+                <h4>{office.address_name}</h4>
+                <div className={work_block}>
+                  <Icon name={"clock-icon"} />
+                  <p>
+                    Понедельник-воскресенье:{" "}
+                    {office.info.today_schedule.opening_hour} :{" "}
+                    {office.info.today_schedule.closing_hour}
+                    <br />
+                    Без перерыва
+                  </p>
+                </div>
+
                 <button
                   className={book_button}
                   onClick={() => {
                     onSelectOffice(office);
-                    scrollUp(); // Прокручиваем страницу на 200 пикселей вверх
+                    scrollUp();
                   }}
                 >
                   Зарезервировать сумму

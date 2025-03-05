@@ -11,6 +11,6 @@ export type TInfo = {
   currentWeekDay: string;
   today_schedule: {
     opening_hour: string;
-    closed_hour: string;
+    closing_hour: string;
   };
 };
