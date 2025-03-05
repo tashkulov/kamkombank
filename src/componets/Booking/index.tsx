@@ -24,12 +24,14 @@ import Loader from "@/ui/Loader";
 import { useAppDispatch } from "@/store";
 import { useSelector } from "react-redux";
 import { getCitiesState } from "@/store/cities/selector";
+import { TOffice } from "@/types";
 type TProps = {
   onSubmit: (customer: Customer) => void;
   currencies: Currency[];
   offices: DropdownOption[];
   loading: boolean;
   onChangeCity: () => void;
+  selectedOffice?: TOffice;
 };
 const Booking: React.FC<TProps> = ({
   onChangeCity,
@@ -37,6 +39,7 @@ const Booking: React.FC<TProps> = ({
   currencies,
   offices,
   loading,
+  selectedOffice,
 }) => {
   const [customerType, setCustomerType] = useState<number>(customerTypes.buyer);
   const [name, setName] = useState<string>();
@@ -54,6 +57,14 @@ const Booking: React.FC<TProps> = ({
   const [isPlaceError, setIsPlaceError] = useState<boolean>(false);
   const [isAgreeError, setIsAgreeError] = useState<boolean>(false);
   const citiesState = useSelector(getCitiesState);
+  useEffect(() => {
+    if (selectedOffice) {
+      const office = offices.find(office => office.id === selectedOffice.id);
+      if (office) {
+        setPlace(office);
+      }
+    }
+  }, [selectedOffice, offices]);
 
   const validate = () => {
     let isValid = true;
@@ -69,7 +80,7 @@ const Booking: React.FC<TProps> = ({
   };
 
   const onChangePlace = (val: any, meta: object) => {
-    setPlace(val);
+    setPlace(val); // Обновляем состояние при изменении места
   };
 
   const onChangeCurrency = (val: any, meta: object) => {
@@ -175,8 +186,9 @@ const Booking: React.FC<TProps> = ({
             <div className={formItem}>
               <Dropdown
                 options={offices}
+                value={place}
                 onChange={onChangePlace}
-                isError={isPlaceError}
+                isError={!place}
               />
             </div>
           </div>

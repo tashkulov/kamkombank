@@ -28,6 +28,8 @@ import { getExchangeRate } from "@/store/currenciesRate/actions";
 import CurrencyRates from "@/componets/CurrencyRates";
 import MapOffices from "@/componets/MapOffices";
 import { concatedContainers } from "@/ui/Layout/style";
+import { DropdownOption } from "@/ui/Dropdown";
+import { TOffice } from "@/types";
 
 const cityTranslationMap: Record<string, string> = {
   "saint petersburg": "Санкт-Петербург",
@@ -52,6 +54,7 @@ const App = () => {
   const [isAuthGos, setIsAuthGos] = useState(false);
   const [isChooseCity, setIsChooseCity] = useState(false);
   const [isAutoCitySelected, setIsAutoCitySelected] = useState(false);
+  const [selectedOffice, setSelectedOffice] = useState<TOffice>();
 
   const onSubmitForm = (customer: Customer) => {
     void dispatch(customerSlice.actions.setCustomer(customer));
@@ -207,21 +210,23 @@ const App = () => {
       <Layout.Main className={appContent}>
         <div className={concatedContainers}>
           <Booking
-            onChangeCity={() => {
-              setIsChooseCity(true);
-            }}
+            onChangeCity={() => setIsChooseCity(true)}
             onSubmit={onSubmitForm}
             currencies={currenciesState.currencies}
             offices={prepareOfficesList(officesState.offices)}
             loading={officesState.loading || currenciesState.loading}
+            selectedOffice={selectedOffice}
           />
+
           <CurrencyRates
             offices={prepareOfficesList(officesState.offices)}
             currentCity={citiesState.current}
           />
         </div>
-
-        <MapOffices loading={officesState.loading || currenciesState.loading} />
+        <MapOffices
+          city={citiesState.current}
+          onSelectOffice={setSelectedOffice}
+        />
         {/*<Steps />*/}
         <Benefits />
         {/*<Footer />*/}

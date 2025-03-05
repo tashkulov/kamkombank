@@ -76,7 +76,6 @@ export const iconWrapper = css`
   display: flex;
   width: 100%;
 `;
-
 export const iconSmall1 = css`
   width: 150px;
   height: 170px;
@@ -97,6 +96,20 @@ export const iconSmall1 = css`
     left: 40px;
     bottom: 50px;
   }
+
+  @media (max-width: 390px) {
+    width: 60px;
+    height: 70px;
+    left: 38px;
+    bottom: 55px;
+  }
+
+  @media (max-width: 375px) {
+    width: 50px;
+    height: 60px;
+    left: 25px;
+    bottom: 40px;
+  }
 `;
 
 export const iconSmall2 = css`
@@ -116,8 +129,22 @@ export const iconSmall2 = css`
   @media (max-width: 768px) {
     width: 76px;
     height: 76px;
-    left: 60px;
+    left: 55px;
     bottom: 60px;
+  }
+
+  @media (max-width: 390px) {
+    width: 66px;
+    height: 66px;
+    left: 40px;
+    bottom: 55px;
+  }
+
+  @media (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    left: 55px;
+    bottom: 40px;
   }
 `;
 
@@ -140,6 +167,20 @@ export const iconSmall3 = css`
     height: 97px;
     left: 30px;
     bottom: 50px;
+  }
+
+  @media (max-width: 390px) {
+    width: 90px;
+    height: 80px;
+    left: 20px;
+    bottom: 50px;
+  }
+
+  @media (max-width: 375px) {
+    width: 70px;
+    height: 60px;
+    left: 10px;
+    bottom: 30px;
   }
 `;
 
@@ -221,4 +262,10 @@ export const badgeSecond = css`
     text-align: start;
     margin-left: 20px;
   }
+  @media (max-width: 390px) {
+    font-size: 10px;
+    text-align: start;
+    margin-left: 20px;
+  }
+
 `;

@@ -22,5 +22,6 @@ import "./camcom-wallet.svg";
 import "./goldcup.svg"
 import "./ring-icon.svg"
 import "./medal.svg"
+import "./clock-icon.svg"
 
 

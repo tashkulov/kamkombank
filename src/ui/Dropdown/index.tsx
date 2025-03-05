@@ -12,7 +12,6 @@ import {
 } from "@/ui/Dropdown/style";
 import Select from "react-select";
 import { Icon } from "@/ui/Icon";
-import { logo } from "@/componets/Header/style";
 
 export interface DropdownOption {
   value: number;
@@ -26,18 +25,28 @@ type DropdownProps = {
   options: DropdownOption[];
   onChange?: (newValue: any, metaData: object) => void;
   isError?: boolean;
+  value?: DropdownOption;
 };
 
 const CustomIndicator = () => {
   return <Icon name={"arrow-icon"} />;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  value,
+  onChange,
+  isError,
+}) => {
   const [isValid, setIsValid] = useState<boolean>(true);
 
   useEffect(() => {
-    if (isError) setIsValid(false);
-  }, [isError]);
+    if (isError && value) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  }, [isError, value]);
 
   const formatOptionLabel = (opt: DropdownOption) => (
     <div key={opt.id} className={optionStyles}>
@@ -59,6 +68,11 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
     );
   };
 
+  const handleChange = (newValue: any, actionMeta: any) => {
+    setIsValid(true);
+    onChange && onChange(newValue, actionMeta);
+  };
+
   return (
     <div className={clx(container, !isValid && "invalid")}>
       <Select
@@ -72,16 +86,13 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, isError }) => {
           IndicatorSeparator: null,
           DropdownIndicator: CustomIndicator,
         }}
-        // onChange={onChange}
-        onChange={(newValue: any, actionMeta: any) => {
-          setIsValid(true);
-
-          onChange && onChange(newValue, actionMeta);
-        }}
+        value={value} // Используем значение из Booking
+        onChange={handleChange} // Передаём обработчик изменений
       />
 
       {!isValid && <span className={invalidText}>Поле обязательно</span>}
     </div>
   );
 };
+
 export default Dropdown;

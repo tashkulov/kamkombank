@@ -41,6 +41,7 @@
     "react-router-dom": "^5.2.0",
     "react-select": "5.7.0",
     "react-spinners": "^0.11.0",
+    "react-swiper": "^0.1.5",
     "react-switch": "^7.0.0",
     "react-timer-hook": "^3.0.5",
     "react-tippy": "^1.4.0",
@@ -49,8 +50,7 @@
     "save": "^2.9.0",
     "socket.io-client": "^4.1.3",
     "store": "^2.0.12",
-    "swiper": "^10.1.0",
-    "swiper-react": "^1.0.0",
+    "swiper": "^11.2.4",
     "ts-loader": "^9.3.0"
   },
   "normalize.css": "^8.0.1",

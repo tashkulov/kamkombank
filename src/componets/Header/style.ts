@@ -76,15 +76,9 @@ export const phone = css`
     color: ${Palette.text}
     font-size: 16px;
     font-weight: 400;
-    line-height: 24px; /* 150% */
+    line-height: 24px;
     letter-spacing: -0.16px;
     margin-left: 8px;
-  }
-
-  @media (max-width: 500px) {
-    span {
-      display: none;
-    }
   }
 `;
 
