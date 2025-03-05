@@ -73,7 +73,6 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
     fetchRates(val.value);
   };
 
-  // Format date to "3 марта 2025"
   const formattedDate = new Date(date).toLocaleDateString("ru-RU", {
     day: "numeric",
     month: "long",

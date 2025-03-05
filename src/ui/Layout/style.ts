@@ -111,15 +111,14 @@ export const concatedContainers = css`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 137px;
+  margin-top: 97px;
   width: 100%;
   gap: 20px;
   box-sizing: border-box;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    margin-top: -100px;
-    gap: 10px;
+    margin-top: -130px;
   }
 `;
 
