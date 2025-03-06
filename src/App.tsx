@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Layout from "@/ui/Layout";
 import Header from "@/componets/Header";
 import Steps from "@/componets/Steps";
@@ -34,9 +34,8 @@ import { TOffice } from "@/types";
 const cityTranslationMap: Record<string, string> = {
   "saint petersburg": "Санкт-Петербург",
   moscow: "Москва",
-  novosibirsk: "Новосибирск",
-  yekaterinburg: "Екатеринбург",
-  "nizhny novgorod": "Нижний Новгород",
+  kazan: "Казань",
+  "naberezhnye chelny": "Набережные Челны",
 };
 
 const App = () => {
@@ -115,10 +114,8 @@ const App = () => {
     if (customerState.success) setIsConfirm(true);
   }, [customerState]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getLocation = async () => {
-      if (isAutoCitySelected) return;
-
       try {
         const res = await fetch("https://ipinfo.io/json");
         const data = await res.json();
@@ -135,6 +132,7 @@ const App = () => {
           );
           dispatch(citiesSlice.actions.setCurrentCity(selectedCity!));
           setIsAutoCitySelected(true);
+          console.log("City selected:", selectedCity);
           setIsChooseCity(false);
         } else {
           setIsChooseCity(true);
@@ -143,30 +141,34 @@ const App = () => {
         console.error("Error while getting geolocation", error);
       }
     };
+
     if (!isAutoCitySelected) {
       getLocation();
     }
   }, [citiesState.cities, dispatch, isAutoCitySelected]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const status = searchParams.get("status");
+    if (isAutoCitySelected) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const status = searchParams.get("status");
 
-    if (status === "success") {
-      setIsThx(true);
-      setIsChooseCity(false);
-    } else if (status === "fail") {
-      setIsThx(true);
-      setIsFail(true);
-      setIsChooseCity(false);
+      if (status === "success") {
+        setIsThx(true);
+        setIsChooseCity(false);
+      } else if (status === "fail") {
+        setIsThx(true);
+        setIsFail(true);
+        setIsChooseCity(false);
+      }
+
+      searchParams.delete("status");
+      const newUrl = `${window.location.protocol}//${window.location.host}${
+        window.location.pathname
+      }?${searchParams.toString()}`;
+      window.history.replaceState({ path: newUrl }, "", newUrl);
     }
+  }, [isAutoCitySelected]);
 
-    searchParams.delete("status");
-    const newUrl = `${window.location.protocol}//${window.location.host}${
-      window.location.pathname
-    }?${searchParams.toString()}`;
-    window.history.replaceState({ path: newUrl }, "", newUrl);
-  }, []);
   return (
     <>
       {isChooseCity && (

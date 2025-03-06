@@ -1,4 +1,5 @@
 import { css } from "goober";
+import { Palette } from "@/styles/constants";
 
 export const mapWrapper = css`
   position: relative;
@@ -35,11 +36,9 @@ export const offices_block = css`
     position: static;
     max-height: 400px;
     max-width: 100%;
-    width: 90%;
+    width: 100%;
     flex-direction: column;
     align-items: center;
-    margin-left: 20px;
-    margin-top: 20px;
     overflow-y: auto;
   }
 
@@ -92,11 +91,10 @@ export const office_block = css`
 
   @media (max-width: 768px) {
     width: 100%;
-    max-width: 320px;
     padding: 12px;
+    border: 1px solid ${Palette.border};
   }
 `;
-
 export const work_block = css`
   display: flex;
   align-items: center;
