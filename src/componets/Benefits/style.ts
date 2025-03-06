@@ -17,7 +17,7 @@ export const topBlock = css`
   border-radius: 16px;
   position: relative;
   width: calc(3 * 350px + 2 * 86px);
-  max-width: 100%;
+  max-width: 1076px;
   margin: 0 auto;
 
   @media (max-width: 1200px) {
@@ -26,24 +26,22 @@ export const topBlock = css`
 `;
 
 export const grid = css`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 26px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
   width: 100%;
 
   @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
   }
 
   @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
     gap: 20px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 10px;
   }
 `;
-
 export const card = css`
   display: flex;
   flex-direction: column;
@@ -54,11 +52,11 @@ export const card = css`
   border-radius: 16px;
   background-color: #def0d9;
   border: 1px solid ${Palette.border};
-  gap: 24px;
+  gap: 14px;
   position: relative;
   overflow: hidden;
-  height: 300px;
-  width: 320px;
+  height: 290px;
+  width: 257px;
 
   @media (max-width: 1200px) {
     width: 260px;
@@ -66,8 +64,8 @@ export const card = css`
   }
 
   @media (max-width: 768px) {
-    width: 118px;
-    height: 185px;
+    width: 183px;
+    height: 155px;
     padding: 12px;
   }
 `;
@@ -77,10 +75,10 @@ export const iconWrapper = css`
   width: 100%;
 `;
 export const iconSmall1 = css`
-  width: 150px;
-  height: 170px;
+  width: 130px;
+  height: 150px;
   position: absolute;
-  left: 150px;
+  left: 110px;
   bottom: 84px;
 
   @media (max-width: 1200px) {
@@ -93,14 +91,14 @@ export const iconSmall1 = css`
   @media (max-width: 768px) {
     width: 90px;
     height: 80px;
-    left: 40px;
+    left: 80px;
     bottom: 50px;
   }
 
   @media (max-width: 390px) {
-    width: 60px;
-    height: 70px;
-    left: 38px;
+    width: 107px;
+    height: 95px;
+    left: 78px;
     bottom: 55px;
   }
 
@@ -113,11 +111,11 @@ export const iconSmall1 = css`
 `;
 
 export const iconSmall2 = css`
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   position: absolute;
   bottom: 84px;
-  left: 150px;
+  left: 120px;
 
   @media (max-width: 1200px) {
     width: 150px;
@@ -127,16 +125,16 @@ export const iconSmall2 = css`
   }
 
   @media (max-width: 768px) {
-    width: 76px;
-    height: 76px;
-    left: 55px;
+    width: 107px;
+    height: 95px;
+    left: 78px;
     bottom: 60px;
   }
 
   @media (max-width: 390px) {
-    width: 66px;
-    height: 66px;
-    left: 40px;
+    width: 107px;
+    height: 95px;
+    left: 78px;
     bottom: 55px;
   }
 
@@ -149,11 +147,11 @@ export const iconSmall2 = css`
 `;
 
 export const iconSmall3 = css`
-  width: 240px;
-  height: 210px;
+  width: 200px;
+  height: 180px;
   position: absolute;
   bottom: 74px;
-  left: 120px;
+  left: 80px;
 
   @media (max-width: 1200px) {
     width: 200px;
@@ -163,16 +161,16 @@ export const iconSmall3 = css`
   }
 
   @media (max-width: 768px) {
-    width: 111px;
-    height: 97px;
-    left: 30px;
+    width: 107px;
+    height: 95px;
+    left: 78px;
     bottom: 50px;
   }
 
   @media (max-width: 390px) {
-    width: 90px;
-    height: 80px;
-    left: 20px;
+    width: 127px;
+    height: 105px;
+    left: 78px;
     bottom: 50px;
   }
 
@@ -241,6 +239,7 @@ export const badge = css`
   font-weight: bold;
   color: ${Palette.text};
   align-self: flex-start;
+  margin-bottom: 50px;
 
   @media (max-width: 768px) {
     font-size: 18px;
@@ -253,19 +252,24 @@ export const badgeSecond = css`
   max-width: 220px;
   line-height: 1.5;
   width: 100%;
+  text-align: start;
   color: ${Palette.text};
-  text-align: left;
-  margin-right: 35px;
 
   @media (max-width: 768px) {
+    width: 125px;
     font-size: 10px;
     text-align: start;
     margin-left: 20px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
   }
   @media (max-width: 390px) {
     font-size: 10px;
     text-align: start;
     margin-left: 20px;
+    position: absolute;
+    top: 12px;
+    left: 20px;
   }
-
 `;

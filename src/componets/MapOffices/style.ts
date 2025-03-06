@@ -1,7 +1,11 @@
-import { css } from "goober"; // Использование goober для стилей
+import { css } from "goober";
 
 export const mapWrapper = css`
-  position: relative; /* Относительное позиционирование для вложенных элементов */
+  position: relative;
+  .leaflet-control-attribution {
+    display: none !important;
+  }
+
 `;
 export const main_map = css`
   z-index: 0 !important;
@@ -47,7 +51,7 @@ export const office_block = css`
   flex-direction: column;
   gap: 10px;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
@@ -58,20 +62,24 @@ export const office_block = css`
     transform: translateY(-4px);
   }
 
-  h3 {
+  h4,
+  p {
+    width: 100%;
     font-size: 16px;
-    font-weight: bold;
-    color: #333;
     text-align: start;
     line-height: 1.4;
+    padding-left: 10px;
+    margin: 0;
+  }
+
+  h4 {
+    font-weight: bold;
+    color: #333;
   }
 
   p {
     font-size: 12px;
     color: #333;
-    text-align: start;
-    margin: 0;
-    line-height: 1.4;
   }
 
   @media (max-width: 768px) {
@@ -83,28 +91,27 @@ export const office_block = css`
 
 export const work_block = css`
   display: flex;
-  gap: 8px; /* Расстояние между иконкой и текстом */
+  align-items: center;
+  gap: 8px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   color: #333;
   line-height: 1.4;
+  width: 100%;
+  padding-left: 10px;
 
   @media (max-width: 768px) {
     font-size: 13px;
-    padding: 8px;
+    padding: 8px 0 8px 10px;
   }
 `;
-
-
 export const book_button = css`
   width: 100%;
-  max-width: 228px;
   height: 44px;
   background-color: #009846;
   color: white;
   font-size: 16px;
-  font-weight: bold;
   text-align: center;
   display: flex;
   justify-content: center;

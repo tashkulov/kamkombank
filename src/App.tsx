@@ -72,7 +72,6 @@ const App = () => {
         formData.append(key, sms[key]);
       }
     }
-
     try {
       const result = await callApiFn<{
         brainsoft: { data: number };
@@ -118,21 +117,18 @@ const App = () => {
 
   useEffect(() => {
     const getLocation = async () => {
-      if (isAutoCitySelected) return; // Флаг для предотвращения повторных вызовов
+      if (isAutoCitySelected) return;
 
       try {
         const res = await fetch("https://ipinfo.io/json");
         const data = await res.json();
         let userCity = data.city.toLowerCase();
-
         if (cityTranslationMap[userCity]) {
           userCity = cityTranslationMap[userCity];
         }
-
         const cityExists = citiesState.cities.some(
           city => city.name.toLowerCase() === userCity.toLowerCase(),
         );
-
         if (cityExists) {
           const selectedCity = citiesState.cities.find(
             city => city.name.toLowerCase() === userCity.toLowerCase(),
@@ -147,7 +143,6 @@ const App = () => {
         console.error("Error while getting geolocation", error);
       }
     };
-
     if (!isAutoCitySelected) {
       getLocation();
     }
@@ -205,8 +200,8 @@ const App = () => {
       )}
 
       {isAuthGos && <AuthGos url={gosusligiAuth} />}
-      <Header />
 
+      <Header />
       <Layout.Main className={appContent}>
         <div className={concatedContainers}>
           <Booking
@@ -217,7 +212,6 @@ const App = () => {
             loading={officesState.loading || currenciesState.loading}
             selectedOffice={selectedOffice}
           />
-
           <CurrencyRates
             offices={prepareOfficesList(officesState.offices)}
             currentCity={citiesState.current}

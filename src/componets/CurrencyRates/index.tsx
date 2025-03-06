@@ -73,11 +73,13 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
     fetchRates(val.value);
   };
 
-  const formattedDate = new Date(date).toLocaleDateString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const formattedDate = date
+    ? new Date(date.replace(" ", "T") + "Z").toLocaleDateString("ru-RU", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : "Дата не определена";
 
   if (isError) return <p>Ошибка: {error}</p>;
 
