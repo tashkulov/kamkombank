@@ -29,6 +29,9 @@ export const topBlock = css`
   @media (max-width: 390px) {
     width: 100%;
   }
+  @media (max-width: 320px) {
+    width: 100%;
+  }
 `;
 
 export const grid = css`
@@ -45,7 +48,7 @@ export const grid = css`
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, auto);
-    gap: 20px;
+    gap: 10px;
   }
 `;
 export const card = css`
@@ -70,9 +73,19 @@ export const card = css`
   }
 
   @media (max-width: 768px) {
-    width: 183px;
+    width: 173px;
     height: 155px;
     padding: 12px;
+  }
+  @media (max-width: 390px) {
+    width: 160px;
+    height: 140px;
+    padding: 10px;
+  }
+  @media (max-width: 320px) {
+    width: 140px;
+    height: 130px;
+    padding: 8px;
   }
 
 `;
@@ -110,9 +123,9 @@ export const iconSmall1 = css`
   }
 
   @media (max-width: 375px) {
-    width: 110px;
-    height: 100px;
-    left: 78px;
+    width: 90px;
+    height: 70px;
+    left: 60px;
     bottom: 40px;
   }
 `;
@@ -133,7 +146,7 @@ export const iconSmall2 = css`
 
   @media (max-width: 768px) {
     width: 107px;
-    height: 95px;
+    height: 85px;
     left: 78px;
     bottom: 60px;
   }
@@ -146,10 +159,10 @@ export const iconSmall2 = css`
   }
 
   @media (max-width: 375px) {
-    width: 130px;
-    height: 115px;
-    left: 78px;
-    bottom: 30px;
+    width: 95px;
+    height: 75px;
+    left: 60px;
+    bottom: 40px;
   }
 `;
 
@@ -175,17 +188,17 @@ export const iconSmall3 = css`
   }
 
   @media (max-width: 390px) {
-    width: 127px;
-    height: 105px;
+    width: 97px;
+    height: 75px;
     left: 78px;
     bottom: 50px;
   }
 
   @media (max-width: 375px) {
-    width: 130px;
-    height: 115px;
-    left: 78px;
-    bottom: 30px;
+    width: 75px;
+    height: 65px;
+    left: 58px;
+    bottom: 40px;
   }
 `;
 
@@ -251,6 +264,16 @@ export const badge = css`
   @media (max-width: 768px) {
     font-size: 18px;
   }
+
+  @media (max-width: 390px) {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const badgeSecond = css`
@@ -275,6 +298,14 @@ export const badgeSecond = css`
     font-size: 10px;
     text-align: start;
     margin-left: 20px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+  }
+  @media (max-width: 320px) {
+    font-size: 8px;
+    text-align: start;
+    margin-left: 10px;
     position: absolute;
     bottom: 10px;
     left: 0;
