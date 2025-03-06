@@ -74,11 +74,14 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   };
 
   const formattedDate = date
-    ? new Date(date.replace(" ", "T") + "Z").toLocaleDateString("ru-RU", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
+    ? new Date(Date.parse(date.replace(" ", "T") + "Z")).toLocaleDateString(
+        "ru-RU",
+        {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        },
+      )
     : "Дата не определена";
 
   if (isError) return <p>Ошибка: {error}</p>;

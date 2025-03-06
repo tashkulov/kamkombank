@@ -79,6 +79,15 @@ export const bookingContainerStyles = css`
       margin-bottom: 16px;
     }
   }
+
+  @media (max-width: 390px) {
+    width: 100%;
+    padding: 16px;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
 `;
 
 export const miniContainerStyles = css`
@@ -121,4 +130,3 @@ export const concatedContainers = css`
     margin-top: -130px;
   }
 `;
-
