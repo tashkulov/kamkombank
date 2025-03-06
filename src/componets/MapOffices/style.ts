@@ -5,7 +5,6 @@ export const mapWrapper = css`
   .leaflet-control-attribution {
     display: none !important;
   }
-
 `;
 export const main_map = css`
   z-index: 0 !important;
@@ -22,7 +21,7 @@ export const offices_block = css`
   margin-top: 10px;
   padding: 10px;
   max-width: 386px;
-  max-height: 386px;
+  max-height: 500px;
   width: 100%;
   height: auto;
   overflow-y: auto;
@@ -34,12 +33,21 @@ export const offices_block = css`
 
   @media (max-width: 768px) {
     position: static;
+    max-height: 400px;
     max-width: 100%;
-    max-height: none;
     width: 90%;
-    display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 390px) {
+    max-width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    max-height: 400px;
   }
 `;
 

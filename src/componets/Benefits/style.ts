@@ -23,6 +23,12 @@ export const topBlock = css`
   @media (max-width: 1200px) {
     width: 100%;
   }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  @media (max-width: 390px) {
+    width: 100%;
+  }
 `;
 
 export const grid = css`
@@ -68,6 +74,7 @@ export const card = css`
     height: 155px;
     padding: 12px;
   }
+
 `;
 
 export const iconWrapper = css`
@@ -103,9 +110,9 @@ export const iconSmall1 = css`
   }
 
   @media (max-width: 375px) {
-    width: 50px;
-    height: 60px;
-    left: 25px;
+    width: 110px;
+    height: 100px;
+    left: 78px;
     bottom: 40px;
   }
 `;
@@ -139,10 +146,10 @@ export const iconSmall2 = css`
   }
 
   @media (max-width: 375px) {
-    width: 50px;
-    height: 50px;
-    left: 55px;
-    bottom: 40px;
+    width: 130px;
+    height: 115px;
+    left: 78px;
+    bottom: 30px;
   }
 `;
 
@@ -175,9 +182,9 @@ export const iconSmall3 = css`
   }
 
   @media (max-width: 375px) {
-    width: 70px;
-    height: 60px;
-    left: 10px;
+    width: 130px;
+    height: 115px;
+    left: 78px;
     bottom: 30px;
   }
 `;
@@ -269,7 +276,7 @@ export const badgeSecond = css`
     text-align: start;
     margin-left: 20px;
     position: absolute;
-    top: 12px;
-    left: 20px;
+    bottom: 10px;
+    left: 0;
   }
 `;

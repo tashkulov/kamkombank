@@ -82,10 +82,7 @@ const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
               </Marker>
             ))}
           </MapContainer>
-          <div
-            className={offices_block}
-            style={{ maxHeight: "500px", overflowY: "auto" }}
-          >
+          <div className={offices_block}>
             {offices.map(office => (
               <div key={office.id} className={office_block}>
                 <h4>{office.address_name}</h4>
