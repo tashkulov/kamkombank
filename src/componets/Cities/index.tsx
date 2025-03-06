@@ -28,12 +28,20 @@ const Cities: React.FC<TProps> = ({ onClose }) => {
   };
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadCities = async () => {
       await dispatch(getCities());
-      setIsCitiesLoaded(true);
+      if (isMounted) {
+        setIsCitiesLoaded(true);
+      }
     };
 
     loadCities();
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   return (
@@ -68,5 +76,7 @@ const Cities: React.FC<TProps> = ({ onClose }) => {
     </Modal>
   );
 };
+
+
 
 export default Cities;

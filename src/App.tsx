@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Layout from "@/ui/Layout";
 import Header from "@/componets/Header";
 import Steps from "@/componets/Steps";
@@ -54,6 +54,7 @@ const App = () => {
   const [isChooseCity, setIsChooseCity] = useState(false);
   const [isAutoCitySelected, setIsAutoCitySelected] = useState(false);
   const [selectedOffice, setSelectedOffice] = useState<TOffice>();
+  const isCitySelectedRef = useRef(false);
 
   const onSubmitForm = (customer: Customer) => {
     void dispatch(customerSlice.actions.setCustomer(customer));
@@ -102,9 +103,46 @@ const App = () => {
   const onRetry = () => {
     void dispatch(fetchCustomer(customerState.data));
   };
+  useEffect(() => {
+    console.log("Auto city selected:", isAutoCitySelected);
+    if (!isAutoCitySelected) {
+      console.log("Setting isChooseCity to true");
+      setIsChooseCity(true); // Показываем попап, если город не выбран автоматически
+    }
+  }, [isAutoCitySelected]);
+
+  const getLocation = async () => {
+    try {
+      const res = await fetch("https://ipinfo.io/json");
+      const data = await res.json();
+      let userCity = data.city.toLowerCase();
+
+      if (cityTranslationMap[userCity]) {
+        userCity = cityTranslationMap[userCity];
+      }
+
+      const selectedCity = citiesState.cities.find(
+        city => city.name.toLowerCase() === userCity.toLowerCase(),
+      );
+
+      if (selectedCity) {
+        dispatch(citiesSlice.actions.setCurrentCity(selectedCity));
+        setIsAutoCitySelected(true);
+        isCitySelectedRef.current = true;
+        setIsChooseCity(false);
+      } else {
+        setIsAutoCitySelected(false);
+        setIsChooseCity(true);
+      }
+    } catch (error) {
+      console.error("Error while getting geolocation", error);
+      setIsAutoCitySelected(false);
+      setIsChooseCity(true);
+    }
+  };
 
   useEffect(() => {
-    if (!isChooseCity && citiesState.current) {
+    if (citiesState.current && !isChooseCity) {
       void dispatch(getCurrencies());
       void dispatch(getOffices(citiesState.current));
     }
@@ -113,39 +151,6 @@ const App = () => {
   useEffect(() => {
     if (customerState.success) setIsConfirm(true);
   }, [customerState]);
-
-  useLayoutEffect(() => {
-    const getLocation = async () => {
-      try {
-        const res = await fetch("https://ipinfo.io/json");
-        const data = await res.json();
-        let userCity = data.city.toLowerCase();
-        if (cityTranslationMap[userCity]) {
-          userCity = cityTranslationMap[userCity];
-        }
-        const cityExists = citiesState.cities.some(
-          city => city.name.toLowerCase() === userCity.toLowerCase(),
-        );
-        if (cityExists) {
-          const selectedCity = citiesState.cities.find(
-            city => city.name.toLowerCase() === userCity.toLowerCase(),
-          );
-          dispatch(citiesSlice.actions.setCurrentCity(selectedCity!));
-          setIsAutoCitySelected(true);
-          console.log("City selected:", selectedCity);
-          setIsChooseCity(false);
-        } else {
-          setIsChooseCity(true);
-        }
-      } catch (error) {
-        console.error("Error while getting geolocation", error);
-      }
-    };
-
-    if (!isAutoCitySelected) {
-      getLocation();
-    }
-  }, [citiesState.cities, dispatch, isAutoCitySelected]);
 
   useEffect(() => {
     if (isAutoCitySelected) {
@@ -168,6 +173,12 @@ const App = () => {
       window.history.replaceState({ path: newUrl }, "", newUrl);
     }
   }, [isAutoCitySelected]);
+
+  useEffect(() => {
+    if (!isAutoCitySelected && !isCitySelectedRef.current) {
+      getLocation();
+    }
+  }, [citiesState.cities, isAutoCitySelected]);
 
   return (
     <>
