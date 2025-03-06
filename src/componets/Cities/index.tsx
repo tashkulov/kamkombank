@@ -7,7 +7,7 @@ import Loader from "@/ui/Loader";
 import { useSelector } from "react-redux";
 import { getCitiesState } from "@/store/cities/selector";
 import { City } from "@/store/cities/types";
-import { citiesSlice, defaultCity } from "@/store/cities/reducer";
+import { citiesSlice } from "@/store/cities/reducer";
 import clx from "classnames";
 import { citiesWrapper, cityItem, current } from "@/componets/Cities/style";
 import { useAppDispatch } from "@/store";
@@ -19,35 +19,33 @@ type TProps = {
 
 const Cities: React.FC<TProps> = ({ onClose }) => {
   const dispatch = useAppDispatch();
-
   const citiesState = useSelector(getCitiesState);
+  const [isCitiesLoaded, setIsCitiesLoaded] = useState(false);
+
   const onSubmit = (val: City) => {
     dispatch(citiesSlice.actions.setCurrentCity(val));
     onClose();
   };
 
   useEffect(() => {
-    void dispatch(getCities());
-  }, []);
+    const loadCities = async () => {
+      await dispatch(getCities());
+      setIsCitiesLoaded(true);
+    };
+
+    loadCities();
+  }, [dispatch]);
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
+    <Modal isOpen={isCitiesLoaded} onClose={onClose}>
       {citiesState.loading ? (
-        <Loader loadingText={"Подождите, идет загрузка"} />
+        <Loader loadingText="Подождите, идет загрузка" />
       ) : (
         <>
           <Title.H3>Выбор города</Title.H3>
-
-          {/*<Input*/}
-          {/*  placeholder={"Название города"}*/}
-          {/*  onChange={val => {*/}
-          {/*    console.log(val);*/}
-          {/*  }}*/}
-          {/*/>*/}
-
           <div className={citiesWrapper}>
-            {citiesState.cities.map((item: City, index: number) => {
-              return (
+            {citiesState.cities.length > 0 ? (
+              citiesState.cities.map((item: City, index: number) => (
                 <div
                   className={clx(
                     cityItem,
@@ -60,8 +58,10 @@ const Cities: React.FC<TProps> = ({ onClose }) => {
                 >
                   {item.name}
                 </div>
-              );
-            })}
+              ))
+            ) : (
+              <div>Нет доступных городов</div>
+            )}
           </div>
         </>
       )}

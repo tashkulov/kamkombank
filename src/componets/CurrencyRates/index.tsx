@@ -74,7 +74,7 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   };
 
   const formattedDate = date
-    ? new Date(Date.parse(date.replace(" ", "T") + "Z")).toLocaleDateString(
+    ? new Date(date.split(".").reverse().join("-")).toLocaleDateString(
         "ru-RU",
         {
           day: "numeric",

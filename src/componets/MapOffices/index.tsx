@@ -43,7 +43,6 @@ const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
         setLoading(false);
       });
   }, [city.id]);
-  console.log(offices);
   const scrollUp = () => {
     const isMobile = window.innerWidth <= 768;
     window.scrollTo({

@@ -6,6 +6,5 @@ export const appContent = css`
 
   @media (max-width: 740px) {
     margin-top: 0;
-    padding-top: 140px;
   }
 `;
