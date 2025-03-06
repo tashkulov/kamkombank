@@ -157,7 +157,7 @@ const Booking: React.FC<TProps> = ({
               <Input
                 placeholder={"Имя*"}
                 minLength={2}
-                maxLength={10}
+                maxLength={100}
                 required
                 onChange={onChangeName}
                 isError={isNameError}

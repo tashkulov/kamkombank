@@ -13,7 +13,8 @@ import {
   iconSmall2,
   iconSmall3,
   badgeSecond,
-  iconWrapper, iconLine,
+  iconWrapper,
+  iconLine,
 } from "@/componets/Benefits/style";
 
 import "swiper/css";
@@ -59,6 +60,13 @@ const Benefits: React.FC = () => {
             <span className={badgeSecond}>
               Народного рейтинга Банки.ру 2024 г.
             </span>
+          </div>
+          <div className={card}>
+            <p className={badge}>4,7 из 5</p>
+            <div className={iconWrapper}>
+              <Icon name="yandex-icon" className={iconSmall3} />
+            </div>
+            <span className={badgeSecond}>Средняя оценка на Яндекс.Картах</span>
           </div>
         </div>
       </div>
