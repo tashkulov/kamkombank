@@ -125,7 +125,7 @@ export const iconSmall1 = css`
   @media (max-width: 375px) {
     width: 90px;
     height: 70px;
-    left: 60px;
+    left: 70px;
     bottom: 40px;
   }
 `;
@@ -195,9 +195,9 @@ export const iconSmall3 = css`
   }
 
   @media (max-width: 375px) {
-    width: 75px;
-    height: 65px;
-    left: 58px;
+    width: 95px;
+    height: 85px;
+    left: 78px;
     bottom: 40px;
   }
 `;

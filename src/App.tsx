@@ -103,13 +103,7 @@ const App = () => {
   const onRetry = () => {
     void dispatch(fetchCustomer(customerState.data));
   };
-  useEffect(() => {
-    console.log("Auto city selected:", isAutoCitySelected);
-    if (!isAutoCitySelected) {
-      console.log("Setting isChooseCity to true");
-      setIsChooseCity(true); // Показываем попап, если город не выбран автоматически
-    }
-  }, [isAutoCitySelected]);
+
 
   const getLocation = async () => {
     try {
