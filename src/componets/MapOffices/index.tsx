@@ -3,7 +3,6 @@ import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
 import Loader from "@/ui/Loader";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import L from "leaflet";
 import { loader } from "@/componets/Booking/style";
 import {
   book_button,
@@ -51,19 +50,6 @@ const MapOffices: React.FC<{
     });
   };
 
-  const iconHtml = `
-    <svg width="30" height="30">
-      <use xlink:href="#location-icon"></use>
-    </svg>
-  `;
-
-  const customMarkerIcon = L.divIcon({
-    html: iconHtml,
-    className: "",
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-  });
-
   return (
     <Layout.Container>
       <Title.H2>Офисы Банка</Title.H2>
@@ -89,8 +75,7 @@ const MapOffices: React.FC<{
             {offices.map(office => (
               <Marker
                 key={office.id}
-                position={[parseFloat(office.lat), parseFloat(office.lon)]}
-                icon={customMarkerIcon} // ⬅️ подключаем кастомный маркер
+                position={[parseFloat(office.lat), parseFloat(office.lon)]} // 🟢 Используем стандартный маркер
               >
                 <Popup>{office.address_name}</Popup>
               </Marker>
