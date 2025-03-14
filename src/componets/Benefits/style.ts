@@ -116,16 +116,16 @@ export const iconSmall1 = css`
   }
 
   @media (max-width: 390px) {
-    width: 107px;
-    height: 95px;
-    left: 78px;
-    bottom: 55px;
+    width: 97px;
+    height: 85px;
+    left: 68px;
+    bottom: 50px;
   }
 
   @media (max-width: 375px) {
     width: 90px;
     height: 70px;
-    left: 70px;
+    left: 60px;
     bottom: 40px;
   }
 `;
@@ -152,16 +152,16 @@ export const iconSmall2 = css`
   }
 
   @media (max-width: 390px) {
-    width: 107px;
-    height: 95px;
+    width: 97px;
+    height: 85px;
     left: 78px;
-    bottom: 55px;
+    bottom: 50px;
   }
 
   @media (max-width: 375px) {
     width: 95px;
     height: 75px;
-    left: 60px;
+    left: 70px;
     bottom: 40px;
   }
 `;
@@ -190,15 +190,15 @@ export const iconSmall3 = css`
   @media (max-width: 390px) {
     width: 97px;
     height: 75px;
-    left: 78px;
+    left: 73px;
     bottom: 50px;
   }
 
   @media (max-width: 375px) {
     width: 95px;
     height: 85px;
-    left: 78px;
-    bottom: 40px;
+    left: 57px;
+    bottom: 30px;
   }
 `;
 
@@ -215,6 +215,10 @@ export const iconLarge = css`
   @media (max-width: 768px) {
     width: 160px;
     height: 160px;
+  }
+  @media (max-width: 390px) {
+    width: 140px;
+    height: 140px;
   }
 `;
 
@@ -237,6 +241,12 @@ export const iconLine = css`
     right: 0;
     bottom: 20px;
   }
+  @media (max-width: 390px) {
+    width: 140px;
+    height: 140px;
+    right: 0;
+    bottom: 20px;
+  }
 `;
 
 export const highlightText = css`
@@ -250,7 +260,11 @@ export const highlightText = css`
 
   @media (max-width: 768px) {
     width: 240px;
-    font-size: 16px;
+    font-size: 17px;
+  }
+  @media (max-width: 390px) {
+    width: 240px;
+    font-size: 15px;
   }
 `;
 
@@ -266,12 +280,12 @@ export const badge = css`
   }
 
   @media (max-width: 390px) {
-    font-size: 16px;
+    font-size: 17px;
     margin-bottom: 30px;
   }
 
   @media (max-width: 320px) {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 20px;
   }
 `;
@@ -295,7 +309,7 @@ export const badgeSecond = css`
     left: 0;
   }
   @media (max-width: 390px) {
-    font-size: 10px;
+    font-size: 12px;
     text-align: start;
     margin-left: 20px;
     position: absolute;
@@ -303,7 +317,7 @@ export const badgeSecond = css`
     left: 0;
   }
   @media (max-width: 320px) {
-    font-size: 8px;
+    font-size: 10px;
     text-align: start;
     margin-left: 10px;
     position: absolute;
