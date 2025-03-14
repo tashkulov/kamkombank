@@ -31,6 +31,7 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   const [error, setError] = useState<string | null>(null);
   const [place, setPlace] = useState<DropdownOption | null>(null);
   const [isError, setIsError] = useState(false);
+
   const currencyMap: Record<string, string> = {
     "Доллар США": "USD",
     Евро: "EUR",
@@ -65,8 +66,12 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   };
 
   useEffect(() => {
-    fetchRates(currentCity.id);
-  }, [currentCity]);
+    if (offices.length > 0) {
+      const firstOffice = offices[0];
+      setPlace(firstOffice);
+      fetchRates(firstOffice.value);
+    }
+  }, [offices]);
 
   const onChangePlace = (val: DropdownOption) => {
     setPlace(val);
@@ -95,6 +100,7 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
         <Dropdown
           options={offices}
           onChange={onChangePlace}
+          value={place}
           isError={isError}
         />
 
@@ -122,7 +128,6 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
           <span className={commisions}>
             Комиссия за обмен валюты{" "}
             <span className={commissionAmount}> 200 ₽ </span>{" "}
-            {/* Added spaces around ₽ */}
           </span>
         </div>
       </div>

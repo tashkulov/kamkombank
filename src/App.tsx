@@ -104,7 +104,6 @@ const App = () => {
     void dispatch(fetchCustomer(customerState.data));
   };
 
-
   const getLocation = async () => {
     try {
       const res = await fetch("https://ipinfo.io/json");

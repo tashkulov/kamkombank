@@ -28,8 +28,8 @@ const Benefits: React.FC = () => {
       <div className={container}>
         <div className={topBlock}>
           <span className={highlightText}>
-            1 место в номинации премии Банки.ру 2023г. “Курсы валют. <br />
-            Лучшие условия обмена”
+            1 место в номинации премии Банки.ру “Курсы валют. Лучшие условия
+            обмена”
           </span>
           <Icon name="goldcup" className={iconLarge} />
           <Icon name="green-line" className={iconLine} />

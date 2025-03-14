@@ -25,7 +25,7 @@ type DropdownProps = {
   options: DropdownOption[];
   onChange?: (newValue: any, metaData: object) => void;
   isError?: boolean;
-  value?: DropdownOption;
+  value: DropdownOption | null;
 };
 
 const CustomIndicator = () => {
