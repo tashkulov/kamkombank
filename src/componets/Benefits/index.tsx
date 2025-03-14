@@ -15,6 +15,7 @@ import {
   badgeSecond,
   iconWrapper,
   iconLine,
+  iconSmall4,
 } from "@/componets/Benefits/style";
 
 import "swiper/css";
@@ -28,8 +29,7 @@ const Benefits: React.FC = () => {
       <div className={container}>
         <div className={topBlock}>
           <span className={highlightText}>
-            1 место в номинации премии Банки.ру “Курсы валют. Лучшие условия
-            обмена”
+            1 место премии Банки.ру "Курсы валют. Лучшие условия обмена 2023"
           </span>
           <Icon name="goldcup" className={iconLarge} />
           <Icon name="green-line" className={iconLine} />
@@ -64,7 +64,7 @@ const Benefits: React.FC = () => {
           <div className={card}>
             <p className={badge}>4,7 из 5</p>
             <div className={iconWrapper}>
-              <Icon name="yandex-icon" className={iconSmall3} />
+              <Icon name="yandex-icon" className={iconSmall4} />
             </div>
             <span className={badgeSecond}>Средняя оценка на Яндекс.Картах</span>
           </div>
@@ -73,5 +73,4 @@ const Benefits: React.FC = () => {
     </Layout.MainBlock>
   );
 };
-
 export default Benefits;

@@ -87,7 +87,6 @@ export const card = css`
     height: 130px;
     padding: 8px;
   }
-
 `;
 
 export const iconWrapper = css`
@@ -125,6 +124,12 @@ export const iconSmall1 = css`
   @media (max-width: 375px) {
     width: 90px;
     height: 70px;
+    left: 67px;
+    bottom: 50px;
+  }
+  @media (max-width: 320px) {
+    width: 85px;
+    height: 65px;
     left: 60px;
     bottom: 40px;
   }
@@ -162,6 +167,13 @@ export const iconSmall2 = css`
     width: 95px;
     height: 75px;
     left: 70px;
+    bottom: 50px;
+  }
+
+  @media (max-width: 320px) {
+    width: 85px;
+    height: 65px;
+    left: 60px;
     bottom: 40px;
   }
 `;
@@ -197,8 +209,56 @@ export const iconSmall3 = css`
   @media (max-width: 375px) {
     width: 95px;
     height: 85px;
-    left: 57px;
-    bottom: 30px;
+    left: 67px;
+    bottom: 40px;
+  }
+  @media (max-width: 320px) {
+    width: 85px;
+    height: 65px;
+    left: 60px;
+    bottom: 40px;
+  }
+`;
+
+export const iconSmall4 = css`
+  width: 180px;
+  height: 160px;
+  position: absolute;
+  bottom: 78px;
+  left: 80px;
+
+  @media (max-width: 1200px) {
+    width: 180px;
+    height: 160px;
+    left: 80px;
+    bottom: 40px;
+  }
+
+  @media (max-width: 768px) {
+    width: 107px;
+    height: 95px;
+    left: 78px;
+    bottom: 50px;
+  }
+
+  @media (max-width: 390px) {
+    width: 97px;
+    height: 75px;
+    left: 73px;
+    bottom: 50px;
+  }
+
+  @media (max-width: 375px) {
+    width: 85px;
+    height: 75px;
+    left: 77px;
+    bottom: 60px;
+  }
+  @media (max-width: 320px) {
+    width: 85px;
+    height: 65px;
+    left: 60px;
+    bottom: 50px;
   }
 `;
 
@@ -216,9 +276,11 @@ export const iconLarge = css`
     width: 160px;
     height: 160px;
   }
+
   @media (max-width: 390px) {
     width: 140px;
     height: 140px;
+    margin-top: 40px;
   }
 `;
 
@@ -236,10 +298,10 @@ export const iconLine = css`
   }
 
   @media (max-width: 768px) {
-    width: 160px;
-    height: 160px;
+    width: 190px;
+    height: 190px;
     right: 0;
-    bottom: 20px;
+    bottom: 0;
   }
   @media (max-width: 390px) {
     width: 140px;
@@ -260,11 +322,15 @@ export const highlightText = css`
 
   @media (max-width: 768px) {
     width: 240px;
-    font-size: 17px;
+    font-size: 16px;
   }
   @media (max-width: 390px) {
     width: 240px;
     font-size: 15px;
+  }
+  @media (max-width: 320px) {
+    width: 240px;
+    font-size: 14px;
   }
 `;
 
