@@ -3,6 +3,7 @@ import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
 import Loader from "@/ui/Loader";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import L from "leaflet";
 import { loader } from "@/componets/Booking/style";
 import {
   book_button,
@@ -15,12 +16,10 @@ import {
 import { TOffice } from "@/types";
 import { Icon } from "@/ui/Icon";
 
-type TProps = {
+const MapOffices: React.FC<{
   city: { id: number; name: string };
   onSelectOffice: (office: TOffice) => void;
-};
-
-const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
+}> = ({ city, onSelectOffice }) => {
   const [offices, setOffices] = useState<TOffice[]>([]);
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState<[number, number]>([55.75, 37.61]);
@@ -43,6 +42,7 @@ const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
         setLoading(false);
       });
   }, [city.id]);
+
   const scrollUp = () => {
     const isMobile = window.innerWidth <= 768;
     window.scrollTo({
@@ -50,6 +50,19 @@ const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
       behavior: "smooth",
     });
   };
+
+  const iconHtml = `
+    <svg width="30" height="30">
+      <use xlink:href="#location-icon"></use>
+    </svg>
+  `;
+
+  const customMarkerIcon = L.divIcon({
+    html: iconHtml,
+    className: "",
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  });
 
   return (
     <Layout.Container>
@@ -72,15 +85,18 @@ const MapOffices: React.FC<TProps> = ({ city, onSelectOffice }) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+
             {offices.map(office => (
               <Marker
                 key={office.id}
                 position={[parseFloat(office.lat), parseFloat(office.lon)]}
+                icon={customMarkerIcon} // ⬅️ подключаем кастомный маркер
               >
                 <Popup>{office.address_name}</Popup>
               </Marker>
             ))}
           </MapContainer>
+
           <div className={offices_block}>
             {offices.map(office => (
               <div key={office.id} className={office_block}>

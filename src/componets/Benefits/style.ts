@@ -60,7 +60,6 @@ export const card = css`
   padding: 16px;
   border-radius: 16px;
   background-color: #def0d9;
-  border: 1px solid ${Palette.border};
   gap: 14px;
   position: relative;
   overflow: hidden;
@@ -73,8 +72,8 @@ export const card = css`
   }
 
   @media (max-width: 768px) {
-    width: 173px;
-    height: 155px;
+    width: 180px;
+    height: 170px;
     padding: 12px;
   }
   @media (max-width: 390px) {
@@ -360,6 +359,7 @@ export const badgeSecond = css`
   font-size: 18px;
   font-weight: 600;
   max-width: 220px;
+  align-self: flex-start;
   line-height: 1.5;
   width: 100%;
   text-align: start;
@@ -367,9 +367,9 @@ export const badgeSecond = css`
 
   @media (max-width: 768px) {
     width: 125px;
-    font-size: 10px;
+    font-size: 12px;
     text-align: start;
-    margin-left: 20px;
+    margin-left: 12px;
     position: absolute;
     bottom: 10px;
     left: 0;
@@ -377,7 +377,6 @@ export const badgeSecond = css`
   @media (max-width: 390px) {
     font-size: 12px;
     text-align: start;
-    margin-left: 20px;
     position: absolute;
     bottom: 10px;
     left: 0;
@@ -385,7 +384,6 @@ export const badgeSecond = css`
   @media (max-width: 320px) {
     font-size: 10px;
     text-align: start;
-    margin-left: 10px;
     position: absolute;
     bottom: 10px;
     left: 0;
