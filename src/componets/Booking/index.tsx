@@ -46,7 +46,7 @@ const Booking: React.FC<TProps> = ({
   const [phone, setPhone] = useState<string>();
   const [amount, setAmount] = useState<string>();
   const [currency, setCurrency] = useState<Currency>(currencies[0]);
-  const [place, setPlace] = useState<DropdownOption>();
+  const [place, setPlace] = useState<DropdownOption | null>(null);
   const [isAgree, setIsAgree] = useState<boolean>(true);
 
   const [isValid, setIsValid] = useState<boolean>(false);
