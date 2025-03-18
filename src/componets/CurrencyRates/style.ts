@@ -131,3 +131,11 @@ export const responsiveTable = css`
     font-size: 10px;
   }
 `;
+export const emptyState = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #999;
+  font-size: 14px;
+  padding: 20px;
+`;

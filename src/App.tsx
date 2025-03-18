@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Layout from "@/ui/Layout";
 import Header from "@/componets/Header";
-import Steps from "@/componets/Steps";
 import { appContent } from "@/style";
 import Booking from "@/componets/Booking";
 import Benefits from "@/componets/Benefits";
@@ -24,12 +23,11 @@ import Cities from "@/componets/Cities";
 import AuthGos from "@/componets/AuthGos";
 import { citiesSlice } from "@/store/cities/reducer";
 import { getCurrencyRatesState } from "@/store/currenciesRate/selector";
-import { getExchangeRate } from "@/store/currenciesRate/actions";
 import CurrencyRates from "@/componets/CurrencyRates";
 import MapOffices from "@/componets/MapOffices";
 import { concatedContainers } from "@/ui/Layout/style";
-import { DropdownOption } from "@/ui/Dropdown";
 import { TOffice } from "@/types";
+import FAQ from "@/componets/FAQ";
 
 const cityTranslationMap: Record<string, string> = {
   "saint petersburg": "Санкт-Петербург",
@@ -227,8 +225,10 @@ const App = () => {
           city={citiesState.current}
           onSelectOffice={setSelectedOffice}
         />
-        {/*<Steps />*/}
+        {/*<FAQ />*/}
         <Benefits />
+        <FAQ />
+
         {/*<Footer />*/}
       </Layout.Main>
     </>

@@ -10,6 +10,7 @@ import {
   tableContainer,
   td,
   th,
+  emptyState, // добавим стиль для заглушки (если его нет — создашь в style.ts)
 } from "@/componets/CurrencyRates/style";
 import Dropdown, { DropdownOption } from "@/ui/Dropdown";
 
@@ -26,6 +27,7 @@ type CurrencyRate = {
 
 const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   const [rates, setRates] = useState<CurrencyRate[]>([]);
+  console.log(rates);
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,7 +57,7 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
       })
       .then(data => {
         setDate(data.date);
-        setRates(data.result[0]);
+        setRates(data.result[0] || []);
         setLoading(false);
       })
       .catch(err => {
@@ -97,6 +99,7 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
         <Title.H3>
           Курсы валют / <span>{formattedDate}</span>
         </Title.H3>
+
         <Dropdown
           options={offices}
           onChange={onChangePlace}
@@ -105,32 +108,55 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
         />
 
         <div className={tableContainer}>
-          <table className={table}>
-            <thead>
-              <tr>
-                <th className={th}>Валюта</th>
-                <th className={th}>Покупка</th>
-                <th className={th}>Продажа</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rates.map((rate, index) => (
-                <tr key={index}>
-                  <td className={td}>
-                    {currencyMap[rate.currency_name] || rate.currency_name}
-                  </td>
-                  <td className={td}>{rate.buy}</td>
-                  <td className={td}>{rate.sell}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <span className={commisions}>
-            Комиссия за обмен валюты{" "}
-            <span className={commissionAmount}> 200 ₽ </span>{" "}
-          </span>
+          {/* ✅ Если загрузка */}
+          {loading ? (
+            <p>Загрузка курсов валют...</p>
+          ) : (
+            <>
+              {/* ✅ Если курсы есть */}
+              {rates.length > 0 ? (
+                <>
+                  <table className={table}>
+                    <thead>
+                      <tr>
+                        <th className={th}>Валюта</th>
+                        <th className={th}>Покупка</th>
+                        <th className={th}>Продажа</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rates.map((rate, index) => (
+                        <tr key={index}>
+                          <td className={td}>
+                            {currencyMap[rate.currency_name] ||
+                              rate.currency_name}
+                          </td>
+                          <td className={td}>{rate.buy}</td>
+                          <td className={td}>{rate.sell}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <span className={commisions}>
+                    Комиссия за обмен валюты{" "}
+                    <span className={commissionAmount}> 200 ₽ </span>
+                  </span>
+                </>
+              ) : (
+                // ✅ Если курсов нет
+                <div className={emptyState}>
+                  <p>Курсы валют временно недоступны.</p>
+                  <p>
+                    Попробуйте выбрать другой офис или повторите попытку позже.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
+
       <span className={commisions}>
         Курсы различаются по офисам и меняются в течение дня
       </span>
