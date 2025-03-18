@@ -24,7 +24,7 @@ import {
 
 import { TOffice } from "@/types";
 import { Icon } from "@/ui/Icon";
-import { motion } from "framer-motion";
+import { motion, useDragControls } from "framer-motion";
 type CurrencyRate = {
   buy: number;
   sell: number;
@@ -73,6 +73,7 @@ const MapOffices: React.FC<{
       return null;
     }
   };
+  const dragControls = useDragControls();
 
   useEffect(() => {
     const API_URL = `https://backbron.kamkombank.ru/v1/order/address-list?currentHour=15&city=${city.id}`;
@@ -228,27 +229,30 @@ const MapOffices: React.FC<{
             <div className={modalOverlay}>
               <motion.div
                 className={modalContent}
-                initial={{ y: "100%" }} // анимация при появлении
-                animate={{ y: 0 }} // когда открыто
-                exit={{ y: "100%" }} // при закрытии (если используешь AnimatePresence)
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
                 drag="y"
+                dragListener={false} // отключили слушатель по всему блоку
+                dragControls={dragControls} // управляем сами
                 dragConstraints={{ top: 0, bottom: 0 }}
                 dragElastic={0.2}
                 onDragEnd={(event, info) => {
                   if (info.point.y > 100) {
-                    setIsModalOpen(false); // закрыть, если протянул вниз
+                    setIsModalOpen(false);
                   }
                 }}
               >
-                {/* Drag handle сверху модалки */}
                 <div
+                  onPointerDown={e => dragControls.start(e)}
                   style={{
                     width: "40px",
                     height: "5px",
                     backgroundColor: "#ccc",
                     borderRadius: "9999px",
                     margin: "8px auto",
+                    cursor: "grab",
                   }}
                 />
 

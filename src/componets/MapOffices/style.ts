@@ -245,16 +245,20 @@ export const modalContent = css`
   position: relative;
 `;
 
-
-// Кнопка закрытия модалки
 export const modalCloseButton = css`
   position: absolute;
-  top: 12px;
+  top: 16px;
   right: 16px;
+  z-index: 10; /* Чтобы было поверх всего */
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
+  color: #333;
+
+  &:hover {
+    color: #000;
+  }
 `;
 
 // Список офисов внутри модалки
