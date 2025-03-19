@@ -135,13 +135,13 @@ export const currency_wrapper = css`
   display: flex;
   justify-content: start;
   width: 100%;
-  gap: 20px;
+  gap: 33px;
   padding: 0 10px;
   margin-bottom: 10px;
 
   @media (max-width: 768px) {
-    justify-content: center;
-    gap: 16px;
+    justify-content: start;
+    gap: 33px;
   }
 
   strong {
@@ -245,29 +245,32 @@ export const modalContent = css`
   position: relative;
 `;
 
-
-// Кнопка закрытия модалки
 export const modalCloseButton = css`
   position: absolute;
-  top: 12px;
+  top: 16px;
   right: 16px;
+  z-index: 10;
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
+  color: #333;
+
+  &:hover {
+    color: #000;
+  }
 `;
 
-// Список офисов внутри модалки
 export const modalOfficesList = css`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding-top: 40px;
+  padding-bottom: 40px;
 `;
 export const modalDragHandle = css`
   width: 40px;
   height: 5px;
-  background-color: #cbd5e0; /* светло-серый (можно сделать #a0aec0) */
+  background-color: #cbd5e0;
   border-radius: 9999px;
   margin: 0 auto 12px auto;
 `;

@@ -10,7 +10,7 @@ import {
   tableContainer,
   td,
   th,
-  emptyState, // добавим стиль для заглушки (если его нет — создашь в style.ts)
+  emptyState,
 } from "@/componets/CurrencyRates/style";
 import Dropdown, { DropdownOption } from "@/ui/Dropdown";
 
@@ -27,7 +27,6 @@ type CurrencyRate = {
 
 const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   const [rates, setRates] = useState<CurrencyRate[]>([]);
-  console.log(rates);
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +40,16 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
     "Китайский юань": "CNY",
     "Швейцарский франк": "CHF",
   };
+
+  const commissionMap: Record<string, number> = {
+    Москва: 200,
+    "Санкт-Петербург": 200,
+    Казань: 100,
+    "Набережные Челны": 100,
+    "Нижний Новгород": 100,
+  };
+
+  const commission = commissionMap[currentCity.name] || 200;
 
   const fetchRates = (addressId: number) => {
     const API_URL = `https://backbron.kamkombank.ru/v1/currency/exchange?address_id=${addressId}`;
@@ -108,12 +117,10 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
         />
 
         <div className={tableContainer}>
-          {/* ✅ Если загрузка */}
           {loading ? (
             <p>Загрузка курсов валют...</p>
           ) : (
             <>
-              {/* ✅ Если курсы есть */}
               {rates.length > 0 ? (
                 <>
                   <table className={table}>
@@ -140,11 +147,10 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
 
                   <span className={commisions}>
                     Комиссия за обмен валюты{" "}
-                    <span className={commissionAmount}> 200 ₽ </span>
+                    <span className={commissionAmount}>{commission} ₽</span>
                   </span>
                 </>
               ) : (
-                // ✅ Если курсов нет
                 <div className={emptyState}>
                   <p>Курсы валют временно недоступны.</p>
                   <p>
