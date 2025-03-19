@@ -234,8 +234,8 @@ const MapOffices: React.FC<{
                 exit={{ y: "100%" }}
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
                 drag="y"
-                dragListener={false} // отключили слушатель по всему блоку
-                dragControls={dragControls} // управляем сами
+                dragListener={false}
+                dragControls={dragControls}
                 dragConstraints={{ top: 0, bottom: 0 }}
                 dragElastic={0.2}
                 onDragEnd={(event, info) => {
@@ -263,7 +263,13 @@ const MapOffices: React.FC<{
                   ✕
                 </button>
 
-                <h3 style={{ padding: "10px", fontSize: "18px" }}>
+                <h3
+                  style={{
+                    padding: "10px",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
                   Результаты поиска
                 </h3>
 

@@ -111,11 +111,11 @@ export const commissionAmount = css`
   font-weight: bold;
 
   @media (max-width: 768px) {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   @media (max-width: 480px) {
-    font-size: 12px;
+    font-size: 16px;
   }
 `;
 
