@@ -235,14 +235,14 @@ export const modalOverlay = css`
 
 // Модальное окно (контент)
 export const modalContent = css`
+  position: relative;
   background: #ffffff;
   width: 100%;
-  height: 80%;
+  height: 80%; /* Ограничиваем высоту окна */
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  padding: 16px;
-  overflow-y: auto;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const modalCloseButton = css`
@@ -262,11 +262,14 @@ export const modalCloseButton = css`
 `;
 
 export const modalOfficesList = css`
+  flex-grow: 1; /* Растягивается на всё доступное пространство */
+  overflow-y: auto; /* Добавляем скролл */
+  padding: 0 16px 16px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding-bottom: 40px;
 `;
+
 export const modalDragHandle = css`
   width: 40px;
   height: 5px;
