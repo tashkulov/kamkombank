@@ -19,7 +19,8 @@ import {
   modalOverlay,
   modalContent,
   modalCloseButton,
-  modalOfficesList, modalContentForOne,
+  modalOfficesList,
+  modalContentForOne, book_button_desktop,
 } from "@/componets/MapOffices/style";
 
 import { TOffice } from "@/types";
@@ -43,7 +44,7 @@ const MapOffices: React.FC<{
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState<[number, number]>([55.75, 37.61]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  console.log(offices);
   const [selectedOffice, setSelectedOffice] = useState<TOfficeWithRates | null>(
     null,
   );
@@ -161,7 +162,7 @@ const MapOffices: React.FC<{
           }}
         >
           <div
-            onPointerDown={(e) => dragControls.start(e)}
+            onPointerDown={e => dragControls.start(e)}
             style={{
               width: "40px",
               height: "5px",
@@ -184,7 +185,7 @@ const MapOffices: React.FC<{
               paddingLeft: "14px",
               fontSize: "20px",
               fontWeight: "bold",
-              marginBottom: "16px", // добавляем небольшой отступ после заголовка
+              marginBottom: "16px",
             }}
           >
             Результаты поиска
@@ -322,7 +323,7 @@ const MapOffices: React.FC<{
                 </div>
 
                 <button
-                  className={book_button}
+                  className={book_button_desktop}
                   onClick={() => {
                     onSelectOffice(office);
                     scrollUp();
@@ -364,10 +365,11 @@ const MapOffices: React.FC<{
                   onPointerDown={e => dragControls.start(e)}
                   style={{
                     width: "40px",
-                    height: "5px",
+                    height: "25px",
                     backgroundColor: "#ccc",
                     borderRadius: "9999px",
                     cursor: "grab",
+                    margin: "10px auto",
                   }}
                 />
 

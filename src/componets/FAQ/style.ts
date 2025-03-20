@@ -47,6 +47,7 @@ export const answer = css`
 export const questionText = css`
   font-size: 17px;
   font-weight: bold;
+  color: black;
 `;
 
 export const iconWrapperOpen = css`
@@ -58,10 +59,18 @@ export const iconWrapper = css`
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 32px;
   height: 32px;
+  min-width: 32px; /* гарантирует стабильный размер */
+  min-height: 32px;
+
+  aspect-ratio: 1 / 1; /* 100% круг даже при scale или flex */
+
   border-radius: 50%;
+
   transition: background-color 0.3s ease, border-color 0.3s ease;
+
   border: 1px solid ${Palette.primary_green};
   background-color: transparent;
 
@@ -72,15 +81,23 @@ export const iconWrapper = css`
 `;
 
 export const iconPlus = css`
-  font-size: 20px;
-  color: ${Palette.primary_green};
-  transition: transform 0.5s ease, color 0.5s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  .open & {
+  width: 16px;
+  height: 16px;
+
+  font-size: 16px;
+  line-height: 1; /* убираем лишние отступы */
+
+  color: ${Palette.primary_green};
+
+  transition: transform 0.5s ease, color 0.5s ease;
+
+  &.open {
     transform: rotate(45deg);
     color: ${Palette.text_second};
   }
 `;
+
