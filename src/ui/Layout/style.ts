@@ -40,6 +40,8 @@ export const mainBlockLayoutStyles = css`
   position: relative;
   max-width: 1076px;
   width: 90%;
+  border: 1px solid ${Palette.border};
+
   padding: 32px;
   margin: 132px auto 0;
   border-radius: 16px;
@@ -50,7 +52,7 @@ export const mainBlockLayoutStyles = css`
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 20px; /* Adjust padding for smaller screens */
+    padding: 20px;
     margin-top: 16px;
   }
 

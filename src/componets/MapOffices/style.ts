@@ -41,14 +41,12 @@ export const offices_block = css`
 `;
 export const office_block = css`
   width: 100%;
-  height: 100%;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -68,8 +66,13 @@ export const office_block = css`
     margin: 0;
   }
 
+  button {
+    margin-bottom: 14px;
+  }
   h4 {
     font-weight: bold;
+    padding-top: 20px;
+
     color: #333;
   }
 
@@ -119,7 +122,6 @@ export const book_button = css`
   border-radius: 9px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-
   &:hover {
     background-color: #007e35;
     transform: scale(1.05);
@@ -186,7 +188,6 @@ export const currency_icon = css`
   font-size: 14px;
 `;
 
-// Кнопка "Показать все офисы" для мобилки
 export const showAllOfficesButton = css`
   display: none;
 
@@ -238,26 +239,59 @@ export const modalContent = css`
   position: relative;
   background: #ffffff;
   width: 100%;
-  height: 80%; /* Ограничиваем высоту окна */
+  height: 80%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   display: flex;
   flex-direction: column;
 `;
+export const modalContentForOne = css`
+  position: relative;
+  background: #ffffff;
+  width: 100%;
+  max-width: 600px; /* ✅ Ограничиваем ширину на больших экранах */
+  height: auto;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+  }
+`;
 export const modalCloseButton = css`
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 10px;
+  right: 10px;
   z-index: 10;
-  background: none;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 50%;
   border: none;
-  font-size: 24px;
+
   cursor: pointer;
-  color: #333;
+
+  transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    color: #000;
+    background-color: #ebebeb;
+    transform: scale(1.05);
+  }
+
+  svg, /* если используешь иконку SVG */
+  &::before {
+    color: #4a5568; /* Темно-серый */
+    font-size: 24px;
+    line-height: 1;
   }
 `;
 

@@ -19,12 +19,13 @@ import {
   modalOverlay,
   modalContent,
   modalCloseButton,
-  modalOfficesList,
+  modalOfficesList, modalContentForOne,
 } from "@/componets/MapOffices/style";
 
 import { TOffice } from "@/types";
 import { Icon } from "@/ui/Icon";
 import { motion, useDragControls } from "framer-motion";
+
 type CurrencyRate = {
   buy: number;
   sell: number;
@@ -42,6 +43,11 @@ const MapOffices: React.FC<{
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState<[number, number]>([55.75, 37.61]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedOffice, setSelectedOffice] = useState<TOfficeWithRates | null>(
+    null,
+  );
+  const [isOfficeModalOpen, setIsOfficeModalOpen] = useState(false);
 
   const fetchRateByOffice = async (
     addressId: number,
@@ -73,6 +79,7 @@ const MapOffices: React.FC<{
       return null;
     }
   };
+
   const dragControls = useDragControls();
 
   useEffect(() => {
@@ -131,6 +138,109 @@ const MapOffices: React.FC<{
     iconSize: [40, 40],
     iconAnchor: [30, 15],
   });
+  const renderOfficeModal = () => {
+    if (!selectedOffice) return null;
+
+    return (
+      <div className={modalOverlay}>
+        <motion.div
+          className={modalContentForOne}
+          initial={{ y: "100%" }}
+          animate={{ y: 0 }}
+          exit={{ y: "100%" }}
+          transition={{ type: "spring", damping: 30, stiffness: 300 }}
+          drag="y"
+          dragListener={false}
+          dragControls={dragControls}
+          dragConstraints={{ top: 0, bottom: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(event, info) => {
+            if (info.point.y > 100) {
+              setIsOfficeModalOpen(false);
+            }
+          }}
+        >
+          <div
+            onPointerDown={(e) => dragControls.start(e)}
+            style={{
+              width: "40px",
+              height: "5px",
+              backgroundColor: "#ccc",
+              borderRadius: "9999px",
+              cursor: "grab",
+              margin: "10px auto",
+            }}
+          />
+
+          <button
+            className={modalCloseButton}
+            onClick={() => setIsOfficeModalOpen(false)}
+          >
+            ✕
+          </button>
+
+          <h3
+            style={{
+              paddingLeft: "14px",
+              fontSize: "20px",
+              fontWeight: "bold",
+              marginBottom: "16px", // добавляем небольшой отступ после заголовка
+            }}
+          >
+            Результаты поиска
+          </h3>
+
+          <div key={selectedOffice.id} className={office_block}>
+            <h4>{selectedOffice.address_name}</h4>
+
+            <div className={work_block}>
+              <Icon name={"clock-icon"} />
+              <p>
+                Понедельник-воскресенье:{" "}
+                {selectedOffice.info.today_schedule.opening_hour} -{" "}
+                {selectedOffice.info.today_schedule.closing_hour}
+                <br />
+                Без перерыва
+              </p>
+            </div>
+
+            <div className={currency_wrapper}>
+              <div className={currency_item}>
+                <span>Покупка</span>
+                <div>
+                  <div className={currency_icon}>
+                    <Icon name={"dollar-icon"} />
+                  </div>
+                  <strong>{selectedOffice.rates?.buy ?? "--"} ₽</strong>
+                </div>
+              </div>
+
+              <div className={currency_item}>
+                <span>Продажа</span>
+                <div>
+                  <div className={currency_icon}>
+                    <Icon name={"dollar-icon"} />
+                  </div>
+                  <strong>{selectedOffice.rates?.sell ?? "--"} ₽</strong>
+                </div>
+              </div>
+            </div>
+
+            <button
+              className={book_button}
+              onClick={() => {
+                onSelectOffice(selectedOffice);
+                setIsOfficeModalOpen(false);
+                scrollUp();
+              }}
+            >
+              Зарезервировать сумму
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  };
 
   return (
     <Layout.Container>
@@ -161,6 +271,12 @@ const MapOffices: React.FC<{
                 key={office.id}
                 position={[parseFloat(office.lat), parseFloat(office.lon)]}
                 icon={customMarkerIcon}
+                eventHandlers={{
+                  click: () => {
+                    setSelectedOffice(office);
+                    setIsOfficeModalOpen(true);
+                  },
+                }}
               >
                 <Popup>{office.address_name}</Popup>
               </Marker>
@@ -176,7 +292,7 @@ const MapOffices: React.FC<{
                   <Icon name={"clock-icon"} />
                   <p>
                     Понедельник-воскресенье:{" "}
-                    {office.info.today_schedule.opening_hour} :{" "}
+                    {office.info.today_schedule.opening_hour} -{" "}
                     {office.info.today_schedule.closing_hour}
                     <br />
                     Без перерыва
@@ -251,7 +367,6 @@ const MapOffices: React.FC<{
                     height: "5px",
                     backgroundColor: "#ccc",
                     borderRadius: "9999px",
-                    margin: "8px auto",
                     cursor: "grab",
                   }}
                 />
@@ -265,7 +380,7 @@ const MapOffices: React.FC<{
 
                 <h3
                   style={{
-                    padding: "10px",
+                    paddingLeft: "14px",
                     fontSize: "20px",
                     fontWeight: "bold",
                   }}
@@ -282,7 +397,7 @@ const MapOffices: React.FC<{
                         <Icon name={"clock-icon"} />
                         <p>
                           Понедельник-воскресенье:{" "}
-                          {office.info.today_schedule.opening_hour} :{" "}
+                          {office.info.today_schedule.opening_hour} -{" "}
                           {office.info.today_schedule.closing_hour}
                           <br />
                           Без перерыва
@@ -327,6 +442,8 @@ const MapOffices: React.FC<{
               </motion.div>
             </div>
           )}
+
+          {isOfficeModalOpen && renderOfficeModal()}
         </div>
       )}
     </Layout.Container>

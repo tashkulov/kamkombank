@@ -24,7 +24,6 @@ type CurrencyRate = {
   buy: number;
   sell: number;
 };
-
 const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
   const [rates, setRates] = useState<CurrencyRate[]>([]);
   const [date, setDate] = useState("");
@@ -76,13 +75,18 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
       });
   };
 
+  const cleanedOffices = offices.map(office => ({
+    ...office,
+    label: office.label.replace("Офис выдачи валюты *", "").trim(),
+  }));
+
   useEffect(() => {
-    if (offices.length > 0) {
-      const firstOffice = offices[0];
+    if (cleanedOffices.length > 0) {
+      const firstOffice = cleanedOffices[0];
       setPlace(firstOffice);
       fetchRates(firstOffice.value);
     }
-  }, [offices]);
+  }, [offices]); // следим за приходом offices с пропсов
 
   const onChangePlace = (val: DropdownOption) => {
     setPlace(val);
@@ -110,11 +114,13 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
         </Title.H3>
 
         <Dropdown
-          options={offices}
+          options={cleanedOffices}
           onChange={onChangePlace}
           value={place}
           isError={isError}
+          classNamePrefix="" // ✅ убираем префикс, чтобы отображался только адрес!
         />
+
 
         <div className={tableContainer}>
           {loading ? (
