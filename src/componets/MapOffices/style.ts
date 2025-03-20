@@ -45,6 +45,7 @@ export const office_block = css`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 10px;
   justify-content: space-between;
   align-items: flex-start;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -55,7 +56,6 @@ export const office_block = css`
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     transform: translateY(-4px);
   }
-
   h4,
   p {
     width: 100%;
@@ -64,10 +64,6 @@ export const office_block = css`
     line-height: 1.4;
     padding-left: 10px;
     margin: 0;
-  }
-
-  button {
-    margin-bottom: 14px;
   }
   h4 {
     font-weight: bold;
@@ -106,32 +102,73 @@ export const work_block = css`
     padding: 8px 0 8px 10px;
   }
 `;
-
-// Кнопка "Зарезервировать сумму"
 export const book_button = css`
   width: 100%;
-  height: 44px;
+  height: 48px;
+  margin-bottom: 14px;
+
+  margin-top: auto;
+  padding: 0 16px;
+
   background-color: #009846;
-  color: white;
+  color: #ffffff;
+
   font-size: 16px;
+  font-weight: 600;
   text-align: center;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   border: none;
   border-radius: 9px;
+
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+
   &:hover {
     background-color: #007e35;
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   &:focus {
     outline: none;
   }
 `;
+export const book_button_desktop = css`
+  width: 100%;
+  height: 48px;
+  margin-bottom: 14px;
 
+  margin-top: auto;
+
+  background-color: #009846;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  border-radius: 9px;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #007e35;
+    transform: scale(1.02);
+  }
+
+  &:focus {
+    outline: none;
+  }
+`
 // Обёртка для курсов валют (покупка/продажа)
 export const currency_wrapper = css`
   display: flex;

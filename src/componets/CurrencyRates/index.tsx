@@ -13,6 +13,7 @@ import {
   emptyState,
 } from "@/componets/CurrencyRates/style";
 import Dropdown, { DropdownOption } from "@/ui/Dropdown";
+import DropdownCurrency from "@/ui/DropdownCurrency";
 
 type TProps = {
   offices: DropdownOption[];
@@ -113,14 +114,13 @@ const CurrencyRates: React.FC<TProps> = ({ offices, currentCity }) => {
           Курсы валют / <span>{formattedDate}</span>
         </Title.H3>
 
-        <Dropdown
+        <DropdownCurrency
           options={cleanedOffices}
           onChange={onChangePlace}
           value={place}
           isError={isError}
-          classNamePrefix="" // ✅ убираем префикс, чтобы отображался только адрес!
+          classNamePrefix=""
         />
-
 
         <div className={tableContainer}>
           {loading ? (

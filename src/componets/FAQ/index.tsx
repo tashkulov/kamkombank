@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
+import clx from "classnames";
 import {
   container,
   faqItem,
@@ -47,40 +48,36 @@ const FAQ: React.FC = () => {
       <Title.H2>Ответы на частые вопросы</Title.H2>
 
       <div className={container}>
-        {faqData.map((item, index) => (
-          <div key={index} className={faqItem}>
-            <div
-              className={`${question} ${
-                openIndex === index ? questionActive : ""
-              }`}
-              onClick={() => toggleFAQ(index)}
-            >
-              <span className={questionText}>{item.question}</span>
+        {faqData.map((item, index) => {
+          const isOpen = openIndex === index;
 
-              <span
-                className={`${iconWrapper} ${
-                  openIndex === index ? "open" : ""
-                }`}
+          return (
+            <div key={index} className={faqItem}>
+              <div
+                className={clx(question, isOpen && questionActive)}
+                onClick={() => toggleFAQ(index)}
               >
-                <span
-                  className={`${iconPlus} ${openIndex === index ? "open" : ""}`}
-                >
-                  +
+                <span className={clx(questionText, isOpen && "open")}>
+                  {item.question}
                 </span>
-              </span>
-            </div>
 
-            {openIndex === index && (
-              <div className={answer}>
-                {item.answer.split("\n").map((line, i) => (
-                  <p key={i} style={{ marginBottom: "8px" }}>
-                    {line.trim()}
-                  </p>
-                ))}
+                <span className={clx(iconWrapper, isOpen && "open")}>
+                  <span className={clx(iconPlus, isOpen && "open")}>+</span>
+                </span>
               </div>
-            )}
-          </div>
-        ))}
+
+              {isOpen && (
+                <div className={answer}>
+                  {item.answer.split("\n").map((line, i) => (
+                    <p key={i} style={{ marginBottom: "8px" }}>
+                      {line.trim()}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </Layout.Container>
   );
