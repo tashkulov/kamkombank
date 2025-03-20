@@ -5,32 +5,33 @@ import {
   container,
   faqItem,
   question,
+  questionActive,
   answer,
   iconWrapper,
   iconPlus,
-  iconClose,
-} from "@/componets/FAQ/style"; // твой путь к стилям
+  questionText,
+} from "@/componets/FAQ/style";
 
 const faqData = [
   {
     question: "Фиксируется ли курс при бронировании валюты?",
     answer: `Нет, курс не фиксируется. Он зависит от официального курса Центрального банка и может изменяться в течение дня.
 
-    При этом мы всегда стараемся предлагать один из самых выгодных курсов среди банков.
+При этом мы всегда стараемся предлагать один из самых выгодных курсов среди банков.
 
-    Перед совершением операции уточняйте актуальный курс на табло в офисах Банка или на этом сайте.`,
+Перед совершением операции уточняйте актуальный курс на табло в офисах Банка или на этом сайте.`,
   },
   {
     question: "Можно ли оплатить покупку валюты картой?",
-    answer: "",
+    answer: `Нет, оплата валюты осуществляется только наличными.`,
   },
   {
     question: "Какие документы нужны для обмена валюты?",
-    answer: "",
+    answer: `Паспорт гражданина РФ или иной документ, удостоверяющий личность.`,
   },
   {
     question: "Как понять, что мою бронь подтвердили?",
-    answer: "",
+    answer: `Вам придет SMS-уведомление или звонок от менеджера.`,
   },
 ];
 
@@ -48,15 +49,24 @@ const FAQ: React.FC = () => {
       <div className={container}>
         {faqData.map((item, index) => (
           <div key={index} className={faqItem}>
-            <div className={question} onClick={() => toggleFAQ(index)}>
-              <span>{item.question}</span>
+            <div
+              className={`${question} ${
+                openIndex === index ? questionActive : ""
+              }`}
+              onClick={() => toggleFAQ(index)}
+            >
+              <span className={questionText}>{item.question}</span>
 
-              <span className={iconWrapper}>
-                {openIndex === index ? (
-                  <span className={iconClose}>×</span>
-                ) : (
-                  <span className={iconPlus}>+</span>
-                )}
+              <span
+                className={`${iconWrapper} ${
+                  openIndex === index ? "open" : ""
+                }`}
+              >
+                <span
+                  className={`${iconPlus} ${openIndex === index ? "open" : ""}`}
+                >
+                  +
+                </span>
               </span>
             </div>
 

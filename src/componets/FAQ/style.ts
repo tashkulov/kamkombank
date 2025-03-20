@@ -1,11 +1,10 @@
 import { css } from "goober";
-import { Palette } from "@/styles/constants"; // если у тебя палитра, юзаем цвета оттуда
-
-
+import { Palette } from "@/styles/constants";
 
 export const container = css`
   display: flex;
   flex-direction: column;
+  gap: 16px;
 `;
 
 export const faqItem = css`
@@ -22,17 +21,20 @@ export const question = css`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  text-align: left;
   width: 100%;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 600; /* жирный */
   color: ${Palette.primary_gray};
   line-height: 24px;
-  transition: opacity 0.3s;
+  transition: color 0.3s ease;
 
   &:hover {
     opacity: 0.8;
   }
+`;
+
+export const questionActive = css`
+  color: ${Palette.text}; /* активный вопрос выделяем */
 `;
 
 export const answer = css`
@@ -42,6 +44,15 @@ export const answer = css`
   line-height: 20px;
   white-space: pre-line;
 `;
+export const questionText = css`
+  font-size: 17px;
+  font-weight: bold;
+`;
+
+export const iconWrapperOpen = css`
+  border: 1px solid ${Palette.primary_gray};
+  background-color: #f5f5f5;
+`;
 
 export const iconWrapper = css`
   display: flex;
@@ -50,24 +61,26 @@ export const iconWrapper = css`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  transition: all 0.3s;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   border: 1px solid ${Palette.primary_green};
+  background-color: transparent;
+
+  &.open {
+    background-color: ${Palette.primary_gray};
+    border-color: ${Palette.primary_gray};
+  }
 `;
 
 export const iconPlus = css`
-  color: ${Palette.primary_green};
   font-size: 20px;
-  line-height: 1;
+  color: ${Palette.primary_green};
+  transition: transform 0.5s ease, color 0.5s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
 
-export const iconClose = css`
-  color: ${Palette.primary_gray};
-  font-size: 24px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .open & {
+    transform: rotate(45deg);
+    color: ${Palette.text_second};
+  }
 `;

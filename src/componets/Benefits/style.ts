@@ -16,22 +16,11 @@ export const topBlock = css`
   padding: 24px;
   border-radius: 16px;
   position: relative;
-  width: calc(3 * 350px + 2 * 86px);
+  width: 100%;
   max-width: 1076px;
   margin: 0 auto;
 
-  @media (max-width: 1200px) {
-    width: 100%;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-  @media (max-width: 390px) {
-    width: 100%;
-  }
-  @media (max-width: 320px) {
-    width: 100%;
-  }
+
 `;
 
 export const grid = css`
@@ -64,7 +53,7 @@ export const card = css`
   position: relative;
   overflow: hidden;
   height: 290px;
-  width: 257px;
+  width: 100%;
 
   @media (max-width: 1200px) {
     width: 260px;
@@ -298,12 +287,12 @@ export const iconLine = css`
 
   @media (max-width: 768px) {
     width: 190px;
-    height: 190px;
+    height: 170px;
     right: 0;
     bottom: 0;
   }
   @media (max-width: 390px) {
-    width: 140px;
+    width: 160px;
     height: 140px;
     right: 0;
     bottom: 20px;
@@ -316,11 +305,11 @@ export const highlightText = css`
   line-height: 1.5;
   color: ${Palette.text};
   text-align: start;
-  max-width: 528px;
+  max-width: 490px;
   width: 100%;
 
   @media (max-width: 768px) {
-    width: 240px;
+    width: 270px;
     font-size: 16px;
   }
   @media (max-width: 390px) {

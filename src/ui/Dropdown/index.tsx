@@ -26,6 +26,7 @@ type DropdownProps = {
   onChange?: (newValue: any, metaData: object) => void;
   isError?: boolean;
   value: DropdownOption | null;
+  classNamePrefix?: string;
 };
 
 const CustomIndicator = () => {
@@ -37,6 +38,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   value,
   onChange,
   isError,
+  classNamePrefix = "custom-select",
 }) => {
   const [isValid, setIsValid] = useState<boolean>(true);
 
@@ -80,14 +82,14 @@ const Dropdown: React.FC<DropdownProps> = ({
         isSearchable
         formatOptionLabel={formatOptionLabel}
         className={clx(CustomSelect, !isValid && "invalid")}
-        classNamePrefix="custom-select"
+        classNamePrefix={classNamePrefix}
         noOptionsMessage={customNoOptionsMessage}
         components={{
           IndicatorSeparator: null,
           DropdownIndicator: CustomIndicator,
         }}
-        value={value} // Используем значение из Booking
-        onChange={handleChange} // Передаём обработчик изменений
+        value={value}
+        onChange={handleChange}
       />
 
       {!isValid && <span className={invalidText}>Поле обязательно</span>}
