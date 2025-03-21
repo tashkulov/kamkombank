@@ -22,8 +22,9 @@ export const question = css`
   align-items: center;
   cursor: pointer;
   width: 100%;
+
   font-size: 16px;
-  font-weight: 600; /* жирный */
+  font-weight: 600;
   color: ${Palette.primary_gray};
   line-height: 24px;
   transition: color 0.3s ease;
@@ -31,7 +32,12 @@ export const question = css`
   &:hover {
     opacity: 0.8;
   }
+
+  @media (max-width: 768px) {
+    gap: 16px; /* пространство между текстом и иконкой */
+  }
 `;
+
 
 export const questionActive = css`
   color: ${Palette.text}; /* активный вопрос выделяем */
@@ -75,29 +81,6 @@ export const iconWrapper = css`
   background-color: transparent;
 
   &.open {
-    background-color: ${Palette.primary_gray};
-    border-color: ${Palette.primary_gray};
+    border-color: #697082;
   }
 `;
-
-export const iconPlus = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 16px;
-  height: 16px;
-
-  font-size: 16px;
-  line-height: 1; /* убираем лишние отступы */
-
-  color: ${Palette.primary_green};
-
-  transition: transform 0.5s ease, color 0.5s ease;
-
-  &.open {
-    transform: rotate(45deg);
-    color: ${Palette.text_second};
-  }
-`;
-

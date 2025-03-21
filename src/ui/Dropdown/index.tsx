@@ -34,20 +34,16 @@ const CustomIndicator = () => {
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
-  options,
-  value,
-  onChange,
-  isError,
-  classNamePrefix = "custom-select",
-}) => {
+                                             options,
+                                             value,
+                                             onChange,
+                                             isError,
+                                             classNamePrefix = "custom-select",
+                                           }) => {
   const [isValid, setIsValid] = useState<boolean>(true);
 
   useEffect(() => {
-    if (isError && value) {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
-    }
+    setIsValid(!(isError && !value));
   }, [isError, value]);
 
   const formatOptionLabel = (opt: DropdownOption) => (

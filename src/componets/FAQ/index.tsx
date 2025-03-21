@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/ui/Layout";
 import Title from "@/ui/Title";
 import clx from "classnames";
@@ -9,39 +9,70 @@ import {
   questionActive,
   answer,
   iconWrapper,
-  iconPlus,
   questionText,
 } from "@/componets/FAQ/style";
+import { Icon } from "@/ui/Icon";
 
-const faqData = [
-  {
-    question: "Фиксируется ли курс при бронировании валюты?",
-    answer: `Нет, курс не фиксируется. Он зависит от официального курса Центрального банка и может изменяться в течение дня.
-
-При этом мы всегда стараемся предлагать один из самых выгодных курсов среди банков.
-
-Перед совершением операции уточняйте актуальный курс на табло в офисах Банка или на этом сайте.`,
-  },
-  {
-    question: "Можно ли оплатить покупку валюты картой?",
-    answer: `Нет, оплата валюты осуществляется только наличными.`,
-  },
-  {
-    question: "Какие документы нужны для обмена валюты?",
-    answer: `Паспорт гражданина РФ или иной документ, удостоверяющий личность.`,
-  },
-  {
-    question: "Как понять, что мою бронь подтвердили?",
-    answer: `Вам придет SMS-уведомление или звонок от менеджера.`,
-  },
-];
+type FAQItem = {
+  id: number;
+  question: string;
+  answer: string;
+};
 
 const FAQ: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [faqData, setFaqData] = useState<FAQItem[]>([]);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  useEffect(() => {
+    const fetchFAQs = async () => {
+      try {
+        const response = await fetch(
+          "https://backbron.kamkombank.ru/v1/faq/index",
+        );
+
+        if (!response.ok) {
+          throw new Error(`Ошибка при запросе: ${response.status}`);
+        }
+
+        // ✅ Получаем JSON напрямую!
+        const data: FAQItem[] = await response.json();
+        console.log("FAQ с сервера:", data);
+
+        setFaqData(data);
+      } catch (err) {
+        console.error("Ошибка при запросе:", err);
+        setError("Не удалось загрузить вопросы");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFAQs();
+  }, []);
+
+  if (loading) {
+    return (
+      <Layout.Container>
+        <Title.H2>Ответы на частые вопросы</Title.H2>
+        <p>Загрузка...</p>
+      </Layout.Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Layout.Container>
+        <Title.H2>Ответы на частые вопросы</Title.H2>
+        <p>{error}</p>
+      </Layout.Container>
+    );
+  }
 
   return (
     <Layout.Container>
@@ -52,7 +83,7 @@ const FAQ: React.FC = () => {
           const isOpen = openIndex === index;
 
           return (
-            <div key={index} className={faqItem}>
+            <div key={item.id} className={faqItem}>
               <div
                 className={clx(question, isOpen && questionActive)}
                 onClick={() => toggleFAQ(index)}
@@ -62,7 +93,11 @@ const FAQ: React.FC = () => {
                 </span>
 
                 <span className={clx(iconWrapper, isOpen && "open")}>
-                  <span className={clx(iconPlus, isOpen && "open")}>+</span>
+                  {isOpen ? (
+                    <Icon name={"X-gray"} />
+                  ) : (
+                    <Icon name={"X-green"} />
+                  )}
                 </span>
               </div>
 

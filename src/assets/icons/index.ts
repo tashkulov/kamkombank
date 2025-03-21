@@ -26,5 +26,7 @@ import "./clock-icon.svg"
 import "./yandex-icon.svg"
 import "./location-icon.svg"
 import './dollar-icon.svg'
+import './X-gray.svg'
+import './X-green.svg'
 
 
