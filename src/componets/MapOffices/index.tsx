@@ -20,12 +20,16 @@ import {
   modalContent,
   modalCloseButton,
   modalOfficesList,
-  modalContentForOne, book_button_desktop,
+  modalContentForOne,
+  book_button_desktop,
 } from "@/componets/MapOffices/style";
 
 import { TOffice } from "@/types";
 import { Icon } from "@/ui/Icon";
 import { motion, useDragControls } from "framer-motion";
+import { getCurrenciesState } from "@/store/currencies/selector";
+import { useSelector } from "react-redux";
+import { Currency } from "@/store/currencies/types";
 
 type CurrencyRate = {
   buy: number;
@@ -39,12 +43,12 @@ type TOfficeWithRates = TOffice & {
 const MapOffices: React.FC<{
   city: { id: number; name: string };
   onSelectOffice: (office: TOfficeWithRates) => void;
-}> = ({ city, onSelectOffice }) => {
+  selectedCurrency: Currency | null; // ✅
+}> = ({ city, onSelectOffice, selectedCurrency }) => {
   const [offices, setOffices] = useState<TOfficeWithRates[]>([]);
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState<[number, number]>([55.75, 37.61]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(offices);
   const [selectedOffice, setSelectedOffice] = useState<TOfficeWithRates | null>(
     null,
   );
@@ -52,6 +56,7 @@ const MapOffices: React.FC<{
 
   const fetchRateByOffice = async (
     addressId: number,
+    currencyName: string,
   ): Promise<CurrencyRate | null> => {
     const API_URL = `https://backbron.kamkombank.ru/v1/currency/exchange?address_id=${addressId}`;
 
@@ -59,24 +64,21 @@ const MapOffices: React.FC<{
       const res = await fetch(API_URL);
       const data = await res.json();
 
-      const usdRate = data.result[0]?.find(
-        (rate: any) => rate.currency_name === "Доллар США",
+      const targetRate = data.result[0]?.find(
+        (rate: any) => rate.currency_name === currencyName,
       );
 
-      if (!usdRate) {
-        console.warn(`Нет курса доллара для офиса ${addressId}`);
+      if (!targetRate) {
+        console.warn(`Нет курса для ${currencyName} в офисе ${addressId}`);
         return null;
       }
 
       return {
-        buy: usdRate.buy,
-        sell: usdRate.sell,
+        buy: targetRate.buy,
+        sell: targetRate.sell,
       };
     } catch (error) {
-      console.error(
-        `Ошибка при загрузке курсов для офиса ${addressId}:`,
-        error,
-      );
+      console.error(error);
       return null;
     }
   };
@@ -95,29 +97,26 @@ const MapOffices: React.FC<{
 
         const updatedOffices: TOfficeWithRates[] = await Promise.all(
           data.map(async office => {
-            const rates = await fetchRateByOffice(office.id);
+            if (!selectedCurrency) return { ...office, rates: null };
+
+            const rates = await fetchRateByOffice(
+              office.id,
+              selectedCurrency.name,
+            ); // 👈 передаём валюту!
             return { ...office, rates };
           }),
         );
 
         setOffices(updatedOffices);
-
-        if (updatedOffices.length > 0) {
-          setMapCenter([
-            parseFloat(updatedOffices[0].lat),
-            parseFloat(updatedOffices[0].lon),
-          ]);
-        }
-
-        setLoading(false);
       } catch (error) {
         console.error("Ошибка загрузки данных офисов:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [city.id]);
+  }, [city.id, selectedCurrency]);
 
   const scrollUp = () => {
     const isMobile = window.innerWidth <= 768;
@@ -161,18 +160,6 @@ const MapOffices: React.FC<{
             }
           }}
         >
-          <div
-            onPointerDown={e => dragControls.start(e)}
-            style={{
-              width: "40px",
-              height: "5px",
-              backgroundColor: "#ccc",
-              borderRadius: "9999px",
-              cursor: "grab",
-              margin: "10px auto",
-            }}
-          />
-
           <button
             className={modalCloseButton}
             onClick={() => setIsOfficeModalOpen(false)}
@@ -212,7 +199,10 @@ const MapOffices: React.FC<{
                   <div className={currency_icon}>
                     <Icon name={"dollar-icon"} />
                   </div>
-                  <strong>{selectedOffice.rates?.buy ?? "--"} ₽</strong>
+                  <strong>
+                    {selectedOffice.rates?.buy ?? "--"}{" "}
+                    {selectedCurrency?.symbol}
+                  </strong>
                 </div>
               </div>
 
@@ -222,7 +212,10 @@ const MapOffices: React.FC<{
                   <div className={currency_icon}>
                     <Icon name={"dollar-icon"} />
                   </div>
-                  <strong>{selectedOffice.rates?.sell ?? "--"} ₽</strong>
+                  <strong>
+                    {selectedOffice.rates?.sell ?? "--"}{" "}
+                    {selectedCurrency?.symbol}
+                  </strong>
                 </div>
               </div>
             </div>
@@ -307,7 +300,9 @@ const MapOffices: React.FC<{
                       <div className={currency_icon}>
                         <Icon name={"dollar-icon"} />
                       </div>
-                      <strong>{office.rates?.buy ?? "--"} ₽</strong>
+                      <strong>
+                        {office.rates?.buy ?? "--"} {selectedCurrency?.symbol}
+                      </strong>
                     </div>
                   </div>
 
@@ -317,7 +312,9 @@ const MapOffices: React.FC<{
                       <div className={currency_icon}>
                         <Icon name={"dollar-icon"} />
                       </div>
-                      <strong>{office.rates?.sell ?? "--"} ₽</strong>
+                      <strong>
+                        {office.rates?.sell ?? "--"} {selectedCurrency?.symbol}
+                      </strong>
                     </div>
                   </div>
                 </div>
@@ -361,18 +358,6 @@ const MapOffices: React.FC<{
                   }
                 }}
               >
-                <div
-                  onPointerDown={e => dragControls.start(e)}
-                  style={{
-                    width: "40px",
-                    height: "25px",
-                    backgroundColor: "#ccc",
-                    borderRadius: "9999px",
-                    cursor: "grab",
-                    margin: "10px auto",
-                  }}
-                />
-
                 <button
                   className={modalCloseButton}
                   onClick={() => setIsModalOpen(false)}
@@ -413,7 +398,10 @@ const MapOffices: React.FC<{
                             <div className={currency_icon}>
                               <Icon name={"dollar-icon"} />
                             </div>
-                            <strong>{office.rates?.buy ?? "--"} ₽</strong>
+                            <strong>
+                              {office.rates?.buy ?? "--"}{" "}
+                              {selectedCurrency?.symbol}
+                            </strong>
                           </div>
                         </div>
 
@@ -423,7 +411,10 @@ const MapOffices: React.FC<{
                             <div className={currency_icon}>
                               <Icon name={"dollar-icon"} />
                             </div>
-                            <strong>{office.rates?.sell ?? "--"} ₽</strong>
+                            <strong>
+                              {office.rates?.sell ?? "--"}{" "}
+                              {selectedCurrency?.symbol}
+                            </strong>
                           </div>
                         </div>
                       </div>

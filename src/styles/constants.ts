@@ -1,5 +1,5 @@
 export const Palette = {
-    text: "#162136",
+  text: "#162136",
   text_second: "#687082",
   white: "#FFFFFF",
   primary_green: "#009846",

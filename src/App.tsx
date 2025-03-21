@@ -28,6 +28,7 @@ import MapOffices from "@/componets/MapOffices";
 import { concatedContainers } from "@/ui/Layout/style";
 import { TOffice } from "@/types";
 import FAQ from "@/componets/FAQ";
+import { Currency } from "@/store/currencies/types";
 
 const cityTranslationMap: Record<string, string> = {
   "saint petersburg": "Санкт-Петербург",
@@ -53,6 +54,7 @@ const App = () => {
   const [isAutoCitySelected, setIsAutoCitySelected] = useState(false);
   const [selectedOffice, setSelectedOffice] = useState<TOffice>();
   const isCitySelectedRef = useRef(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<any>(null);
 
   const onSubmitForm = (customer: Customer) => {
     void dispatch(customerSlice.actions.setCustomer(customer));
@@ -97,6 +99,11 @@ const App = () => {
       console.log(e);
     }
   };
+  useEffect(() => {
+    if (currenciesState.currencies.length && !selectedCurrency) {
+      setSelectedCurrency(currenciesState.currencies[0]);
+    }
+  }, [currenciesState.currencies]);
 
   const onRetry = () => {
     void dispatch(fetchCustomer(customerState.data));
@@ -215,7 +222,10 @@ const App = () => {
             offices={prepareOfficesList(officesState.offices)}
             loading={officesState.loading || currenciesState.loading}
             selectedOffice={selectedOffice}
+            selectedCurrency={selectedCurrency}
+            onCurrencyChange={setSelectedCurrency}
           />
+
           <CurrencyRates
             offices={prepareOfficesList(officesState.offices)}
             currentCity={citiesState.current}
@@ -224,6 +234,7 @@ const App = () => {
         <MapOffices
           city={citiesState.current}
           onSelectOffice={setSelectedOffice}
+          selectedCurrency={selectedCurrency}
         />
         {/*<FAQ />*/}
         <Benefits />

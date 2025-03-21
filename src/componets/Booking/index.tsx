@@ -32,7 +32,10 @@ type TProps = {
   loading: boolean;
   onChangeCity: () => void;
   selectedOffice?: TOffice;
+  selectedCurrency?: Currency;
+  onCurrencyChange?: (currency: Currency) => void;
 };
+
 const Booking: React.FC<TProps> = ({
   onChangeCity,
   onSubmit,
@@ -40,12 +43,16 @@ const Booking: React.FC<TProps> = ({
   offices,
   loading,
   selectedOffice,
+  selectedCurrency,
+  onCurrencyChange,
 }) => {
   const [customerType, setCustomerType] = useState<number>(customerTypes.buyer);
   const [name, setName] = useState<string>();
   const [phone, setPhone] = useState<string>();
   const [amount, setAmount] = useState<string>();
-  const [currency, setCurrency] = useState<Currency>(currencies[0]);
+  const [currency, setCurrency] = useState<Currency>(
+    selectedCurrency || currencies[0],
+  );
   const [place, setPlace] = useState<DropdownOption | null>(null);
   const [isAgree, setIsAgree] = useState<boolean>(true);
 
@@ -65,7 +72,11 @@ const Booking: React.FC<TProps> = ({
       }
     }
   }, [selectedOffice, offices]);
-
+  useEffect(() => {
+    if (selectedCurrency) {
+      setCurrency(selectedCurrency);
+    }
+  }, [selectedCurrency]);
   const validate = () => {
     let isValid = true;
     if (!isAgree) isValid = false;
@@ -83,8 +94,9 @@ const Booking: React.FC<TProps> = ({
     setPlace(val); // Обновляем состояние при изменении места
   };
 
-  const onChangeCurrency = (val: any, meta: object) => {
+  const onChangeCurrency = (val: Currency) => {
     setCurrency(val);
+    onCurrencyChange?.(val);
   };
 
   const onChangeAmount = (val: string) => {
@@ -188,7 +200,7 @@ const Booking: React.FC<TProps> = ({
                 options={offices}
                 value={place}
                 onChange={onChangePlace}
-                isError={!place}
+                isError={isPlaceError}
               />
             </div>
           </div>
