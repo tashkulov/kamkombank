@@ -4,7 +4,8 @@ import Title from "@/ui/Title";
 import Loader from "@/ui/Loader";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
-import { loader } from "@/componets/Booking/style";
+import { motion, useDragControls } from "framer-motion";
+
 import {
   book_button,
   office_block,
@@ -26,10 +27,8 @@ import {
 
 import { TOffice } from "@/types";
 import { Icon } from "@/ui/Icon";
-import { motion, useDragControls } from "framer-motion";
-import { getCurrenciesState } from "@/store/currencies/selector";
-import { useSelector } from "react-redux";
 import { Currency } from "@/store/currencies/types";
+import { loader } from "@/componets/Booking/style";
 
 type CurrencyRate = {
   buy: number;
@@ -40,11 +39,31 @@ type TOfficeWithRates = TOffice & {
   rates?: CurrencyRate | null;
 };
 
-const MapOffices: React.FC<{
+const currencyIcons: Record<
+  "USD" | "RUB" | "EUR" | "GBP" | "JPY" | "AED" | "INR" | "PHP",
+  string
+> = {
+  USD: "USD",
+  RUB: "RUB",
+  EUR: "EUR",
+  GBP: "GBP",
+  JPY: "JPY",
+  AED: "AED",
+  INR: "INR",
+  PHP: "PHP",
+};
+
+interface MapOfficesProps {
   city: { id: number; name: string };
   onSelectOffice: (office: TOfficeWithRates) => void;
-  selectedCurrency: Currency | null; // ✅
-}> = ({ city, onSelectOffice, selectedCurrency }) => {
+  selectedCurrency: Currency | null;
+}
+
+const MapOffices: React.FC<MapOfficesProps> = ({
+  city,
+  onSelectOffice,
+  selectedCurrency,
+}) => {
   const [offices, setOffices] = useState<TOfficeWithRates[]>([]);
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState<[number, number]>([55.75, 37.61]);
@@ -54,6 +73,9 @@ const MapOffices: React.FC<{
   );
   const [isOfficeModalOpen, setIsOfficeModalOpen] = useState(false);
 
+  const dragControls = useDragControls();
+
+  console.log(selectedCurrency);
   const fetchRateByOffice = async (
     addressId: number,
     currencyName: string,
@@ -73,24 +95,18 @@ const MapOffices: React.FC<{
         return null;
       }
 
-      return {
-        buy: targetRate.buy,
-        sell: targetRate.sell,
-      };
+      return { buy: targetRate.buy, sell: targetRate.sell };
     } catch (error) {
       console.error(error);
       return null;
     }
   };
 
-  const dragControls = useDragControls();
-
   useEffect(() => {
     const API_URL = `https://backbron.kamkombank.ru/v1/order/address-list?currentHour=15&city=${city.id}`;
 
     const fetchData = async () => {
       setLoading(true);
-
       try {
         const res = await fetch(API_URL);
         const data: TOffice[] = await res.json();
@@ -102,7 +118,7 @@ const MapOffices: React.FC<{
             const rates = await fetchRateByOffice(
               office.id,
               selectedCurrency.name,
-            ); // 👈 передаём валюту!
+            );
             return { ...office, rates };
           }),
         );
@@ -138,6 +154,35 @@ const MapOffices: React.FC<{
     iconSize: [40, 40],
     iconAnchor: [30, 15],
   });
+  const renderCurrencyBlock = (office: TOfficeWithRates) => {
+    const currencyCode = selectedCurrency?.value as keyof typeof currencyIcons;
+
+    const iconName = currencyIcons[currencyCode] || "USD";
+    return (
+      <div className={currency_wrapper}>
+        <div className={currency_item}>
+          <span>Покупка</span>
+          <div>
+            <div className={currency_icon}>
+              <Icon name={iconName} />
+            </div>
+            <strong>{office.rates?.buy ?? "--"} ₽</strong>
+          </div>
+        </div>
+
+        <div className={currency_item}>
+          <span>Продажа</span>
+          <div>
+            <div className={currency_icon}>
+              <Icon name={iconName} />
+            </div>
+            <strong>{office.rates?.sell ?? "--"} ₽</strong>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderOfficeModal = () => {
     if (!selectedOffice) return null;
 
@@ -155,9 +200,7 @@ const MapOffices: React.FC<{
           dragConstraints={{ top: 0, bottom: 0 }}
           dragElastic={0.2}
           onDragEnd={(event, info) => {
-            if (info.point.y > 100) {
-              setIsOfficeModalOpen(false);
-            }
+            if (info.point.y > 100) setIsOfficeModalOpen(false);
           }}
         >
           <button
@@ -192,33 +235,7 @@ const MapOffices: React.FC<{
               </p>
             </div>
 
-            <div className={currency_wrapper}>
-              <div className={currency_item}>
-                <span>Покупка</span>
-                <div>
-                  <div className={currency_icon}>
-                    <Icon name={"dollar-icon"} />
-                  </div>
-                  <strong>
-                    {selectedOffice.rates?.buy ?? "--"}{" "}
-                    {selectedCurrency?.symbol}
-                  </strong>
-                </div>
-              </div>
-
-              <div className={currency_item}>
-                <span>Продажа</span>
-                <div>
-                  <div className={currency_icon}>
-                    <Icon name={"dollar-icon"} />
-                  </div>
-                  <strong>
-                    {selectedOffice.rates?.sell ?? "--"}{" "}
-                    {selectedCurrency?.symbol}
-                  </strong>
-                </div>
-              </div>
-            </div>
+            {renderCurrencyBlock(selectedOffice)}
 
             <button
               className={book_button}
@@ -246,7 +263,6 @@ const MapOffices: React.FC<{
         </div>
       ) : (
         <div className={mapWrapper}>
-          {/* Карта */}
           <MapContainer
             key={city.id}
             center={mapCenter}
@@ -256,7 +272,7 @@ const MapOffices: React.FC<{
             style={{ height: "500px", width: "100%" }}
           >
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              attribution="&copy; OpenStreetMap contributors"
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
@@ -293,31 +309,7 @@ const MapOffices: React.FC<{
                   </p>
                 </div>
 
-                <div className={currency_wrapper}>
-                  <div className={currency_item}>
-                    <span>Покупка</span>
-                    <div>
-                      <div className={currency_icon}>
-                        <Icon name={"dollar-icon"} />
-                      </div>
-                      <strong>
-                        {office.rates?.buy ?? "--"} {selectedCurrency?.symbol}
-                      </strong>
-                    </div>
-                  </div>
-
-                  <div className={currency_item}>
-                    <span>Продажа</span>
-                    <div>
-                      <div className={currency_icon}>
-                        <Icon name={"dollar-icon"} />
-                      </div>
-                      <strong>
-                        {office.rates?.sell ?? "--"} {selectedCurrency?.symbol}
-                      </strong>
-                    </div>
-                  </div>
-                </div>
+                {renderCurrencyBlock(office)}
 
                 <button
                   className={book_button_desktop}
@@ -353,9 +345,7 @@ const MapOffices: React.FC<{
                 dragConstraints={{ top: 0, bottom: 0 }}
                 dragElastic={0.2}
                 onDragEnd={(event, info) => {
-                  if (info.point.y > 100) {
-                    setIsModalOpen(false);
-                  }
+                  if (info.point.y > 100) setIsModalOpen(false);
                 }}
               >
                 <button
@@ -391,33 +381,7 @@ const MapOffices: React.FC<{
                         </p>
                       </div>
 
-                      <div className={currency_wrapper}>
-                        <div className={currency_item}>
-                          <span>Покупка</span>
-                          <div>
-                            <div className={currency_icon}>
-                              <Icon name={"dollar-icon"} />
-                            </div>
-                            <strong>
-                              {office.rates?.buy ?? "--"}{" "}
-                              {selectedCurrency?.symbol}
-                            </strong>
-                          </div>
-                        </div>
-
-                        <div className={currency_item}>
-                          <span>Продажа</span>
-                          <div>
-                            <div className={currency_icon}>
-                              <Icon name={"dollar-icon"} />
-                            </div>
-                            <strong>
-                              {office.rates?.sell ?? "--"}{" "}
-                              {selectedCurrency?.symbol}
-                            </strong>
-                          </div>
-                        </div>
-                      </div>
+                      {renderCurrencyBlock(office)}
 
                       <button
                         className={book_button}
