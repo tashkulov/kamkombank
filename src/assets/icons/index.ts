@@ -25,8 +25,15 @@ import "./medal.svg"
 import "./clock-icon.svg"
 import "./yandex-icon.svg"
 import "./location-icon.svg"
-import './dollar-icon.svg'
+import './USD.svg'
 import './X-gray.svg'
 import './X-green.svg'
+import './RUB.svg'
+import './EUR.svg'
+import './GBP.svg'
+import './CNY.svg'
+import './AED.svg'
+import './INR.svg'
+import './PHP.svg'
 
 
